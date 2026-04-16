@@ -1,0 +1,51 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres_vet
+    restart: always
+    environment:
+      POSTGRES_DB: clinica
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - app-net 
+
+  backend:
+    build: ./BK
+    container_name: bkclinic
+    restart: always
+    ports: 
+      - "3001:3000"
+    depends_on:
+      - postgres
+    env_file:
+     - .env
+    environment:
+      DB_HOST: postgres
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: clinica
+    networks:
+      - app-net
+
+  frontend:
+    build: ./FT
+    container_name: ftclinic
+    ports:
+      - "4201:4200"
+    depends_on:
+      - backend
+    networks:
+      - app-net
+ 
+volumes:  
+  pgdata:
+
+networks:
+  app-net:
+    driver: bridge
