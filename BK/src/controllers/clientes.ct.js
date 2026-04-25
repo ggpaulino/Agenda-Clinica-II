@@ -36,7 +36,7 @@ export const criarCliente = async (req, res) => {
 export const atualizarCliente = async (req, res) => {
   try {
     const { id } = req.params;
-    const { nome, email } = req.body;
+    const { nome, cpf, telefone, email } = req.body;
 
     const result = await pool.query(`UPDATE cliente SET nome=$1, cpf=$2, telefone=$3, email=$4  WHERE id=$5 RETURNING *`,
     [nome, cpf, telefone, email, req.params.id]);

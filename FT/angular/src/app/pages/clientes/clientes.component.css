@@ -1,0 +1,21 @@
+.form-box {
+  border: 1px solid #ccc;
+  padding: 16px;
+  margin-top: 12px;
+  width: 300px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+input, select {
+  width: 100%;
+}
+
+.actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+}

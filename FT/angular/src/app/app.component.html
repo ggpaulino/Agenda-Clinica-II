@@ -1,11 +1,21 @@
-<h1>Clínica Veterinária</h1>
+<h2>Clientes</h2>
 
-<nav>
-  <a routerLink="/clientes">Clientes</a> |
-  <a routerLink="/animais">Animais</a> |
-  <a routerLink="/agendamentos">Agendamentos</a>
-</nav>
+<button>Adicionar Cliente</button>
+
+<ul>
+  <li *ngFor="let cliente of clientes">
+    {{ cliente.nome }} - {{ cliente.email }}
+  </li>
+</ul>
 
 <hr>
 
-<router-outlet></router-outlet>
+<h2>Animais</h2>
+
+<button>Adicionar Animal</button>
+
+<ul>
+  <li *ngFor="let animal of animais">
+    {{ animal.nome }} ({{ animal.especie }})
+  </li>
+</ul>
