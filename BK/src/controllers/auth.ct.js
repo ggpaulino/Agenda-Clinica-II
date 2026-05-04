@@ -14,10 +14,7 @@ export async function login(req, res) {
     }
 
     const funcionario = funcionarioResult.rows[0];
-    console.log('BODY:', req.body);
-console.log('FUNCIONARIO:', funcionario);
-console.log('SENHA DIGITADA:', senha);
-console.log('HASH NO BANCO:', funcionario.senha);
+
     const senhaValida = await bcrypt.compare(senha, funcionario.senha);
 
     if (!senhaValida) {

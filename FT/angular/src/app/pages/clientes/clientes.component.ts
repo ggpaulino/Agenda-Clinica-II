@@ -27,14 +27,14 @@ export class ClientesComponent implements OnInit {
   }
 
   salvar(): void {
-    this.api.createCliente(this.novoCliente).subscribe(() => {
+    this.api.criarCliente(this.novoCliente).subscribe(() => {
       this.carregar();
       this.novoCliente = { nome: '', cpf: '', telefone: '', email: '' };
     });
   }
 
   deletar(id: number): void {
-    this.api.deleteCliente(id).subscribe(() => {
+    this.api.deletarCliente(id).subscribe(() => {
       this.carregar();
     });
   }

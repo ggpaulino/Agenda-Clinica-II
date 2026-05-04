@@ -1,1 +1,62 @@
-<p>dashboard works!</p>
+<div class="dashboard">
+
+  <h2>Bem-vindo, {{ funcionario?.nome }}</h2>
+
+  <!-- AÇÕES PRINCIPAIS -->
+  <div class="acoes">
+    <button (click)="irParaCadastroCliente()">Criar Cliente</button>
+    <button (click)="pagamentos()">Pagamentos</button>
+    <button (click)="logout()">Sair</button>
+  </div>
+
+  <hr>
+
+  <!-- BUSCA DE CLIENTE -->
+  <div class="busca">
+    <h3>Buscar Cliente</h3>
+
+    <input type="text" [(ngModel)]="listarCliente" placeholder="Nome do cliente">
+    <button (click)="buscarCliente()">Buscar</button>
+
+    <div *ngIf="mensagem" class="erro">
+      {{ mensagem }}
+    </div>
+
+    <div *ngIf="clienteEncontrado" class="cliente">
+      Cliente: {{ clienteEncontrado.nome }}
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- SERVIÇOS -->
+  <div class="servicos">
+    <h3>Serviços</h3>
+
+    <div *ngIf="!clienteEncontrado" class="bloqueado">
+      Busque um cliente para habilitar os serviços
+    </div>
+
+    <div *ngIf="clienteEncontrado">
+      <div *ngFor="let servico of servicosDisponiveis">
+        <label>
+          <input type="checkbox"
+                 (change)="toggleServico(servico)">
+          {{ servico.nome }}
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- AGENDAMENTO -->
+  <div class="agendamento">
+    <button 
+      (click)="agendar()"
+      [disabled]="!clienteEncontrado || servicosSelecionados.length === 0">
+      Agendar Selecionados
+    </button>
+  </div>
+
+</div>

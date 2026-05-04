@@ -15,11 +15,15 @@ export class ApiService {
     return this.http.get(`${this.API}/clientes`);
   }
 
-  createCliente(data: any) {
+  listarCliente(nome: string) {
+    return this.http.get(`${this.API}/clientes?nome=${encodeURIComponent(nome)}`);
+  }
+
+  criarCliente(data: any) {
     return this.http.post(`${this.API}/clientes`, data);
   }
 
-  deleteCliente(id: number) {
+  deletarCliente(id: number) {
     return this.http.delete(`${this.API}/clientes/${id}`);
   }
 
@@ -37,7 +41,11 @@ export class ApiService {
     return this.http.get(`${this.API}/agendamentos`);
   }
 
-  createAgendamento(data: any) {
+  criarAgendamento(data: any) {
     return this.http.post(`${this.API}/agendamentos`, data);
+  }
+
+  getServicos() {
+    return this.http.get(`${this.API}/servicos`);
   }
 }

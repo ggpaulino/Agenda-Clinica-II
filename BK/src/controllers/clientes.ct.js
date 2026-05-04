@@ -3,7 +3,7 @@ import pool from '../db.js';
 // GET
 export const listarCliente = async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM cliente');
+    const result = await pool.query('SELECT * FROM cliente WHERE nome ILIKE $1', [`%${req.query.nome || ''}%`] );
     res.json(result.rows);
   } catch (err) {
     res.status(500).json({ erro: err.message });

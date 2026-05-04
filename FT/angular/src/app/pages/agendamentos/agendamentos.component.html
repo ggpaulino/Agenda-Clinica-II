@@ -1,1 +1,48 @@
-<p>agendamentos works!</p>
+<div class="agendamento">
+
+  <h2>Agendamento</h2>
+
+  <!-- CLIENTE -->
+  <div class="bloco">
+    <h3>Cliente</h3>
+    <p>{{ cliente.nome }}</p>
+  </div>
+
+  <!-- SERVIÇOS -->
+  <div class="bloco">
+    <h3>Serviços Selecionados</h3>
+    <ul>
+      <li *ngFor="let s of servicos">
+        {{ s.nome }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- DATA E HORA -->
+  <div class="bloco">
+    <h3>Data e Hora</h3>
+
+    <label>Data:</label>
+    <input type="date" [(ngModel)]="data">
+
+    <label>Hora:</label>
+    <input type="time" [(ngModel)]="hora">
+  </div>
+
+  <!-- ERRO -->
+  <div *ngIf="mensagem" class="erro">
+    {{ mensagem }}
+  </div>
+
+  <!-- AÇÕES -->
+  <div class="acoes">
+    <button (click)="voltar()">Voltar</button>
+
+    <button 
+      (click)="confirmarAgendamento()"
+      [disabled]="!data || !hora">
+      Confirmar Agendamento
+    </button>
+  </div>
+
+</div>
