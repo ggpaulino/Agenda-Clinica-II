@@ -5,7 +5,9 @@ import { AnimaisComponent } from './pages/animais/animais.component';
 import { AgendamentosComponent } from './pages/agendamentos/agendamentos.component';
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { ServicosComponent } from './pages/servicos/servicos.component';
 import { authGuard } from './guards/auth-guard';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -15,6 +17,7 @@ export const routes: Routes = [
   { path: 'clientes', component: ClientesComponent },
   { path: 'animais', component: AnimaisComponent },
   { path: 'agendamentos', component: AgendamentosComponent },
+  { path: 'servicos', component: ServicosComponent }
 ];
 
 @NgModule({
