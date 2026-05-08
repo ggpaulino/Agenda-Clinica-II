@@ -63,16 +63,17 @@ buscarCliente() {
 }
 
 selecionarCliente(cliente: any) {
+
   this.clienteSelecionado = cliente;
   this.clienteEncontrado = [];
-
-  // 🔥 carregar serviços aqui
-  this.api.getServicos().subscribe({
+  this.servicosService.listarServicos().subscribe({
     next: (data: any) => {
       this.servicosDisponiveis = data;
+      console.log('Serviços carregados:', data);
     },
-    error: () => {
-      this.mensagem = 'Erro ao carregar serviços';
+
+    error: (err) => {
+      console.error('Erro ao carregar serviços', err);
     }
   });
 }

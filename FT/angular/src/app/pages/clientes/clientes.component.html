@@ -2,8 +2,14 @@
 
 <button (click)="carregar()">Atualizar</button>
 
-<ul>
-  <li *ngFor="let cliente of clientes">
+<ul *ngIf="clientesEncontrados.length > 0" class="lista-clientes">
+
+  <li *ngFor="let cliente of clientesEncontrados"
+      (click)="selecionarCliente(cliente)"
+      class="cliente-item">
+
     {{ cliente.nome }} - {{ cliente.email }}
+
   </li>
+
 </ul>
