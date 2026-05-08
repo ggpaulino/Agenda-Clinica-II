@@ -9,7 +9,7 @@ export const listarServicos = async (req, res) => {
     }
 };
 
-export const listarServicoPorId = async (req, res) => {
+export const listarServicosPorId = async (req, res) => {
   try {
     const { id } = req.params;
     const result = await pool.query(`SELECT * FROM servico WHERE id=$1`, [id]);
@@ -19,17 +19,18 @@ export const listarServicoPorId = async (req, res) => {
   }
 };
 
-export const criarServico = async (req, res) => {
+export const criarServicos = async (req, res) => {
   try {
     const dados = req.body;
     const result = await pool.query(`INSERT INTO servico (nome, descricao, preco, duracao_minutos) VALUES ($1,$2,$3,$4) RETURNING *`,
     [dados.nome, dados.descricao, dados.preco, dados.duracao_minutos]);
+    res.json(result.rows[0]);
   } catch (err) {
     res.status(500).json({ erro: err.message });
   }
 }; 
 
-export const atualizarServico = async (req, res) => {
+export const atualizarServicos = async (req, res) => {
   try {
     const { id } = req.params;
     const { nome, descricao, preco, duracao_minutos } = req.body;
@@ -41,7 +42,7 @@ export const atualizarServico = async (req, res) => {
   } 
 };
 
-export const deletarServico = async (req, res) => {
+export const deletarServicos = async (req, res) => {
   try {
     const { id } = req.params;
     await pool.query('DELETE FROM servico WHERE id=$1', [id]);

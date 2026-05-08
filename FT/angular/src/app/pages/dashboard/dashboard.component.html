@@ -13,19 +13,27 @@
 
   <!-- BUSCA DE CLIENTE -->
   <div class="busca">
-    <h3>Buscar Cliente</h3>
+  <h3>Buscar Cliente</h3>
 
-    <input type="text" [(ngModel)]="listarCliente" placeholder="Nome do cliente">
-    <button (click)="buscarCliente()">Buscar</button>
+  <input type="text" [(ngModel)]="listarCliente" placeholder="Nome do cliente">
+  <button (click)="buscarCliente()">Buscar</button>
 
-    <div *ngIf="mensagem" class="erro">
-      {{ mensagem }}
-    </div>
+  <div *ngIf="mensagem" class="erro"> {{ mensagem }} </div>
 
-    <div *ngIf="clienteEncontrado" class="cliente">
-      Cliente: {{ clienteEncontrado.nome }}
-    </div>
+  <!-- LISTA DE RESULTADOS -->
+  <ul *ngIf="clienteEncontrado.length > 0" class="lista-clientes">
+    <li *ngFor="let cliente of clienteEncontrado"
+        (click)="selecionarCliente(cliente)"
+        style="cursor: pointer;">
+      {{ cliente.nome }} - {{ cliente.email }}
+    </li>
+  </ul>
+
+  <!-- CLIENTE SELECIONADO -->
+  <div *ngIf="clienteSelecionado" class="cliente">
+    Cliente selecionado: <strong>{{ clienteSelecionado.nome }}</strong>
   </div>
+ </div>
 
   <hr>
 

@@ -16,7 +16,7 @@ export class ApiService {
   }
 
   listarCliente(nome: string) {
-    return this.http.get(`${this.API}/clientes?nome=${encodeURIComponent(nome)}`);
+      return this.http.get(`http://localhost:3001/api/clientes`,{ params: { nome } });
   }
 
   criarCliente(data: any) {

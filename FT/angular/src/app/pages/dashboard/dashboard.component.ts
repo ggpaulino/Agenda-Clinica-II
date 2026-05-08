@@ -5,6 +5,8 @@ import { ApiService } from '../../services/api.service';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ServicosService } from '../../services/servicos.service';
+
 @Component({
   standalone: true,
   selector: 'app-dashboard',
@@ -12,11 +14,13 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
+
 export class DashboardComponent implements OnInit {
 
   funcionario: any;
   listarCliente: string = '';
-  clienteEncontrado: any = null;
+  clienteEncontrado: any = [] = [];
+  clienteSelecionado: any = null;
   mensagem: string = '';
 
   servicosDisponiveis: any[] = [];
@@ -25,7 +29,8 @@ export class DashboardComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private api: ApiService
+    private api: ApiService,
+    private servicosService: ServicosService
   ) {}
 
   ngOnInit(): void {
@@ -35,41 +40,55 @@ export class DashboardComponent implements OnInit {
       this.router.navigate(['/login']);
       return;
     }
-
-    // Carrega serviços (pode ser mock ou API)
-    this.api.getServicos().subscribe((data: any) => {
-      this.servicosDisponiveis = data;
-    });
   }
 
-  buscarCliente() {
-    this.mensagem = '';
-    this.clienteEncontrado = null;
-    this.servicosSelecionados = [];
+buscarCliente() {
+  this.mensagem = '';
+  this.clienteSelecionado = null;
+  this.servicosSelecionados = [];
 
-    this.api.listarCliente(this.listarCliente).subscribe({
-      next: (res: any) => {
+  this.api.listarCliente(this.listarCliente).subscribe({
+    next: (res: any) => {
+      if (res.length > 0) {
         this.clienteEncontrado = res;
-      },
-      error: () => {
-        this.mensagem = 'Cliente não encontrado';
+      } else {
+        this.clienteEncontrado = [];
+        this.mensagem = 'Nenhum cliente encontrado';
       }
-    });
-  }
-
-  toggleServico(servico: any) {
-    const index = this.servicosSelecionados.findIndex(s => s.id === servico.id);
-
-    if (index >= 0) {
-      this.servicosSelecionados.splice(index, 1);
-    } else {
-      this.servicosSelecionados.push(servico);
+    },
+    error: () => {
+      this.mensagem = 'Erro ao buscar cliente';
     }
-  }
+  });
+}
 
-  irParaCadastroCliente() {
+selecionarCliente(cliente: any) {
+  this.clienteSelecionado = cliente;
+  this.clienteEncontrado = [];
+
+  // 🔥 carregar serviços aqui
+  this.api.getServicos().subscribe({
+    next: (data: any) => {
+      this.servicosDisponiveis = data;
+    },
+    error: () => {
+      this.mensagem = 'Erro ao carregar serviços';
+    }
+  });
+}
+
+irParaCadastroCliente() {
     this.router.navigate(['/clientes/novo']);
   }
+
+toggleServico(servico: any) {
+  const index = this.servicosSelecionados.findIndex(s => s.id === servico.id);
+  if (index >= 0) {
+    this.servicosSelecionados.splice(index, 1);
+  } else {
+    this.servicosSelecionados.push(servico);
+  }
+}
 
   agendar() {
     if (!this.clienteEncontrado || this.servicosSelecionados.length === 0) return;
@@ -91,3 +110,14 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 }
+
+/*toggleServico(servico: any) {
+    const index = this.servicosSelecionados.findIndex(s => s.id === servico.id);
+
+    if (index >= 0) {
+      this.servicosSelecionados.splice(index, 1);
+    } else {
+      this.servicosSelecionados.push(servico);
+    }
+  }
+*/
