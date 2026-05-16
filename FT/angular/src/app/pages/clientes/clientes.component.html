@@ -1,11 +1,11 @@
 <h2>Lista de Clientes</h2>
 
-<button (click)="carregar()">Atualizar</button>
+<button (click)="listarCliente()">Atualizar</button>
 
-<ul *ngIf="clientesEncontrados.length > 0" class="lista-clientes">
+<ul *ngIf="clientes.length > 0" class="lista-clientes">
 
-  <li *ngFor="let cliente of clientesEncontrados"
-      (click)="selecionarCliente(cliente)"
+  <li *ngFor="let cliente of clientes"
+      (click)="listarCliente()"
       class="cliente-item">
 
     {{ cliente.nome }} - {{ cliente.email }}

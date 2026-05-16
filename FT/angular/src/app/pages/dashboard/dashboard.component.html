@@ -1,70 +1,97 @@
 <div class="dashboard">
 
-  <h2>Bem-vindo, {{ funcionario?.nome }}</h2>
+  <h1>
+    Bem-vindo, {{ funcionario?.nome }}
+  </h1>
 
-  <!-- AÇÕES PRINCIPAIS -->
-  <div class="acoes">
-    <button (click)="irParaCadastroCliente()">Criar Cliente</button>
-    <button (click)="pagamentos()">Pagamentos</button>
-    <button (click)="logout()">Sair</button>
+  <hr>
+
+  <!-- MENU PRINCIPAL -->
+
+  <div class="menu-principal">
+
+    <button (click)="criarCliente()">
+      Criar Cliente
+    </button>
+
+    <button (click)="abrirServicos()">
+      Serviços
+    </button>
+
+    <button (click)="logout()">
+      Sair
+    </button>
+
   </div>
 
   <hr>
 
-  <!-- BUSCA DE CLIENTE -->
-  <div class="busca">
-  <h3>Buscar Cliente</h3>
+  <!-- BUSCA -->
 
-  <input type="text" [(ngModel)]="listarCliente" placeholder="Nome do cliente">
-  <button (click)="buscarCliente()">Buscar</button>
+  <div class="busca-clientes">
 
-  <div *ngIf="mensagem" class="erro"> {{ mensagem }} </div>
+    <h2>Procurar Cliente</h2>
 
-  <!-- LISTA DE RESULTADOS -->
-  <ul *ngIf="clienteEncontrado.length > 0" class="lista-clientes">
-    <li *ngFor="let cliente of clienteEncontrado"
-        (click)="selecionarCliente(cliente)"
-        style="cursor: pointer;">
-      {{ cliente.nome }} - {{ cliente.email }}
-    </li>
-  </ul>
+    <input
+      type="text"
+      [(ngModel)]="buscaCliente"
+      placeholder="Digite o nome do cliente"
+    >
+
+    <button (click)="buscarCliente()">
+      Buscar
+    </button>
+
+    <div *ngIf="mensagem" class="mensagem">
+      {{ mensagem }}
+    </div>
+
+    <!-- RESULTADOS -->
+
+    <div
+      class="cliente-item"
+      *ngFor="let cliente of clientesEncontrados"
+      (click)="selecionarCliente(cliente)"
+    >
+
+      <strong>{{ cliente.nome }}</strong>
+      <br>
+      {{ cliente.email }}
+
+    </div>
+
+  </div>
+
+  <hr>
 
   <!-- CLIENTE SELECIONADO -->
-  <div *ngIf="clienteSelecionado" class="cliente">
-    Cliente selecionado: <strong>{{ clienteSelecionado.nome }}</strong>
-  </div>
- </div>
 
-  <hr>
+  <div *ngIf="clienteSelecionado" class="cliente-selecionado">
 
-  <!-- SERVIÇOS -->
-  <div class="servicos">
-    <h3>Serviços</h3>
+    <h2>
+      Cliente Selecionado
+    </h2>
 
-    <div *ngIf="!clienteEncontrado" class="bloqueado">
-      Busque um cliente para habilitar os serviços
+    <p>
+      <strong>{{ clienteSelecionado.nome }}</strong>
+    </p>
+
+    <div class="menu-cliente">
+
+      <button (click)="abrirAnimais()">
+        Animais
+      </button>
+
+      <button (click)="abrirPagamentos()">
+        Pagamentos
+      </button>
+
+      <button (click)="abrirAgendamento()">
+        Agendar
+      </button>
+
     </div>
 
-    <div *ngIf="clienteEncontrado">
-      <div *ngFor="let servico of servicosDisponiveis">
-        <label>
-          <input type="checkbox"
-                 (change)="toggleServico(servico)">
-          {{ servico.nome }}
-        </label>
-      </div>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- AGENDAMENTO -->
-  <div class="agendamento">
-    <button 
-      (click)="agendar()"
-      [disabled]="!clienteEncontrado || servicosSelecionados.length === 0">
-      Agendar Selecionados
-    </button>
   </div>
 
 </div>

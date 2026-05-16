@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
-import { ApiService } from '../../services/api.service';
-import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ServicosService } from '../../services/servicos.service';
+
+import { AuthService } from '../../services/auth.service';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   standalone: true,
@@ -14,96 +13,93 @@ import { ServicosService } from '../../services/servicos.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
 
   funcionario: any;
-  listarCliente: string = '';
-  clienteEncontrado: any = [] = [];
-  clienteSelecionado: any = null;
-  mensagem: string = '';
 
-  servicosDisponiveis: any[] = [];
-  servicosSelecionados: any[] = [];
+  buscaCliente = '';
+
+  clientesEncontrados: any[] = [];
+
+  clienteSelecionado: any = null;
+
+  mensagem = '';
 
   constructor(
     private router: Router,
     private authService: AuthService,
-    private api: ApiService,
-    private servicosService: ServicosService
-  ) {}
-
-  ngOnInit(): void {
+    private api: ApiService
+  ) {
     this.funcionario = this.authService.getFuncionarioLogado();
 
     if (!this.funcionario) {
       this.router.navigate(['/login']);
-      return;
     }
   }
 
-buscarCliente() {
-  this.mensagem = '';
-  this.clienteSelecionado = null;
-  this.servicosSelecionados = [];
+  buscarCliente() {
 
-  this.api.listarCliente(this.listarCliente).subscribe({
-    next: (res: any) => {
-      if (res.length > 0) {
-        this.clienteEncontrado = res;
-      } else {
-        this.clienteEncontrado = [];
-        this.mensagem = 'Nenhum cliente encontrado';
+    this.mensagem = '';
+
+    this.api.listarCliente(this.buscaCliente).subscribe(
+      (res: any) => {
+        this.clientesEncontrados = res;
+        if (res.length === 0) {
+          this.mensagem = 'Nenhum cliente encontrado';
+        }
+      },
+      () => {
+        this.mensagem = 'Erro ao buscar cliente';
       }
-    },
-    error: () => {
-      this.mensagem = 'Erro ao buscar cliente';
-    }
-  });
-}
+    );
+  }
 
-selecionarCliente(cliente: any) {
+  selecionarCliente(cliente: any) {
 
-  this.clienteSelecionado = cliente;
-  this.clienteEncontrado = [];
-  this.servicosService.listarServicos().subscribe({
-    next: (data: any) => {
-      this.servicosDisponiveis = data;
-      console.log('Serviços carregados:', data);
-    },
+    this.clienteSelecionado = cliente;
+    this.clientesEncontrados = [];
+    this.buscaCliente = '';
+  }
 
-    error: (err) => {
-      console.error('Erro ao carregar serviços', err);
-    }
-  });
-}
-
-irParaCadastroCliente() {
+  criarCliente() {
     this.router.navigate(['/clientes/novo']);
   }
 
-toggleServico(servico: any) {
-  const index = this.servicosSelecionados.findIndex(s => s.id === servico.id);
-  if (index >= 0) {
-    this.servicosSelecionados.splice(index, 1);
-  } else {
-    this.servicosSelecionados.push(servico);
+  abrirServicos() {
+    this.router.navigate(['/servicos']);
   }
-}
 
-  agendar() {
-    if (!this.clienteEncontrado || this.servicosSelecionados.length === 0) return;
+  abrirAnimais() { 
+    
+    if (!this.clienteSelecionado) return;
 
-    this.router.navigate(['/agendamento'], {
+    this.router.navigate(['/animais'], {
       state: {
-        cliente: this.clienteEncontrado,
-        servicos: this.servicosSelecionados
+        cliente: this.clienteSelecionado
+        }
+    });
+  }
+
+  abrirPagamentos() {
+
+    if (!this.clienteSelecionado) return;
+
+    this.router.navigate(['/pagamentos'], {
+      state: {
+        cliente: this.clienteSelecionado
       }
     });
   }
 
-  pagamentos() {
-    this.router.navigate(['/pagamentos']);
+  abrirAgendamento() {
+
+    if (!this.clienteSelecionado) return;
+
+    this.router.navigate(['/agendamento'], {
+      state: {
+        cliente: this.clienteSelecionado
+      }
+    });
   }
 
   logout() {
@@ -111,14 +107,3 @@ toggleServico(servico: any) {
     this.router.navigate(['/login']);
   }
 }
-
-/*toggleServico(servico: any) {
-    const index = this.servicosSelecionados.findIndex(s => s.id === servico.id);
-
-    if (index >= 0) {
-      this.servicosSelecionados.splice(index, 1);
-    } else {
-      this.servicosSelecionados.push(servico);
-    }
-  }
-*/
