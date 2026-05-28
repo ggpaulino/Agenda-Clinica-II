@@ -9,7 +9,17 @@ export const listarAnimais = async (req, res) => {
   }
 };
 
-export const criarAnimal = async (req, res) => {
+export const listarAnimaisPorCliente = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await pool.query(`SELECT * FROM animal WHERE cliente_id=$1`, [id]);
+    res.json(result.rows);
+  } catch (err) {
+    res.status(500).json({ erro: err.message });
+  } 
+};
+
+export const criarAnimais = async (req, res) => {
   try {
     const dados = req.body;
     const result = await pool.query(`INSERT INTO animal (nome, especie, raca, idade, cliente_id) VALUES ($1,$2,$3,$4,$5) RETURNING *`,
@@ -20,7 +30,7 @@ export const criarAnimal = async (req, res) => {
   }
 };
 
-export const atualizarAnimal = async (req, res) => {
+export const atualizarAnimais = async (req, res) => {
   try {
     const { id } = req.params;
     const { nome, especie, raca, idade } = req.body;
@@ -32,7 +42,7 @@ export const atualizarAnimal = async (req, res) => {
   }
 };
 
-export const deletarAnimal = async (req, res) => {
+export const deletarAnimais = async (req, res) => {
   try {
     const { id } = req.params;
     await pool.query('DELETE FROM animal WHERE id=$1', [id]);

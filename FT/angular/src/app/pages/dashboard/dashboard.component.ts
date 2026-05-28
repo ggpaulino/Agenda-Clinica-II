@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { ChangeDetectorRef } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { ApiService } from '../../services/api.service';
 
@@ -69,15 +69,8 @@ export class DashboardComponent {
     this.router.navigate(['/servicos']);
   }
 
-  abrirAnimais() { 
-    
-    if (!this.clienteSelecionado) return;
-
-    this.router.navigate(['/animais'], {
-      state: {
-        cliente: this.clienteSelecionado
-        }
-    });
+  abrirAnimais(cliente: any) {
+    this.router.navigate(['/animais/clientes', cliente.id]);
   }
 
   abrirPagamentos() {
