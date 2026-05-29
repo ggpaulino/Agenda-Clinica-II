@@ -1,0 +1,35 @@
+.animais {
+  padding: 20px;
+}
+
+.animal-card {
+
+  border: 1px solid #ccc;
+
+  padding: 15px;
+
+  margin-top: 10px;
+
+  border-radius: 5px;
+
+}
+
+.animal-info {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+}
+
+.acoes-animal {
+
+  margin-top: 10px;
+
+  display: flex;
+
+  gap: 10px;
+
+}
