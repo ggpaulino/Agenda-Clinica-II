@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import clientesRouter from './routes/clientes.rt.js';
-import animalRouter from './routes/animal.rt.js';
+import animaisRouter from './routes/animais.rt.js';
 import funcionarioRouter from './routes/funcionario.rt.js'; 
 import agendaRouter from './routes/agenda.rt.js';
 import servicosRouter from './routes/servicos.rt.js';
@@ -17,7 +17,7 @@ app.use((req, res, next) => { console.log('REQ:', req.method, req.url); next();}
 
 // rotas
 app.use('/api/clientes', clientesRouter);
-app.use('/api/animais', animalRouter);
+app.use('/api/animais', animaisRouter);
 app.use('/api/agendamentos', agendaRouter);
 app.use('/api/funcionarios', funcionarioRouter);
 app.use('/api/servicos', servicosRouter);

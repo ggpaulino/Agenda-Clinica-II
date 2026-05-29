@@ -1,4 +1,3 @@
-<div class="dashboard">
 
   <h1>
     Bem-vindo, {{ funcionario?.nome }}
@@ -48,50 +47,16 @@
 
     <!-- RESULTADOS -->
 
-    <div
-      class="cliente-item"
-      *ngFor="let cliente of clientesEncontrados"
-      (click)="selecionarCliente(cliente)"
-    >
+    <div class="cliente-item" *ngFor="let cliente of clientesEncontrados">
 
-      <strong>{{ cliente.nome }}</strong>
-      <br>
-      {{ cliente.email }}
+    <strong>  {{ cliente.nome }} </strong>
+    <br>  {{ cliente.email }}
+    <br><br>
 
-    </div>
-
+    <button (click)="abrirAnimais(cliente)"> Animais </button>
+    <button (click)="abrirPagamentos()"> Pagamentos </button>
+    <button (click)="abrirAgendamento()"> Agendar </button>
+   </div>
   </div>
-
   <hr>
 
-  <!-- CLIENTE SELECIONADO -->
-
-  <div *ngIf="clienteSelecionado" class="cliente-selecionado">
-
-    <h2>
-      Cliente Selecionado
-    </h2>
-
-    <p>
-      <strong>{{ clienteSelecionado.nome }}</strong>
-    </p>
-
-    <div class="menu-cliente">
-
-      <button (click)="abrirAnimais()">
-        Animais
-      </button>
-
-      <button (click)="abrirPagamentos()">
-        Pagamentos
-      </button>
-
-      <button (click)="abrirAgendamento()">
-        Agendar
-      </button>
-
-    </div>
-
-  </div>
-
-</div>

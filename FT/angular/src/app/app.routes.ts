@@ -15,7 +15,8 @@ export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] }, 
   //{ path: 'admin', component: AdminComponent, canActivate: [authGuard] }, 
   { path: 'clientes', component: ClientesComponent },
-  { path: 'animais', component: AnimaisComponent },
+  { path: 'animais/clientes/:id', loadComponent: () =>  import('./pages/animais/animais.component').then(m => m.AnimaisComponent) },
+  
   { path: 'agendamentos', component: AgendamentosComponent },
   { path: 'servicos', component: ServicosComponent }
 ];
