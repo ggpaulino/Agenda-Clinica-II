@@ -1,21 +1,21 @@
-.servicos-container {
+.servico-card {
+  border: 1px solid #ccc;
   padding: 20px;
-}
-
-.card-servico {
-  border: 1px solid #ccc;
+  margin-bottom: 16px;
   border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 10px;
 }
 
-.cliente-item {
+.topo-servico {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-remover {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
   cursor: pointer;
-  padding: 10px;
-  border: 1px solid #ccc;
-  margin-top: 5px;
-}
-
-.cliente-item:hover {
-  background-color: #f0f0f0;
+  font-weight: bold;
 }

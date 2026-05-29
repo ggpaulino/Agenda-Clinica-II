@@ -111,7 +111,7 @@ export class AnimaisComponent implements OnInit {
       });
   }
 
-  abrirServicos(animal: any) {
-    this.router.navigate(['/clientes', this.clienteId, 'animais', animal.id,'servicos']);
-  }
+  abrirServicos() {
+     this.router.navigate(['/clientes', this.clienteId,'agendamento']);
+   }
 }
