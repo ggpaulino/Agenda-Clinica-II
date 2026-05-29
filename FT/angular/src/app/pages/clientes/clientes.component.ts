@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { Router, RouterModule} from '@angular/router';
-import { CommonModule} from '@angular/common';
+import { CommonModule } from '@angular/common';
+import { Cliente } from '../../models/cliente.model';
+import { ClientesService } from '../../services/clientes.service';
 
 @Component({
   selector: 'app-clientes',
@@ -11,31 +13,31 @@ import { CommonModule} from '@angular/common';
 })
 export class ClientesComponent implements OnInit {
 
-  clientes: any[] = [];
-  novoCliente = { nome: '', cpf: '', telefone: '', email: '' };
+  clientes: Cliente[] = [];
+  novoCliente: Cliente = { nome: '', cpf: '', telefone: '', email: '' };
 
   constructor(private api: ApiService, private router: Router) {}
 
   ngOnInit(): void {
-    this.carregar();
+    this.listarCliente();
   }
 
-  carregar(): void {
+  listarCliente(): void {
     this.api.getClientes().subscribe((res: any) => {
-      this.clientes = res;
+      this.clientes = res as Cliente[];
     });
   }
 
-  salvar(): void {
+  salvarCliente(): void {
     this.api.criarCliente(this.novoCliente).subscribe(() => {
-      this.carregar();
+      this.listarCliente();
       this.novoCliente = { nome: '', cpf: '', telefone: '', email: '' };
     });
   }
 
-  deletar(id: number): void {
+  deletarCliente(id: number): void {
     this.api.deletarCliente(id).subscribe(() => {
-      this.carregar();
+      this.listarCliente();
     });
   }
 }
