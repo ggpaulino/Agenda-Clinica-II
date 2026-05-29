@@ -1,1 +1,49 @@
-<p>animais works!</p>
+<div class="animais">
+
+  <h1>
+    Animais de {{ cliente.nome }}
+  </h1>
+
+  <button (click)="criarAnimais()">  Criar Animal </button>
+  <hr>
+
+  <div
+  class="animal-card"
+  *ngFor="let animal of animais"
+>
+
+  <div class="topo-animal">
+
+    <div>
+
+      <strong>
+        {{ animal.nome }}
+      </strong>
+
+      - {{ animal.especie }}
+
+    </div>
+
+    <button
+      class="btn-remover"
+      (click)="removerAnimal(animal.id)"
+    >
+      X
+    </button>
+
+  </div>
+
+</div>
+
+<hr>
+
+<!-- AÇÃO GLOBAL -->
+
+<div class="acoes-finais">
+
+  <button (click)="abrirServicos()">
+    Serviços
+  </button>
+
+</div>
+</div>
