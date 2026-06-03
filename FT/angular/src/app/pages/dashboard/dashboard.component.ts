@@ -16,13 +16,9 @@ import { ApiService } from '../../services/api.service';
 export class DashboardComponent {
 
   funcionario: any;
-
   buscaCliente = '';
-
   clientesEncontrados: any[] = [];
-
   clienteSelecionado: any = null;
-
   mensagem = '';
 
   constructor(

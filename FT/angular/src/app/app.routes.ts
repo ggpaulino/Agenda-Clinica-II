@@ -15,6 +15,7 @@ export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] }, 
   //{ path: 'admin', component: AdminComponent, canActivate: [authGuard] }, 
   { path: 'clientes', component: ClientesComponent },
+  { path: 'clientes/novo', loadComponent: () => import('./pages/clientes/clientes-form.component').then(m => m.ClientesFormComponent) },
   { path: 'animais/clientes/:id', loadComponent: () =>  import('./pages/animais/animais.component').then(m => m.AnimaisComponent) },
   { path: 'servicos',  loadComponent: () => import('./pages/servicos/servicos.component').then(m => m.ServicosComponent)},
   { path: 'agendamentos/clientes/:id',  loadComponent: () => import('./pages/agendamentos/agendamentos.component').then(m => m.AgendamentosComponent)},

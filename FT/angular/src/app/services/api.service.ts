@@ -23,7 +23,7 @@ export class ApiService {
   }
 
   criarCliente(data: any) {
-    return this.http.post(`${this.API}/clientes`, data);
+    return this.http.post(`http://localhost:3001/api/clientes`, data);
   }
 
   deletarCliente(id: number) {

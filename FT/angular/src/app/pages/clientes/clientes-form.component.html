@@ -1,0 +1,45 @@
+<div class="container">
+
+  <h1>Novo Cliente</h1>
+
+  <label>Nome</label>
+
+  <input
+    type="text"
+    [(ngModel)]="cliente.nome"
+  >
+
+  <label>CPF</label>
+
+  <input
+    type="text"
+    [(ngModel)]="cliente.cpf"
+  >
+
+  <label>Telefone</label>
+
+  <input
+    type="text"
+    [(ngModel)]="cliente.telefone"
+  >
+
+  <label>Email</label>
+
+  <input
+    type="email"
+    [(ngModel)]="cliente.email"
+  >
+
+  <div class="acoes">
+
+    <button (click)="salvar()">
+      Salvar
+    </button>
+
+    <button (click)="cancelar()">
+      Cancelar
+    </button>
+
+  </div>
+
+</div>
