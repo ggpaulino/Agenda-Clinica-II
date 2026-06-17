@@ -1,0 +1,41 @@
+<div class="container">
+
+  <h1>Novo Animal</h1>
+
+  <input
+    type="text"
+    placeholder="Nome"
+    [(ngModel)]="animal.nome"
+  >
+
+  <input
+    type="text"
+    placeholder="Espécie"
+    [(ngModel)]="animal.especie"
+  >
+
+  <input
+    type="text"
+    placeholder="Raça"
+    [(ngModel)]="animal.raca"
+  >
+
+  <input
+    type="number"
+    placeholder="Idade"
+    [(ngModel)]="animal.idade"
+  >
+
+  <div class="acoes">
+
+    <button (click)="salvar()">
+      Salvar Animal
+    </button>
+
+    <button (click)="finalizar()">
+      Concluir Cadastro
+    </button>
+
+  </div>
+
+</div>

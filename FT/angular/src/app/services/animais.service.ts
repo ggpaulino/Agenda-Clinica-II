@@ -12,7 +12,7 @@ export class AnimaisService {
 
   listarPorCliente(clienteId: number) {
     return this.http.get(
-      `${this.API}/cliente/${clienteId}`
+      `${this.API}/clientes/${clienteId}`
     );
   }
 
@@ -24,7 +24,7 @@ export class AnimaisService {
 
   criarAnimais(animal: any) {
     return this.http.post(
-      `${this.API}/cliente/${animal.cliente_id}`,
+      `${this.API}/animais/clientes/${animal.cliente_id}`,
       animal
     );
   }

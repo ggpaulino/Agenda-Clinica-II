@@ -1,39 +1,50 @@
-<div class="animais">
+<button (click)="abrirFormularioAnimal()">
+  Criar Animal
+</button>
 
-  <h1>
-    Animais de {{ cliente.nome }}
-  </h1>
+<hr>
 
-  <!-- <button (click)="criarAnimais()">  Criar Animal </button> -->
-  <hr>
+<div *ngIf="mostrarFormulario" class="cadastro-animal">
 
-  <div
-  class="animal-card"
-  *ngFor="let animal of animais"
->
+  <h2>Novo Animal</h2>
 
-  <div class="topo-animal">
+  <label>Nome</label>
 
-    <div>
+  <input
+      type="text"
+      [(ngModel)]="novoAnimal.nome">
 
-      <strong>
-        {{ animal.nome }}
-      </strong>
+  <label>Espécie</label>
 
-      - {{ animal.especie }}
+  <input
+      type="text"
+      [(ngModel)]="novoAnimal.especie">
 
-    </div>
+  <label>Raça</label>
 
-    <button
-      class="btn-remover"
-      (click)="removerAnimal(animal.id)"
-    >
-      X
-    </button>
+  <input
+      type="text"
+      [(ngModel)]="novoAnimal.raca">
 
-  </div>
+  <label>Idade</label>
 
-</div>
+  <input
+      type="number"
+      [(ngModel)]="novoAnimal.idade">
+
+  <br><br>
+
+  <button (click)="salvarAnimal()">
+      Salvar Animal
+  </button>
+
+  <button
+      (click)="mostrarFormulario=false">
+
+      Cancelar
+
+  </button>
+
 
 <hr>
 

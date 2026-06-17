@@ -13,7 +13,7 @@ import { ApiService } from '../../services/api.service';
 })
 
 export class ClientesFormComponent {
-  cliente = { nome: '', cpf: '', telefone: '',  email: '' };
+  cliente = { id: '', nome: '', cpf: '', telefone: '',  email: '' };
 
   constructor( private api: ApiService, private router: Router) {}
 
@@ -21,7 +21,7 @@ export class ClientesFormComponent {
     this.api.criarCliente(this.cliente).subscribe({
       next: () => {
         alert('Cliente cadastrado com sucesso');
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/clientes', this.cliente.id, 'animais']);
       },
 
       error: (err) => {

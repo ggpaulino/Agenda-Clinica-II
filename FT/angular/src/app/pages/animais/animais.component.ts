@@ -31,19 +31,29 @@ export class AnimaisComponent implements OnInit {
 
   constructor(private router: Router, private route: ActivatedRoute, private animaisService: AnimaisService,private api: ApiService, private cdr: ChangeDetectorRef) {}
 
-  ngOnInit(): void {
+ngOnInit(): void {
 
-    this.route.paramMap.subscribe(params => {
-      const id = params.get('id');
-      if (!id) {
-        this.router.navigate(['/dashboard']);
-        return;
-      }
-      this.clienteId = Number(id);
-      this.carregarCliente();
-      this.carregarAnimais();
-    });
+  const clienteId = Number(this.route.snapshot.paramMap.get('id'));
+
+  if (!clienteId) {
+    this.router.navigate(['/dashboard']);
+    return;
   }
+
+  this.clienteId = clienteId;
+
+  this.api.listarClientePorId(clienteId.toString()).subscribe({
+    next: (cliente: any) => {
+      this.cliente = cliente;
+      this.carregarAnimais();
+
+      // NOVO
+      if (this.router.url.endsWith('/novo')) {
+        this.mostrarFormulario = true;
+      }
+    }
+  });
+}
 
   carregarCliente() {
     this.api.listarClientePorId(this.clienteId.toString()).subscribe({
@@ -84,7 +94,7 @@ export class AnimaisComponent implements OnInit {
 
     this.animaisService.criarAnimais(body).subscribe({
         next: () => {
-          this.mostrarFormulario = false;
+          this.carregarAnimais();
           this.novoAnimal = {
             nome: '',
             especie: '',
@@ -92,8 +102,8 @@ export class AnimaisComponent implements OnInit {
             idade: 0,
             cliente_id: 0
           };
-
-          this.carregarAnimais();
+          this.mostrarFormulario = false;
+          alert("Animal cadastrado com sucesso.");
         },
 
         error: (err) => {
