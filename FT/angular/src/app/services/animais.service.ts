@@ -24,7 +24,7 @@ export class AnimaisService {
 
   criarAnimais(animal: any) {
     return this.http.post(
-      `${this.API}/animais/clientes/${animal.cliente_id}`,
+      `${this.API}/clientes/${animal.cliente_id}`,
       animal
     );
   }

@@ -25,8 +25,7 @@ export class AnimaisComponent implements OnInit {
     nome: '',
     especie: '',
     raca: '',
-    idade: 0,
-    cliente_id: 0
+    idade: 0    
   };
 
   constructor(private router: Router, private route: ActivatedRoute, private animaisService: AnimaisService,private api: ApiService, private cdr: ChangeDetectorRef) {}
@@ -99,8 +98,7 @@ ngOnInit(): void {
             nome: '',
             especie: '',
             raca: '',
-            idade: 0,
-            cliente_id: 0
+            idade: 0
           };
           this.mostrarFormulario = false;
           alert("Animal cadastrado com sucesso.");
