@@ -19,9 +19,9 @@ export class ClientesFormComponent {
 
   salvar() {
     this.api.criarCliente(this.cliente).subscribe({
-      next: () => {
+      next: (clienteCriado: any) => {
         alert('Cliente cadastrado com sucesso');
-        this.router.navigate(['/clientes', this.cliente.id, 'animais']);
+        this.router.navigate(['/clientes', clienteCriado.id, 'animais', 'novo']);
       },
 
       error: (err) => {
