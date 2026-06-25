@@ -1,60 +1,54 @@
-<button (click)="abrirFormularioAnimal()">
-  Criar Animal
-</button>
+<div class="container">
 
-<hr>
+  <h2>Cliente</h2>
+  <p>{{ cliente?.nome }}</p>
 
-<div *ngIf="mostrarFormulario" class="cadastro-animal">
+  <hr>
 
-  <h2>Novo Animal</h2>
+  <h3>Animais</h3>
 
-  <label>Nome</label>
+  <div *ngIf="animais.length === 0">
+    Nenhum animal cadastrado.
+  </div>
 
-  <input
-      type="text"
-      [(ngModel)]="novoAnimal.nome">
+  <div *ngFor="let animal of animais" class="animal-card">
 
-  <label>Espécie</label>
+    <strong>{{ animal.nome }}</strong>
+    <p>{{ animal.especie }} - {{ animal.raca }} - {{ animal.idade }} anos</p>
 
-  <input
-      type="text"
-      [(ngModel)]="novoAnimal.especie">
+    <button (click)="editarAnimal(animal)">Editar</button>
+    <button (click)="removerAnimal(animal.id)">Excluir</button>
 
-  <label>Raça</label>
+  </div>
 
-  <input
-      type="text"
-      [(ngModel)]="novoAnimal.raca">
+  <hr>
 
-  <label>Idade</label>
-
-  <input
-      type="number"
-      [(ngModel)]="novoAnimal.idade">
-
-  <br><br>
-
-  <button (click)="salvarAnimal()">
-      Salvar Animal
+  <button (click)="abrirFormularioAnimal()">
+    Adicionar Animal
   </button>
 
-  <button
-      (click)="mostrarFormulario=false">
+  <button (click)="abrirAgendamento()">
+    Prosseguir para Agendamento
+  </button>
 
+  <div *ngIf="mostrarFormulario" class="form">
+
+    <h3 *ngIf="!modoEdicao">Novo Animal</h3>
+    <h3 *ngIf="modoEdicao">Editar Animal</h3>
+
+    <input [(ngModel)]="novoAnimal.nome" placeholder="Nome">
+    <input [(ngModel)]="novoAnimal.especie" placeholder="Espécie">
+    <input [(ngModel)]="novoAnimal.raca" placeholder="Raça">
+    <input type="number" [(ngModel)]="novoAnimal.idade" placeholder="Idade">
+
+    <button (click)="salvarAnimal()">
+      {{ modoEdicao ? 'Atualizar' : 'Salvar' }}
+    </button>
+
+    <button (click)="cancelarFormulario()">
       Cancelar
+    </button>
 
-  </button>
+  </div>
 
-
-<hr>
-
-<!-- AÇÃO GLOBAL -->
-
-<div class="acoes-finais">
-
-  <button (click)="abrirServicos()">
-    Serviços
-  </button>
-
-</div>
 </div>

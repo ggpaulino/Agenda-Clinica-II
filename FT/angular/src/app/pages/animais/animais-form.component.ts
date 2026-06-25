@@ -31,7 +31,7 @@ export class AnimaisFormComponent implements OnInit {
       cliente_id: this.clienteId
     };
 
-    this.animaisService.criarAnimais(body).subscribe({
+    this.animaisService.criarAnimal(body).subscribe({
       next: () => {
         this.router.navigate(['/animais', 'clientes', this.clienteId]);
       },
