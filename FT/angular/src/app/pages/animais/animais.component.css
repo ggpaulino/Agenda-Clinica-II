@@ -1,43 +1,21 @@
-.animal-card {
-
-  border: 1px solid #ccc;
-
+.container {
   padding: 20px;
-
-  margin-bottom: 16px;
-
-  border-radius: 8px;
-
 }
 
-.topo-animal {
-
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
+.animal-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
 }
 
-.btn-remover {
-
-  width: 32px;
-
-  height: 32px;
-
-  border-radius: 50%;
-
-  border: none;
-
-  cursor: pointer;
-
-  font-weight: bold;
-
+.form {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background: #f9f9f9;
 }
 
-.acoes-finais {
-
-  margin-top: 24px;
-
+button {
+  margin-right: 8px;
 }
