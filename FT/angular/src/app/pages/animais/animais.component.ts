@@ -67,16 +67,27 @@ ngOnInit(): void {
   }
 
   carregarAnimais() {
-    this.animaisService.listarPorCliente(this.clienteId).subscribe({
-        next: (data: any) => {
-          this.animais = data;
-          this.cdr.detectChanges();
-        },
-        error: (err) => {
-          console.error(err);
-        }
-      });
-  }
+  this.animaisService.listarPorCliente(this.clienteId).subscribe({
+
+    next: (data: any) => {
+      this.animais = data ?? [];
+      this.cdr.detectChanges();
+    },
+
+    error: (err) => {
+
+      // Se não houver animais, apenas exibe lista vazia
+      if (err.status === 404) {
+        this.animais = [];
+        this.cdr.detectChanges();
+        return;
+      }
+
+      console.error(err);
+    }
+
+  });
+}
 
   abrirFormularioAnimal() {
     this.mostrarFormulario = true;

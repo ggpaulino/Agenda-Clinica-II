@@ -3,10 +3,10 @@ import { listarAnimais, listarAnimaisPorCliente, criarAnimais, atualizarAnimais,
 
 const router = Router();
 
-router.get('/cliente/:id', listarAnimaisPorCliente);
+router.get('/clientes/:id', listarAnimaisPorCliente);
 router.get('/',listarAnimais);
 router.post('/',criarAnimais);   
-router.post('/atualizar/:id',atualizarAnimais);
-router.post('/deletar/:id',deletarAnimais);
+router.put('/:id', atualizarAnimais);
+router.delete('/:id', deletarAnimais);
 
 export default router;
