@@ -1,103 +1,91 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { ServicosService } from '../../services/servicos.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AgendamentosService } from '../../services/agendamentos.service';
 import { AnimaisService } from '../../services/animais.service';
 import { ApiService } from '../../services/api.service';
 
 @Component({
   standalone: true,
-  selector: 'app-agendamento',
+  selector: 'app-agendamentos',
   imports: [CommonModule, FormsModule],
-  templateUrl: './agendamentos.component.html',
-  styleUrls: ['./agendamentos.component.css']
+  templateUrl: './agendamentos.component.html'
 })
-
 export class AgendamentosComponent implements OnInit {
 
-  cliente: any = {};
-  //cliente: any = null;
+  clienteId!: number;
+  cliente: any;
   animais: any[] = [];
-  servicos: any[] = [];
-  servicosSelecionados: any[] = [];
-  data = '';
-  horario = '';
+
+  agendamentos: any[] = [];
+
+  mostrarForm = false;
+
+  novoAgendamento = {
+    animal_id: null,
+    servico: '',
+    data: '',
+    hora: ''
+  };
 
   constructor(
     private route: ActivatedRoute,
-    private servicosService: ServicosService,
-    private animaisService: AnimaisService,
+    private router: Router,
     private api: ApiService,
-    private cdr: ChangeDetectorRef
+    private animaisService: AnimaisService,
+    private agService: AgendamentosService
   ) {}
 
   ngOnInit(): void {
 
-    this.route.paramMap.subscribe(params => {
-      const id = params.get('id');
-      if (!id) return;
-      this.cliente.id = Number(id);
-      this.carregarCliente();
-      this.carregarAnimais();
-      this.carregarServicos();
-    });
+    this.clienteId = Number(this.route.snapshot.paramMap.get('id'));
+
+    this.api.listarClientePorId(this.clienteId.toString())
+      .subscribe(cliente => this.cliente = cliente);
+
+    this.animaisService.listarPorCliente(this.clienteId)
+      .subscribe((data: any) => this.animais = data || []);
+
+    this.carregarAgendamentos();
   }
 
-  carregarCliente() {
+  carregarAgendamentos() {
+    this.agService.listarPorCliente(this.clienteId)
+      .subscribe((data: any) => this.agendamentos = data || []);
+  }
 
-    this.api.listarClientePorId(this.cliente.id).subscribe({
-      next: (cliente: any) => {
-        this.cliente = cliente;
-        this.cdr.detectChanges();
+  abrirFormulario() {
+    this.mostrarForm = true;
+  }
+
+  salvar() {
+
+    const payload = {
+      cliente_id: this.clienteId,
+      ...this.novoAgendamento
+    };
+
+    this.agService.criar(payload).subscribe({
+      next: () => {
+        this.carregarAgendamentos();
+        this.mostrarForm = false;
+
+        this.novoAgendamento = {
+          animal_id: null,
+          servico: '',
+          data: '',
+          hora: ''
+        };
       }
     });
   }
 
-  carregarAnimais() {
-    this.animaisService.listarPorCliente(this.cliente.id).subscribe({
-      next: (animais: any) => {
-        this.animais = animais;
-        this.cdr.detectChanges();
-      }
-    });
+  cancelar() {
+    this.mostrarForm = false;
   }
 
-  carregarServicos() {
-
-    this.servicosService.listarServicos().subscribe({
-      next: (servicos: any) => {
-        this.servicos = servicos;
-        this.cdr.detectChanges();
-      }
-    });
+  voltarCliente() {
+    this.router.navigate(['/clientes']);
   }
-
-  toggleServico(servico: any) {
-
-    const index = this.servicosSelecionados.findIndex(
-      s => s.id === servico.id
-    );
-
-    if (index >= 0) {
-      this.servicosSelecionados.splice(index, 1);
-    } else {
-      this.servicosSelecionados.push(servico);
-    }
-  }
-
-  confirmarAgendamento() {
-
-    console.log({
-      cliente: this.cliente,
-      animais: this.animais,
-      servicos: this.servicosSelecionados,
-      data: this.data,
-      horario: this.horario
-    });
-
-    alert('Agendamento preparado para integração.');
-
-  }
-
 }

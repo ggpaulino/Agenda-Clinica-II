@@ -1,59 +1,57 @@
-<div class="agendamento">
+<div>
 
-  <h1>
-    Agendamento - {{ cliente?.nome }}
-  </h1>
+  <h2>Agendamentos</h2>
+
+  <p><strong>Cliente:</strong> {{ cliente?.nome }}</p>
 
   <hr>
 
-  <h2>Animais</h2>
+  <h3>Agendamentos existentes</h3>
 
-  <div
-    class="animal-card"
-    *ngFor="let animal of animais"
-  >
-    <strong>{{ animal.nome }}</strong>
-    - {{ animal.especie }}
+  <div *ngIf="agendamentos.length === 0">
+    Nenhum agendamento encontrado.
   </div>
 
-  <hr>
+  <div *ngFor="let a of agendamentos">
 
-  <h2>Serviços</h2>
-
-  <div
-    class="servico-item"
-    *ngFor="let servico of servicos"
-  >
-
-    <label>
-
-      <input
-        type="checkbox"
-        (change)="toggleServico(servico)"
-      >
-
-      {{ servico.nome }}
-
-      - R$ {{ servico.preco }}
-
-    </label>
+    <p>
+      Animal ID: {{ a.animal_id }} |
+      Serviço: {{ a.servico }} |
+      Data: {{ a.data }} |
+      Hora: {{ a.hora }}
+    </p>
 
   </div>
 
   <hr>
 
-  <input
-    type="date"
-    [(ngModel)]="data"
-  >
-
-  <input
-    type="time"
-    [(ngModel)]="horario"
-  >
-
-  <button (click)="confirmarAgendamento()">
-    Confirmar Agendamento
+  <button (click)="abrirFormulario()">
+    Novo Agendamento
   </button>
+
+  <div *ngIf="mostrarForm">
+
+    <h3>Novo Agendamento</h3>
+
+    <label>Animal</label>
+    <select [(ngModel)]="novoAgendamento.animal_id">
+      <option *ngFor="let a of animais" [value]="a.id">
+        {{ a.nome }}
+      </option>
+    </select>
+
+    <label>Serviço</label>
+    <input [(ngModel)]="novoAgendamento.servico">
+
+    <label>Data</label>
+    <input type="date" [(ngModel)]="novoAgendamento.data">
+
+    <label>Hora</label>
+    <input type="time" [(ngModel)]="novoAgendamento.hora">
+
+    <button (click)="salvar()">Salvar</button>
+    <button (click)="cancelar()">Cancelar</button>
+
+  </div>
 
 </div>
