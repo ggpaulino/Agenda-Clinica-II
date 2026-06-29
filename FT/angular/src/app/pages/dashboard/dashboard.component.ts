@@ -91,6 +91,10 @@ export class DashboardComponent {
     });
   }
 
+  abrirFuncionarios() {
+    this.router.navigate(['/funcionarios']);
+  }
+
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);

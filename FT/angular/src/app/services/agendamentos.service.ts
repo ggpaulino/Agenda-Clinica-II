@@ -14,7 +14,7 @@ export class AgendamentosService {
     return this.http.get(`${this.API}/clientes/${id}`);
   }
 
-  criar(data: any) {
+  criarAgendamento(data: any) {
     return this.http.post(`${this.API}`, data);
   }
 

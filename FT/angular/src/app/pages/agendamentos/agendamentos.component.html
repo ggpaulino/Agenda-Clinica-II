@@ -1,57 +1,45 @@
-<div>
+<div class="container">
 
-  <h2>Agendamentos</h2>
+  <h2>Novo Agendamento</h2>
 
   <p><strong>Cliente:</strong> {{ cliente?.nome }}</p>
 
   <hr>
 
-  <h3>Agendamentos existentes</h3>
+  <label>Animal</label>
+  <select [(ngModel)]="novoAgendamento.animal_id">
+    <option [ngValue]="null">Selecione...</option>
+    <option *ngFor="let a of animais" [ngValue]="a.id">
+      {{ a.nome }}
+    </option>
+  </select>
 
-  <div *ngIf="agendamentos.length === 0">
-    Nenhum agendamento encontrado.
-  </div>
+  <label>Serviço</label>
+  <select [(ngModel)]="novoAgendamento.servico">
+    <option value="">Selecione...</option>
+    <option *ngFor="let s of servicos" [value]="s.id">
+      {{ s.nome }}
+    </option>
+  </select>
 
-  <div *ngFor="let a of agendamentos">
+  <label>Data</label>
+  <input
+    type="date"
+    [(ngModel)]="novoAgendamento.data">
 
-    <p>
-      Animal ID: {{ a.animal_id }} |
-      Serviço: {{ a.servico }} |
-      Data: {{ a.data }} |
-      Hora: {{ a.hora }}
-    </p>
+  <label>Hora</label>
+  <input
+    type="time"
+    [(ngModel)]="novoAgendamento.hora">
 
-  </div>
+  <br><br>
 
-  <hr>
-
-  <button (click)="abrirFormulario()">
-    Novo Agendamento
+  <button (click)="salvar()">
+    Confirmar Agendamento
   </button>
 
-  <div *ngIf="mostrarForm">
-
-    <h3>Novo Agendamento</h3>
-
-    <label>Animal</label>
-    <select [(ngModel)]="novoAgendamento.animal_id">
-      <option *ngFor="let a of animais" [value]="a.id">
-        {{ a.nome }}
-      </option>
-    </select>
-
-    <label>Serviço</label>
-    <input [(ngModel)]="novoAgendamento.servico">
-
-    <label>Data</label>
-    <input type="date" [(ngModel)]="novoAgendamento.data">
-
-    <label>Hora</label>
-    <input type="time" [(ngModel)]="novoAgendamento.hora">
-
-    <button (click)="salvar()">Salvar</button>
-    <button (click)="cancelar()">Cancelar</button>
-
-  </div>
+  <button (click)="cancelar()">
+    Cancelar
+  </button>
 
 </div>

@@ -2,7 +2,7 @@ import pool from '../db.js';
 
 export const listarAgendamento = async (req, res) => {
   try {
-    const result = await pool.query(`SELECT * FROM agendamentos ORDER BY data ASC`);
+    const result = await pool.query(`SELECT * FROM agendamento ORDER BY data ASC`);
     res.json(result.rows);
   } catch (err) {
     res.status(500).json({ erro: err.message });
@@ -12,7 +12,7 @@ export const listarAgendamento = async (req, res) => {
 export const listarporCliente = async (req, res) => {
   try {
     const { id } = req.params;
-    const result = await pool.query(`SELECT * FROM agendamentos WHERE cliente_id=$1 ORDER BY data ASC`, [id]);
+    const result = await pool.query(`SELECT * FROM agendamento WHERE cliente_id=$1 ORDER BY data ASC`, [id]);
     res.json(result.rows);
   } catch (err) {
     res.status(500).json({ erro: err.message });

@@ -8,19 +8,23 @@ import id from '@angular/common/locales/extra/id';
 })
 export class ServicosService {
 
-  private API = 'http://localhost:3001/api/servico';
+  private API = 'http://localhost:3001/api/servicos';
 
   constructor(private http: HttpClient) {}
 
-  listarServicos(): Observable<any> {
+   listarServicos() {
     return this.http.get(this.API);
   }
 
-  criarServicos(body: any) {
-    return this.http.post(this.API, body);
+  criarServicos(data: any) {
+    return this.http.post(this.API, data);
   }
 
-  removerServicos(id: number) {
+  atualizarServicos(id: number, data: any) {
+    return this.http.put(`${this.API}/${id}`, data);
+  }
+
+  deletarServicos(id: number) {
     return this.http.delete(`${this.API}/${id}`);
   }
 }

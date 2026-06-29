@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AgendamentosService } from '../../services/agendamentos.service';
 import { AnimaisService } from '../../services/animais.service';
 import { ApiService } from '../../services/api.service';
+import { ServicosService } from '../../services/servicos.service';
 
 @Component({
   standalone: true,
@@ -19,6 +20,7 @@ export class AgendamentosComponent implements OnInit {
   animais: any[] = [];
 
   agendamentos: any[] = [];
+  servicos: any[] = [];
 
   mostrarForm = false;
 
@@ -34,7 +36,8 @@ export class AgendamentosComponent implements OnInit {
     private router: Router,
     private api: ApiService,
     private animaisService: AnimaisService,
-    private agService: AgendamentosService
+    private servicosService: ServicosService,
+    private agendamentosService: AgendamentosService
   ) {}
 
   ngOnInit(): void {
@@ -46,12 +49,16 @@ export class AgendamentosComponent implements OnInit {
 
     this.animaisService.listarPorCliente(this.clienteId)
       .subscribe((data: any) => this.animais = data || []);
-
+    
     this.carregarAgendamentos();
+
+    this.servicosService.listarServicos()
+      .subscribe((data: any) => this.servicos = data || []);
+    
   }
 
   carregarAgendamentos() {
-    this.agService.listarPorCliente(this.clienteId)
+    this.agendamentosService.listarPorCliente(this.clienteId)
       .subscribe((data: any) => this.agendamentos = data || []);
   }
 
@@ -66,17 +73,10 @@ export class AgendamentosComponent implements OnInit {
       ...this.novoAgendamento
     };
 
-    this.agService.criar(payload).subscribe({
-      next: () => {
-        this.carregarAgendamentos();
-        this.mostrarForm = false;
-
-        this.novoAgendamento = {
-          animal_id: null,
-          servico: '',
-          data: '',
-          hora: ''
-        };
+        this.agendamentosService.criarAgendamento(payload).subscribe({
+        next: () => {
+        alert('Agendamento criado com sucesso');
+        this.router.navigate(['/dashboard']);
       }
     });
   }
