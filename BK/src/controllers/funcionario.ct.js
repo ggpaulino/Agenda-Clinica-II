@@ -22,8 +22,9 @@ export const listarFuncionarioPorId = async (req, res) => {
 export const criarFuncionario = async (req, res) => {
   try {
     const dados = req.body;
-    const result = await pool.query(`INSERT INTO funcionario (nome, cargo, salario, telefone) VALUES ($1,$2,$3,$4) RETURNING *`,
-    [dados.nome, dados.cargo, dados.salario, dados.telefone]);
+    const result = await pool.query(`INSERT INTO funcionario (nome, email, cpf, cargo, salario, telefone) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *`,
+    [dados.nome, dados.email, dados.cpf, dados.cargo, dados.salario, dados.telefone]);
+    res.json(result.rows[0]);
   } catch (err) {
     res.status(500).json({ erro: err.message });
   }
@@ -32,9 +33,9 @@ export const criarFuncionario = async (req, res) => {
 export const atualizarFuncionario = async (req, res) => {
   try {
     const { id } = req.params;
-    const { nome, cargo, salario, telefone } = req.body;
-    const result = await pool.query(`UPDATE funcionario SET nome=$1, cargo=$2, salario=$3, telefone=$4 WHERE id=$5 RETURNING *`,
-    [nome, cargo, salario, telefone, id]);
+    const { nome, cpf, email, cargo, salario, telefone } = req.body;
+    const result = await pool.query(`UPDATE funcionario SET nome=$1, email=$2, cpf=$3, cargo=$4, salario=$5, telefone=$6 WHERE id=$7 RETURNING *`,
+    [nome, email, cpf, cargo, salario, telefone, id]);
     res.json(result.rows[0]);
   } catch (err) {
     res.status(500).json({ erro: err.message });

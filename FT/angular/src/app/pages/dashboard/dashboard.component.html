@@ -1,13 +1,113 @@
+<div class="container">
 
-  <h1>
+<h1>FT CLINIC</h1>
+
+<p>Bem-vindo, {{ funcionario?.nome }}</p>
+
+<hr>
+
+<h2>CLIENTES</h2>
+
+<button (click)="criarCliente()">
+Novo Cliente
+</button>
+
+<br><br>
+
+<input
+type="text"
+[(ngModel)]="buscaCliente"
+placeholder="Buscar Cliente">
+
+<button (click)="buscarCliente()">
+Buscar Cliente
+</button>
+
+<div *ngIf="mensagem">
+{{ mensagem }}
+</div>
+
+<div
+class="cliente-card"
+*ngFor="let cliente of clientesEncontrados">
+
+<b>{{ cliente.nome }}</b>
+
+<br>
+
+{{ cliente.telefone }}
+
+<br><br>
+
+<button
+(click)="selecionarCliente(cliente)">
+Selecionar
+</button>
+
+<button
+(click)="abrirAnimais(cliente)">
+Animais
+</button>
+
+</div>
+
+<hr>
+
+<h2>FUNCIONÁRIOS</h2>
+
+<button
+(click)="abrirFuncionarios()">
+
+Gerenciar Funcionários
+
+</button>
+
+<hr>
+
+<h2>SERVIÇOS</h2>
+
+<button
+(click)="abrirServicos()">
+
+Gerenciar Serviços
+
+</button>
+
+<hr>
+
+<h2>AGENDAMENTOS</h2>
+
+<button
+(click)="abrirAgendamento()"
+[disabled]="!clienteSelecionado">
+
+Novo Agendamento
+
+</button>
+
+<hr>
+
+<button
+(click)="logout()">
+
+Sair
+
+</button>
+
+</div>
+ 
+ 
+ 
+ <!--<h1>
     Bem-vindo, {{ funcionario?.nome }}
   </h1>
 
-  <hr>
+  <hr> -->
 
   <!-- MENU PRINCIPAL -->
 
-  <div class="menu-principal">
+ <!--
+   <div class="menu-principal">
 
     <button (click)="criarCliente()">
       Criar Cliente
@@ -25,8 +125,8 @@
 
   <hr>
 
-  <!-- BUSCA -->
-
+   BUSCA -->
+  <!--
   <div class="busca-clientes">
 
     <h2>Procurar Cliente</h2>
@@ -44,9 +144,9 @@
     <div *ngIf="mensagem" class="mensagem">
       {{ mensagem }}
     </div>
-
-    <!-- RESULTADOS -->
-
+    
+     RESULTADOS -->
+    <!--
     <div class="cliente-item" *ngFor="let cliente of clientesEncontrados">
 
     <strong>  {{ cliente.nome }} </strong>
@@ -59,4 +159,4 @@
    </div>
   </div>
   <hr>
-
+-->

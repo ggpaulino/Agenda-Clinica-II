@@ -27,6 +27,8 @@ CREATE TABLE animal (
 CREATE TABLE funcionario (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    cpf VARCHAR(14) UNIQUE NOT NULL,
     cargo VARCHAR(50) NOT NULL,
     salario NUMERIC(10,2) NOT NULL,
     telefone VARCHAR(20) NOT NULL,
