@@ -88,3 +88,19 @@ CREATE TABLE fornecedor (
     email VARCHAR(100) NOT NULL,
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE usuario (
+    id SERIAL PRIMARY KEY,
+    funcionario_id INT NOT NULL,
+    login VARCHAR(50) UNIQUE NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    ativo BOOLEAN DEFAULT TRUE,
+    ultimo_login TIMESTAMP,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_usuario_funcionario
+        FOREIGN KEY(funcionario_id)
+        REFERENCES funcionario(id)
+        ON DELETE CASCADE
+
+);
