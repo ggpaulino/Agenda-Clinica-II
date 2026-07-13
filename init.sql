@@ -94,6 +94,7 @@ CREATE TABLE usuario (
     funcionario_id INT NOT NULL,
     login VARCHAR(50) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL,
+    perfil VARCHAR(30) DEFAULT 'FUNCIONARIO',
     ativo BOOLEAN DEFAULT TRUE,
     ultimo_login TIMESTAMP,
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

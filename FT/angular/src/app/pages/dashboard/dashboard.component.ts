@@ -15,7 +15,8 @@ import { ApiService } from '../../services/api.service';
 })
 export class DashboardComponent {
 
-  funcionario: any;
+  usuario: any = null;
+  funcionario: any = null;
   buscaCliente = '';
   clientesEncontrados: any[] = [];
   clienteSelecionado: any = null;
@@ -25,29 +26,33 @@ export class DashboardComponent {
     private router: Router,
     private authService: AuthService,
     private api: ApiService
-  ) {
-    this.funcionario = this.authService.getFuncionarioLogado();
+  ) 
 
-    if (!this.funcionario) {
+  {
+    this.usuario = this.authService.getUsuarioLogado();
+    this.funcionario = this.authService.getFuncionario();
+
+    if (!this.usuario) {
       this.router.navigate(['/login']);
     }
   }
 
-  buscarCliente() {
+    buscarCliente() {
+    this.api.listarCliente(this.buscaCliente).subscribe({
+      next: (data: any) => {
+        this.clientesEncontrados = data || [];
 
-    this.mensagem = '';
-
-    this.api.listarCliente(this.buscaCliente).subscribe(
-      (res: any) => {
-        this.clientesEncontrados = res;
-        if (res.length === 0) {
-          this.mensagem = 'Nenhum cliente encontrado';
+        if (this.clientesEncontrados.length === 0) {
+          this.mensagem = 'Nenhum cliente encontrado.';
+        } else {
+          this.mensagem = '';
         }
       },
-      () => {
-        this.mensagem = 'Erro ao buscar cliente';
+
+      error: () => {
+        this.mensagem = 'Erro ao buscar cliente.';
       }
-    );
+    });
   }
 
   selecionarCliente(cliente: any) {
