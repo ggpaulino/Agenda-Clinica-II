@@ -1,56 +1,26 @@
-<div class="servicos">
+<div class="container">
 
-  <h1>Serviços</h1>
+  <h2>Serviços</h2>
 
-  <button (click)="abrirFormulario()">
-    Novo Serviço
+  <p>Total: {{ servicos.length }}</p>
+
+  <hr>
+
+  <div *ngFor="let s of servicos">
+    <strong>{{ s.nome }}</strong> - R$ {{ s.preco }}
+
+    <button (click)="deletarServicos(s.id)">Excluir</button>
+  </div>
+
+  <hr>
+
+  <h3>Novo Serviço</h3>
+
+  <input [(ngModel)]="novoServico.nome" placeholder="Nome">
+  <input type="number" [(ngModel)]="novoServico.preco" placeholder="Preço">
+
+  <button (click)="atualizarServicos()">
+    Salvar
   </button>
-
-  <hr>
-
-  <div *ngIf="mostrarFormulario">
-
-    <input
-      type="text"
-      [(ngModel)]="novoServico.nome"
-      placeholder="Nome do serviço"
-    >
-
-    <input
-      type="number"
-      [(ngModel)]="novoServico.preco"
-      placeholder="Preço"
-    >
-
-    <button (click)="salvarServico()">
-      Salvar
-    </button>
-
-  </div>
-
-  <hr>
-
-  <div
-    class="servico-card"
-    *ngFor="let servico of servicos"
-  >
-
-    <div class="topo-servico">
-
-      <div>
-        <strong>{{ servico.nome }}</strong>
-        - R$ {{ servico.preco }}
-      </div>
-
-      <button
-        class="btn-remover"
-        (click)="removerServicos(servico.id)"
-      >
-        X
-      </button>
-
-    </div>
-
-  </div>
 
 </div>

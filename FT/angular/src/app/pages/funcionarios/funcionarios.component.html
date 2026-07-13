@@ -1,0 +1,127 @@
+<div class="container">
+
+<h2>Funcionários</h2>
+
+<p>Total: {{ funcionarios.length }}</p>
+
+<hr>
+
+<button (click)="novoCadastro()">
+
+Novo Funcionário
+
+</button>
+
+<hr>
+
+<div *ngIf="funcionarios.length == 0">
+
+Nenhum funcionário cadastrado.
+
+</div>
+
+<div
+class="card-funcionario"
+*ngFor="let funcionario of funcionarios">
+
+<strong>
+
+{{ funcionario.nome }}
+
+</strong>
+
+<br>
+
+{{ funcionario.email }}
+
+<br>
+
+{{ funcionario.cargo }}
+
+<br>
+
+{{ funcionario.telefone }}
+
+<br><br>
+
+<button
+(click)="editar(funcionario)">
+
+Editar
+
+</button>
+
+<button
+(click)="excluir(funcionario.id)">
+
+Excluir
+
+</button>
+
+<hr>
+
+</div>
+
+<div
+class="formulario"
+*ngIf="mostrarFormulario">
+
+<h3>
+
+{{ modoEdicao ? 'Editar Funcionário' : 'Novo Funcionário' }}
+
+</h3>
+
+<input
+[(ngModel)]="novoFuncionario.nome"
+placeholder="Nome">
+
+<input
+[(ngModel)]="novoFuncionario.email"
+placeholder="Email">
+
+<input
+[(ngModel)]="novoFuncionario.cpf"
+placeholder="CPF">
+
+<input
+[(ngModel)]="novoFuncionario.cargo"
+placeholder="Cargo">
+
+<input
+[(ngModel)]="novoFuncionario.salario"
+placeholder="Salario">
+
+<input
+[(ngModel)]="novoFuncionario.telefone"
+placeholder="Telefone">
+
+<label>
+
+<input
+type="checkbox"
+[(ngModel)]="novoFuncionario.ativo">
+
+Ativo
+
+</label>
+
+<br><br>
+
+<button
+(click)="salvar()">
+
+Salvar
+
+</button>
+
+<button
+(click)="cancelar()">
+
+Cancelar
+
+</button>
+
+</div>
+
+</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -35,7 +35,8 @@ export class AnimaisComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private animaisService: AnimaisService,
-    private api: ApiService
+    private api: ApiService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -58,17 +59,20 @@ export class AnimaisComponent implements OnInit {
   }
 
   carregarAnimais() {
+     console.log('Entrou em carregarAnimais');
     this.animaisService.listarPorCliente(this.clienteId).subscribe({
-      next: (data: any) => {
+      next: (data: any) => { 
         this.animais = data || [];
-      },
+        this.cdr.detectChanges();
+      }, 
       error: () => {
         this.animais = [];
+        this.cdr.detectChanges(); 
       }
     });
   }
 
-  abrirFormularioNovo() {
+  abrirFormularioAnimal() {
     this.modoEdicao = false;
     this.mostrarFormulario = true;
 
@@ -106,6 +110,7 @@ export class AnimaisComponent implements OnInit {
         .subscribe({
           next: () => {
             this.carregarAnimais();
+            this.cdr.detectChanges();
             this.cancelarFormulario();
           }
         });
@@ -116,6 +121,7 @@ export class AnimaisComponent implements OnInit {
         .subscribe({
           next: () => {
             this.carregarAnimais();
+            this.cdr.detectChanges();
             this.cancelarFormulario();
           }
         });

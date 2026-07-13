@@ -1,13 +1,17 @@
 import { Component, inject } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Funcionario } from '../../models/funcionario.model';
+import { FormsModule } from '@angular/forms';
+
+import { AuthService } from '../../services/auth.service';
 
 @Component({
+  standalone: true,
   selector: 'app-login',
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule
+  ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -16,20 +20,29 @@ export class LoginComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
 
-  login: string = '';
-  senha: string = '';
-  erro: string = '';
+  login = '';
+  senha = '';
+  erro = '';
 
   entrar() {
     this.erro = '';
+    if (!this.login.trim() || !this.senha.trim()) {
+      this.erro = 'Informe login e senha.';
+      return;
+    }
+
     this.authService.login(this.login, this.senha).subscribe({
-      next: (res: any) => {
-        this.authService.setSessao(res.funcionario);
-        this.router.navigate(['/dashboard']);
-      },    
-      error: () => {
-        this.erro = 'Login inválido';
-      }
-    });
+        next: (res: any) => { console.log(res);
+          this.authService.setSessao(res.usuario); 
+          this.router.navigate(['/dashboard']);
+        },
+
+        error: (err) => {
+          console.error(err);
+          this.erro =
+            err?.error?.error ||
+            'Login ou senha inválidos';
+        }
+      });
   }
 }

@@ -16,10 +16,11 @@ export const routes: Routes = [
   //{ path: 'admin', component: AdminComponent, canActivate: [authGuard] }, 
   { path: 'clientes', component: ClientesComponent },
   { path: 'clientes/novo', loadComponent: () => import('./pages/clientes/clientes-form.component').then(m => m.ClientesFormComponent) },
-  { path: 'clientes/:id/animais/novo', loadComponent: () => import('./pages/animais/animais.component').then(m => m.AnimaisComponent) },
+  { path: 'clientes/:id/animais', loadComponent: () => import('./pages/animais/animais.component').then(m => m.AnimaisComponent) },
   { path: 'animais/clientes/:id', loadComponent: () =>  import('./pages/animais/animais.component').then(m => m.AnimaisComponent) },
   { path: 'servicos',  loadComponent: () => import('./pages/servicos/servicos.component').then(m => m.ServicosComponent)},
   { path: 'agendamentos/clientes/:id',  loadComponent: () => import('./pages/agendamentos/agendamentos.component').then(m => m.AgendamentosComponent)},
+  { path: 'funcionarios', loadComponent: () =>import('./pages/funcionarios/funcionarios.component').then(m => m.FuncionariosComponent)},
   { path: 'agendamentos', component: AgendamentosComponent },
   { path: 'servicos', component: ServicosComponent }
 ];

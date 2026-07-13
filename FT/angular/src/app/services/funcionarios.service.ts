@@ -1,30 +1,33 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import id from '@angular/common/locales/extra/id';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ServicosService {
+export class FuncionariosService {
 
-  private API = 'http://localhost:3001/api/servicos';
+  private API = 'http://localhost:3001/api/funcionarios';
 
   constructor(private http: HttpClient) {}
 
-   listarServicos() {
+  listarFuncionarios() {
     return this.http.get(this.API);
   }
 
-  criarServicos(data: any) {
+  listarFuncionarioPorId(id: number) {
+    return this.http.get(`${this.API}/${id}`);
+  }
+
+  criarFuncionario(data: any) {
     return this.http.post(this.API, data);
   }
 
-  atualizarServicos(id: number, data: any) {
+  atualizarFuncionario(id: number, data: any) {
     return this.http.put(`${this.API}/${id}`, data);
   }
 
-  deletarServicos(id: number) {
+  removerFuncionario(id: number) {
     return this.http.delete(`${this.API}/${id}`);
   }
+
 }

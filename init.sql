@@ -27,6 +27,8 @@ CREATE TABLE animal (
 CREATE TABLE funcionario (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    cpf VARCHAR(14) UNIQUE NOT NULL,
     cargo VARCHAR(50) NOT NULL,
     salario NUMERIC(10,2) NOT NULL,
     telefone VARCHAR(20) NOT NULL,
@@ -85,4 +87,21 @@ CREATE TABLE fornecedor (
     telefone VARCHAR(20) NOT NULL,
     email VARCHAR(100) NOT NULL,
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE usuario (
+    id SERIAL PRIMARY KEY,
+    funcionario_id INT NOT NULL,
+    login VARCHAR(50) UNIQUE NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    perfil VARCHAR(30) DEFAULT 'FUNCIONARIO',
+    ativo BOOLEAN DEFAULT TRUE,
+    ultimo_login TIMESTAMP,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_usuario_funcionario
+        FOREIGN KEY(funcionario_id)
+        REFERENCES funcionario(id)
+        ON DELETE CASCADE
+
 );

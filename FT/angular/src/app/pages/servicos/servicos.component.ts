@@ -47,7 +47,7 @@ export class ServicosComponent implements OnInit {
     this.mostrarFormulario = true;
   }
 
-  salvarServico() {
+  atualizarServicos() {
     this.servicosService.criarServicos(this.novoServico).subscribe({
       next: () => {
         this.mostrarFormulario = false;
@@ -65,11 +65,11 @@ export class ServicosComponent implements OnInit {
     });
   }
 
-  removerServicos(id: number) {
+  deletarServicos(id: number) {
 
     if (!confirm('Remover serviço?')) return;
 
-    this.servicosService.removerServicos(id).subscribe({
+    this.servicosService.deletarServicos(id).subscribe({
       next: () => {
         this.carregarServicos();
       }

@@ -1,12 +1,33 @@
 <div class="login-container">
-  <h2>Login</h2>
 
-  <input type="text" [(ngModel)]="login" placeholder="Login">
-  <input type="password" [(ngModel)]="senha" placeholder="Senha">
+  <h2>FT CLINIC</h2>
 
-  <button (click)="entrar()">Entrar</button>
+  <form (ngSubmit)="entrar()">
+
+    <input
+      type="text"
+      [(ngModel)]="login"
+      name="login"
+      placeholder="Login"
+      required
+    >
+
+    <input
+      type="password"
+      [(ngModel)]="senha"
+      name="senha"
+      placeholder="Senha"
+      required
+    >
+
+    <button type="submit">
+      Entrar
+    </button>
+
+  </form>
 
   <div *ngIf="erro" class="erro">
-      {{ erro }}
+    {{ erro }}
   </div>
+
 </div>

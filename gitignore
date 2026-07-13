@@ -1,1 +1,26 @@
-git
+git# Node
+node_modules/
+
+# Variáveis sensíveis
+.env
+
+# Build
+dist/
+build/
+
+# Logs
+*.log
+
+# Docker
+docker-data/
+volumes/
+data/
+
+# Banco de dados
+*.sql
+*.sqlite
+*.db
+
+# Sistema
+.DS_Store
+Thumbs.db
