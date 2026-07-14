@@ -100,6 +100,10 @@ export class DashboardComponent {
     this.router.navigate(['/funcionarios']);
   }
 
+  abrirUsuarios() {
+  this.router.navigate(['/usuarios']);
+}
+
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);
