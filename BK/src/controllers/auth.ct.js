@@ -48,8 +48,8 @@ export async function login(req, res) {
             nome: funcionario.nome
         }
     }
-});
-  } catch (err) {
+ });
+   } catch (err) {
     console.error('Erro ao fazer login:', err);
     res.status(500).json({ error: 'Erro interno' });
   }

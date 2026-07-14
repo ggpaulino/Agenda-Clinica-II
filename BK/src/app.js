@@ -8,6 +8,7 @@ import servicosRouter from './routes/servicos.rt.js';
 import fornecedorRouter from './routes/fornecedor.rt.js';
 import historicoRouter from './routes/historico.rt.js'; 
 import authRouter from './routes/auth.rt.js';
+import usuarioRouter from './routes/usuario.rt.js';
 
 const app = express();
 app.use(cors());
@@ -23,5 +24,6 @@ app.use('/api/funcionarios', funcionarioRouter);
 app.use('/api/servicos', servicosRouter);
 app.use('/api/fornecedores', fornecedorRouter);
 app.use('/api/historico', historicoRouter);
+app.use('/api/usuarios', usuarioRouter);
 app.use('/api/auth', authRouter);
 export default app;

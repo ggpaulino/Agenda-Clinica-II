@@ -1,0 +1,157 @@
+<div class="container">
+
+<h2>Usuários</h2>
+
+<p>Total: {{ usuarios.length }}</p>
+
+<hr>
+
+<button (click)="novoCadastro()">
+
+Novo Usuário
+
+</button>
+
+<hr>
+
+<div *ngIf="usuarios.length == 0">
+
+Nenhum usuário cadastrado.
+
+</div>
+
+<div
+class="card-funcionario"
+*ngFor="let usuario of usuarios">
+
+<strong>
+
+{{ usuario.nome }}
+
+</strong>
+
+<br>
+
+{{ usuario.login }}
+
+<br>
+
+{{ usuario.perfil }}
+
+<br>
+
+{{ usuario.ativo ? 'Ativo' : 'Inativo' }}
+
+<br><br>
+
+<button
+(click)="editar(usuario)">
+
+Editar
+
+</button>
+
+<button
+(click)="excluir(usuario.id)">
+
+Excluir
+
+</button>
+
+<hr>
+
+</div>
+
+<div
+class="formulario"
+*ngIf="mostrarFormulario">
+
+<h3>
+
+{{ modoEdicao ? 'Editar Usuário' : 'Novo Usuário' }}
+
+</h3>
+
+<select
+[(ngModel)]="novoUsuario.funcionario_id">
+
+<option
+[ngValue]="null">
+
+Selecione...
+
+</option>
+
+<option
+*ngFor="let funcionario of funcionarios"
+[ngValue]="funcionario.id">
+
+{{ funcionario.nome }}
+
+</option>
+
+</select>
+
+<input
+
+[(ngModel)]="novoUsuario.login"
+
+placeholder="Login">
+
+<input
+
+type="password"
+
+[(ngModel)]="novoUsuario.senha"
+
+placeholder="Senha">
+
+<select
+
+[(ngModel)]="novoUsuario.perfil">
+
+<option value="ADMIN">
+
+Administrador
+
+</option>
+
+<option value="COMUM">
+
+Funcionário
+
+</option>
+
+</select>
+
+<label>
+
+<input
+
+type="checkbox"
+
+[(ngModel)]="novoUsuario.ativo">
+
+Ativo
+
+</label>
+
+<br><br>
+
+<button
+(click)="salvar()">
+
+Salvar
+
+</button>
+
+<button
+(click)="cancelar()">
+
+Cancelar
+
+</button>
+
+</div>
+
+</div>
