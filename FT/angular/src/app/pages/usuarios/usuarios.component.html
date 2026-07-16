@@ -1,157 +1,200 @@
 <div class="container">
 
-<h2>Usuários</h2>
+    <h2>Usuários</h2>
 
-<p>Total: {{ usuarios.length }}</p>
+    <p>Total: {{ usuarios.length }}</p>
 
-<hr>
+    <hr>
 
-<button (click)="novoCadastro()">
+    <button (click)="novoCadastro()">
 
-Novo Usuário
+        Novo Usuário
 
-</button>
+    </button>
 
-<hr>
+    <hr>
 
-<div *ngIf="usuarios.length == 0">
+    <div *ngIf="usuarios.length == 0">
 
-Nenhum usuário cadastrado.
+        Nenhum usuário cadastrado.
 
-</div>
+    </div>
 
-<div
-class="card-funcionario"
-*ngFor="let usuario of usuarios">
+    <div
+        class="card-funcionario"
+        *ngFor="let usuario of usuarios">
 
-<strong>
+        <strong>
 
-{{ usuario.nome }}
+            {{ usuario.nome }}
 
-</strong>
+        </strong>
 
-<br>
+        <br>
 
-{{ usuario.login }}
+        <b>Login:</b>
 
-<br>
+        {{ usuario.login }}
 
-{{ usuario.perfil }}
+        <br>
 
-<br>
+        <b>Perfil:</b>
 
-{{ usuario.ativo ? 'Ativo' : 'Inativo' }}
+        {{ usuario.perfil }}
 
-<br><br>
+        <br>
 
-<button
-(click)="editar(usuario)">
+        <b>Status:</b>
 
-Editar
+        {{ usuario.ativo ? 'Ativo' : 'Inativo' }}
 
-</button>
+        <br>
 
-<button
-(click)="excluir(usuario.id)">
+        <b>Último acesso:</b>
 
-Excluir
+        {{ usuario.ultimo_login || 'Nunca acessou' }}
 
-</button>
+        <br><br>
 
-<hr>
+        <button
+            (click)="editar(usuario)">
 
-</div>
+            Editar
 
-<div
-class="formulario"
-*ngIf="mostrarFormulario">
+        </button>
 
-<h3>
+        <button
+            (click)="excluir(usuario.id)">
 
-{{ modoEdicao ? 'Editar Usuário' : 'Novo Usuário' }}
+            Excluir
 
-</h3>
+        </button>
 
-<select
-[(ngModel)]="novoUsuario.funcionario_id">
+        <hr>
 
-<option
-[ngValue]="null">
+    </div>
 
-Selecione...
+    <div
+        class="formulario"
+        *ngIf="mostrarFormulario">
 
-</option>
+        <h3>
 
-<option
-*ngFor="let funcionario of funcionarios"
-[ngValue]="funcionario.id">
+            {{ modoEdicao ? 'Editar Usuário' : 'Novo Usuário' }}
 
-{{ funcionario.nome }}
+        </h3>
 
-</option>
+        <label>
 
-</select>
+            Funcionário
 
-<input
+        </label>
 
-[(ngModel)]="novoUsuario.login"
+        <select
+            [(ngModel)]="novoUsuario.funcionario_id">
 
-placeholder="Login">
+            <option
+                [ngValue]="null">
 
-<input
+                Selecione...
 
-type="password"
+            </option>
 
-[(ngModel)]="novoUsuario.senha"
+            <option
+                *ngFor="let funcionario of funcionarios"
+                [ngValue]="funcionario.id">
 
-placeholder="Senha">
+                {{ funcionario.nome }}
 
-<select
+            </option>
 
-[(ngModel)]="novoUsuario.perfil">
+        </select>
 
-<option value="ADMIN">
+        <br><br>
 
-Administrador
+        <label>
 
-</option>
+            Login
 
-<option value="COMUM">
+        </label>
 
-Funcionário
+        <input
+            [(ngModel)]="novoUsuario.login"
+            placeholder="Login">
 
-</option>
+        <label>
 
-</select>
+            Senha
 
-<label>
+        </label>
 
-<input
+        <input
+            type="password"
+            [(ngModel)]="novoUsuario.senha"
+            placeholder="Senha">
 
-type="checkbox"
+        <label>
 
-[(ngModel)]="novoUsuario.ativo">
+            Confirmar senha
 
-Ativo
+        </label>
 
-</label>
+        <input
+            type="password"
+            [(ngModel)]="confirmarSenha"
+            placeholder="Confirmar senha">
 
-<br><br>
+        <label>
 
-<button
-(click)="salvar()">
+            Perfil
 
-Salvar
+        </label>
 
-</button>
+        <select
+            [(ngModel)]="novoUsuario.perfil">
 
-<button
-(click)="cancelar()">
+            <option value="ADMIN">
 
-Cancelar
+                Administrador
 
-</button>
+            </option>
 
-</div>
+            <option value="COMUM">
+
+                Funcionário
+
+            </option>
+
+        </select>
+
+        <br><br>
+
+        <label>
+
+            <input
+                type="checkbox"
+                [(ngModel)]="novoUsuario.ativo">
+
+            Ativo
+
+        </label>
+
+        <br><br>
+
+        <button
+            (click)="salvar()">
+
+            Salvar
+
+        </button>
+
+        <button
+            (click)="cancelar()">
+
+            Cancelar
+
+        </button>
+
+    </div>
 
 </div>
