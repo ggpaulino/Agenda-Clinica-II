@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 
 import { UsuariosService } from '../../services/usuarios.service';
 import { FuncionariosService } from '../../services/funcionarios.service';
+import { Usuario } from '../../models/usuario.model';
+
 
 @Component({
   standalone: true,
@@ -19,6 +21,7 @@ export class UsuariosComponent implements OnInit {
   mostrarFormulario = false;
   modoEdicao = false;
   usuarioSelecionado: number | null = null;
+  confirmarSenha = '';
 
   novoUsuario = {
     funcionario_id: null,
@@ -77,6 +80,7 @@ export class UsuariosComponent implements OnInit {
     this.mostrarFormulario = true;
     this.modoEdicao = true;
     this.usuarioSelecionado = usuario.id;
+    this.confirmarSenha = '';
     this.novoUsuario = {
       funcionario_id: usuario.funcionario_id,
       login: usuario.login,
@@ -87,18 +91,56 @@ export class UsuariosComponent implements OnInit {
   }
 
   salvar() {
-    if (this.modoEdicao && this.usuarioSelecionado) {
-      this.usuariosService.atualizarUsuario(this.usuarioSelecionado, this.novoUsuario).subscribe(() => {
-          this.cancelar();
-          this.carregarUsuarios();
-        });
+    if (!this.novoUsuario.funcionario_id) {
+      alert('Selecione um funcionário.');
+      return;
+    }
+    
+    if (!this.novoUsuario.login.trim()) {
+      alert('Informe o login.');
       return;
     }
 
-    this.usuariosService.criarUsuario(this.novoUsuario).subscribe(() => {
+    if (!this.modoEdicao) {
+      if (!this.novoUsuario.senha.trim()) {
+        alert('Informe a senha.');
+        return;
+      }
+      if (this.novoUsuario.senha !== this.confirmarSenha) {
+         alert('As senhas não conferem.');
+         return;
+      }
+    } else {
+      if (this.novoUsuario.senha.trim() !== '' && this.novoUsuario.senha !== this.confirmarSenha) {
+        alert('As senhas não conferem.');
+        return;
+      }
+    }
+
+    if (this.modoEdicao && this.usuarioSelecionado) {
+      this.usuariosService.atualizarUsuario(this.usuarioSelecionado, this.novoUsuario).subscribe({
+        next: () => {
+          this.cancelar();
+          this.carregarUsuarios();
+        },
+        error: (err) => {
+          console.error(err);
+          alert(err.error?.erro ?? 'Erro ao atualizar usuário.');
+        }
+      });
+      return;
+    }
+
+    this.usuariosService.criarUsuario(this.novoUsuario).subscribe({
+      next: () => {
         this.cancelar();
         this.carregarUsuarios();
-      });
+      },
+      error: (err) => {
+        console.error(err);
+        alert(err.error?.erro ?? 'Erro ao criar usuário.');
+      }
+    });       
   }
 
   excluir(id: number) {
@@ -112,8 +154,17 @@ export class UsuariosComponent implements OnInit {
   }
 
   cancelar() {
+
     this.mostrarFormulario = false;
     this.modoEdicao = false;
     this.usuarioSelecionado = null;
+    this.confirmarSenha = '';
+    this.novoUsuario = {
+      funcionario_id: null,
+      login: '',
+      senha: '',
+      perfil: 'COMUM',
+      ativo: true
+    };
   }
 }

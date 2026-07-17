@@ -15,10 +15,9 @@
   </select>
 
   <label>Serviço</label>
-  <select [(ngModel)]="novoAgendamento.servico">
-    <option value="">Selecione...</option>
-    <option *ngFor="let s of servicos" [value]="s.id">
-      {{ s.nome }}
+  <select [(ngModel)]="novoAgendamento.servico_id">
+    <option [ngValue]="null"> Selecione...</option>
+    <option *ngFor="let s of servicos" [ngValue]="s.id">{{ s.nome }}
     </option>
   </select>
 
@@ -32,6 +31,9 @@
     type="time"
     [(ngModel)]="novoAgendamento.hora">
 
+  <label>Observações</label>
+  <textarea [(ngModel)]="novoAgendamento.observacoes"></textarea>
+  
   <br><br>
 
   <button (click)="salvar()">

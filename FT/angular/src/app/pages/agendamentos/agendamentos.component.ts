@@ -25,11 +25,12 @@ export class AgendamentosComponent implements OnInit {
   mostrarForm = false;
 
   novoAgendamento = {
-    animal_id: null,
-    servico: '',
-    data: '',
-    hora: ''
-  };
+  animal_id: null,
+  servico_id: null,
+  data: '',
+  hora: '',
+  observacoes: ''
+};
 
   constructor(
     private route: ActivatedRoute,
@@ -68,17 +69,54 @@ export class AgendamentosComponent implements OnInit {
 
   salvar() {
 
-    const payload = {
-      cliente_id: this.clienteId,
-      ...this.novoAgendamento
+    if (!this.novoAgendamento.animal_id) {
+        alert('Selecione um animal.');
+        return;
+    }
+
+    if (!this.novoAgendamento.servico_id) {
+        alert('Selecione um serviço.');
+        return;
+    }
+
+    if (!this.novoAgendamento.data) {
+        alert('Informe a data.');
+        return;
+    }
+
+    if (!this.novoAgendamento.hora) {
+        alert('Informe o horário.');
+        return;
+    }
+
+    const requisicaoAgendamento = {
+        animal_id: this.novoAgendamento.animal_id,
+        servico_id: this.novoAgendamento.servico_id,
+        data: this.novoAgendamento.data,
+        hora: this.novoAgendamento.hora,
+        observacoes: this.novoAgendamento.observacoes || null
     };
 
-        this.agendamentosService.criarAgendamento(payload).subscribe({
-        next: () => {
-        alert('Agendamento criado com sucesso');
-        this.router.navigate(['/dashboard']);
-      }
+    this.agendamentosService.criarAgendamento(requisicaoAgendamento).subscribe({
+            next: () => {
+                alert('Agendamento criado com sucesso.');
+                this.carregarAgendamentos();
+                this.mostrarForm = false;
+                this.novoAgendamento = {
+                    animal_id: null,
+                    servico_id: null,
+                    data: '',
+                    hora: '',
+                    observacoes: ''
+                };
+            },
+
+            error: err => {
+                console.error(err);
+                alert('Erro ao criar agendamento.');
+            }
     });
+
   }
 
   cancelar() {

@@ -1,6 +1,7 @@
 export interface Usuario {
     id?: number;
     funcionario_id: number;
+    nome?: string;
     login: string;
     senha: string;
     perfil?: string;

@@ -10,14 +10,25 @@ export class AuthService {
   private http = inject(HttpClient);
   private api = `${environment.apiUrl}/auth`;
   private usuario: any = null;
+  private token: string | null = null;
 
   login(login: string, senha: string) {
     return this.http.post<any>( `${this.api}/login`, {login, senha } );
   }
 
-  setSessao(usuario: any) {
+  setSessao(usuario: any, token: string) {
     this.usuario = usuario;
+    this.token = token;
     localStorage.setItem('usuario',JSON.stringify(usuario));
+    localStorage.setItem('token', token);
+  }
+
+  getToken(): string | null {
+     if (this.token) {
+      return this.token;
+    }
+    this.token = localStorage.getItem('token');
+    return this.token;
   }
 
   getUsuarioLogado() {
@@ -42,23 +53,21 @@ export class AuthService {
   }
 
   getFuncionario() {
-
-    const usuario = this.getUsuarioLogado();
-    return usuario?.funcionario ?? null;
+     return this.getUsuarioLogado()?.funcionario ?? null;
   }
 
   getPerfil() {
-
-    const usuario = this.getUsuarioLogado();
-    return usuario?.perfil ?? null;
+     return this.getUsuarioLogado()?.perfil ?? null;
   }
 
   estaLogado() {
-    return this.getUsuarioLogado() != null;
+    return this.getToken() !== null;
   }
 
   logout() {
     this.usuario = null;
+    this.token = null;
     localStorage.removeItem('usuario');
+    localStorage.removeItem('token');
   }
 }

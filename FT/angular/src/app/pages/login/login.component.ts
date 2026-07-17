@@ -33,7 +33,7 @@ export class LoginComponent {
 
     this.authService.login(this.login, this.senha).subscribe({
         next: (res: any) => { console.log(res);
-          this.authService.setSessao(res.usuario); 
+          this.authService.setSessao(res.usuario, res.token); 
           this.router.navigate(['/dashboard']);
         },
 

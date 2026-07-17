@@ -1,9 +1,11 @@
 import { Router } from 'express';
 import { listarFornecedores,criarFornecedor,atualizarFornecedor,deletarFornecedor } from '../controllers/fornecedor.ct.js';
+import auth from '../middleware/auth.js';
+
 const router = Router();
 
-router.get('/',listarFornecedores);
-router.post('/',criarFornecedor);
-router.put('/:id',atualizarFornecedor);
-router.delete('/:id',deletarFornecedor); 
+router.get('/',auth,listarFornecedores);
+router.post('/',auth,criarFornecedor);
+router.put('/:id',auth,atualizarFornecedor);
+router.delete('/:id',auth,deletarFornecedor); 
 export default router;
