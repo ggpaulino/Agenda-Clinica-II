@@ -6,13 +6,14 @@ const router = Router();
 router.get('/',listarAgendamento);
 router.get('/clientes/:id', listarporCliente);
 router.post('/',criarAgendamento);   
-router.post('/atualizar/:id',atualizarAgendamento);
-router.post('/deletar/:id',deletarAgendamento);
+router.put('/:id',atualizarAgendamento);
+router.delete('/:id',deletarAgendamento);
 
 export default router;
 
 /*
 import { Router } from 'express';
+
 import {
   listarAgendamentos,
   listarPorCliente,

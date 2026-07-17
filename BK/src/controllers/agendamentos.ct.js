@@ -9,10 +9,12 @@ export const listarAgendamento = async (req, res) => {
   }
 };
 
+
 export const listarporCliente = async (req, res) => {
   try {
     const { id } = req.params;
-    const result = await pool.query(`SELECT * FROM agendamento WHERE cliente_id=$1 ORDER BY data ASC`, [id]);
+    const result = await pool.query(`select a.* FROM agendamento a JOIN animal an ON an.id=a.animal_id 
+      WHERE an.cliente_id = $1`, [id]);
     res.json(result.rows);
   } catch (err) {
     res.status(500).json({ erro: err.message });
