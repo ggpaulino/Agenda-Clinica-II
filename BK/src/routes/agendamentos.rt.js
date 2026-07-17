@@ -1,13 +1,16 @@
 import { Router } from 'express';
-import { listarAgendamento, listarporCliente, criarAgendamento, atualizarAgendamento, deletarAgendamento } from '../controllers/agendamentos.ct.js';
+import auth from '../middleware/auth.js';
+import { listarAgendamento, listarporCliente, criarAgendamento,
+          atualizarAgendamento, deletarAgendamento } from '../controllers/agendamentos.ct.js';
+
 const router = Router();
 
 
 router.get('/',listarAgendamento);
 router.get('/clientes/:id', listarporCliente);
-router.post('/',criarAgendamento);   
-router.put('/:id',atualizarAgendamento);
-router.delete('/:id',deletarAgendamento);
+router.post('/',auth,criarAgendamento);   
+router.put('/:id',auth,atualizarAgendamento);
+router.delete('/:id',auth,deletarAgendamento);
 
 export default router;
 

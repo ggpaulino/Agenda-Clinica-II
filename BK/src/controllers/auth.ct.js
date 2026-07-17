@@ -1,5 +1,7 @@
 import pool from '../db.js';
 import bcrypt from 'bcryptjs';
+import { gerarToken } from '../utils/jwt.js';
+
 
 export async function login(req, res) {
   const { login, senha } = req.body;
@@ -27,7 +29,7 @@ export async function login(req, res) {
 
     await pool.query(`UPDATE usuario SET ultimo_login = NOW() WHERE id = $1`, [usuario.id] );
 
-    const funcionarioResult = await pool.query(`SELECT nome, id FROM funcionario WHERE id = $1`, [usuario.funcionario_id]);
+    const funcionarioResult = await pool.query(`SELECT id, nome FROM funcionario WHERE id = $1`, [usuario.funcionario_id]);
 
     if (funcionarioResult.rows.length === 0) {
       return res.status(404).json({
@@ -36,7 +38,9 @@ export async function login(req, res) {
     }
 
     const funcionario = funcionarioResult.rows[0];
+    const token = gerarToken({ id: funcionario.id, usuario_id: usuario.id, nome: funcionario.nome, cargo: usuario.perfil});
     return res.json({
+      token,
       usuario: {
         id: usuario.id,
         login: usuario.login,
