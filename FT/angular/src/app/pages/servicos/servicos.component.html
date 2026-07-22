@@ -23,4 +23,19 @@
     Salvar
   </button>
 
+  <select [(ngModel)]="novoServico.cargo_executor">
+
+    <option value="">
+        Selecione...
+    </option>
+
+    <option *ngFor="let cargo of cargos"
+            [value]="cargo">
+
+        {{ cargo }}
+
+    </option>
+
+</select>
+
 </div>

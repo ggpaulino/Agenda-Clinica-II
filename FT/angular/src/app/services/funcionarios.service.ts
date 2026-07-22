@@ -18,6 +18,10 @@ export class FuncionariosService {
     return this.http.get(`${this.API}/${id}`);
   }
 
+  listarCargos() {
+    return this.http.get<string[]>(`${this.API}/cargos`);
+  }
+
   criarFuncionario(data: any) {
     return this.http.post(this.API, data);
   }

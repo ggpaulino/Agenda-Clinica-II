@@ -19,6 +19,18 @@ export const listarFuncionarioPorId = async (req, res) => {
   }
 };
 
+export const listarCargos = async (req, res) => {
+  try {
+    const result = await pool.query(`SELECT DISTINCT UPPER(cargo) AS cargo FROM funcionario 
+      WHERE ativo = true AND cargo IS NOT NULL ORDER BY cargo;`);
+    res.json(result.rows.map(r => r.cargo));
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ erro: err.message });
+  }
+};
+
 export const criarFuncionario = async (req, res) => {
   try {
     const dados = req.body;

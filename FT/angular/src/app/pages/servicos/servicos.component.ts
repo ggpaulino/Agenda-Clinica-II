@@ -2,6 +2,14 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ServicosService } from '../../services/servicos.service';
+import { FuncionariosService } from '../../services/funcionarios.service';
+
+interface ServicoForm {
+  nome: string;
+  preco: number;
+  cargo_executor: string;
+  duracao_minutos: number;
+}
 
 @Component({
   standalone: true,
@@ -14,21 +22,25 @@ import { ServicosService } from '../../services/servicos.service';
 export class ServicosComponent implements OnInit {
 
   servicos: any[] = [];
-
+  cargos: string[] = [];
   mostrarFormulario = false;
 
-  novoServico = {
+  novoServico: ServicoForm = {
     nome: '',
-    preco: 0
+    preco: 0,
+    cargo_executor: '',
+    duracao_minutos: 30
   };
 
   constructor(
     private servicosService: ServicosService,
+    private funcionariosService: FuncionariosService,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.carregarServicos();
+      this.carregarServicos();
+      this.carregarCargos();
   }
 
   carregarServicos() {
@@ -43,6 +55,16 @@ export class ServicosComponent implements OnInit {
     });
   }
 
+  carregarCargos() {
+  this.funcionariosService.listarCargos().subscribe({
+      next: (data: any) => {
+        this.cargos = data;
+        this.cdr.detectChanges();
+      },
+    error: err => console.error(err)
+   });
+ }
+
   abrirFormulario() {
     this.mostrarFormulario = true;
   }
@@ -54,7 +76,9 @@ export class ServicosComponent implements OnInit {
 
         this.novoServico = {
           nome: '',
-          preco: 0
+          preco: 0,
+          cargo_executor: '',
+          duracao_minutos: 30
         };
 
         this.carregarServicos();
