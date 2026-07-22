@@ -23,7 +23,10 @@ export const listarporCliente = async (req, res) => {
 
 export const criarAgendamento = async (req, res) => {
   try {
-    const { animal_id, funcionario_id, servico_id, data_hora, status, observacoes } = req.body;
+    const { animal_id, servico_id, data, hora, observacoes } = req.body;
+    const funcionario_id = req.usuario.id;
+    const status = 'AGENDADO';
+    const data_hora = `${data} ${hora}:00`;
     const result = await pool.query(`INSERT INTO agendamento (animal_id, funcionario_id, servico_id, data_hora, status, observacoes)
      VALUES ($1,$2,$3,$4,$5,$6) RETURNING *`, [animal_id, funcionario_id, servico_id, data_hora, status, observacoes]);
     res.status(201).json(result.rows[0]);
