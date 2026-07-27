@@ -14,6 +14,18 @@ export class AgendamentosService {
     return this.http.get(`${this.API}/clientes/${id}`);
   }
 
+ listarDisponibilidade(servicoId: number, data: string) {
+    return this.http.get(`${this.API}/disponibilidade`, {params: {servico_id: servicoId, data}});
+  }
+
+  listarHorariosDisponiveis(servicoId:number, executorId:number, data:string) {
+    return this.http.get(`${this.API}/disponibilidade`,{params: {servico_id: servicoId, executor_id: executorId, data}});
+  }
+
+  listarFuncionarios(servicoId: number) {
+    return this.http.get(`${this.API}/executores/${servicoId}`);
+  }
+
   criarAgendamento(data: any) {
     return this.http.post(`${this.API}`, data);
   }
