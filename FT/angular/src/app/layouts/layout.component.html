@@ -1,0 +1,71 @@
+<header class="topbar">
+
+    <div class="logo">
+
+        🐾 FT CLINIC
+
+    </div>
+
+    <div class="usuario">
+
+        <div class="dados">
+
+            <strong>{{ funcionario?.nome }}</strong>
+
+            <small>{{ funcionario?.cargo }}</small>
+
+        </div>
+
+        <button
+            class="btn btn-outline"
+            (click)="logout()">
+
+            Sair
+
+        </button>
+
+    </div>
+
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+
+        <nav>
+
+            <a routerLink="/dashboard">
+                Dashboard
+            </a>
+
+            <a routerLink="/clientes">
+                Clientes
+            </a>
+
+            <a routerLink="/servicos">
+                Serviços
+            </a>
+
+            <a routerLink="/agendamentos">
+                Agenda
+            </a>
+
+            <a routerLink="/funcionarios">
+                Funcionários
+            </a>
+
+            <a routerLink="/usuarios">
+                Usuários
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <main class="content">
+
+        <ng-content></ng-content>
+
+    </main>
+
+</div>
