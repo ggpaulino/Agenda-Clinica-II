@@ -10,16 +10,13 @@ export class AuthService {
   private http = inject(HttpClient);
   private api = `${environment.apiUrl}/auth`;
   private usuario: any = null;
-<<<<<<< HEAD
   private token: string | null = null;
-=======
->>>>>>> c6d1fcf833351e19f25ae43a45fd967286d0f9c9
+
 
   login(login: string, senha: string) {
     return this.http.post<any>( `${this.api}/login`, {login, senha } );
   }
 
-<<<<<<< HEAD
   setSessao(usuario: any, token: string) {
     this.usuario = usuario;
     this.token = token;
@@ -35,13 +32,6 @@ export class AuthService {
     return this.token;
   }
 
-=======
-  setSessao(usuario: any) {
-    this.usuario = usuario;
-    localStorage.setItem('usuario',JSON.stringify(usuario));
-  }
-
->>>>>>> c6d1fcf833351e19f25ae43a45fd967286d0f9c9
   getUsuarioLogado() {
 
     if (this.usuario) {
@@ -64,7 +54,6 @@ export class AuthService {
   }
 
   getFuncionario() {
-<<<<<<< HEAD
      return this.getUsuarioLogado()?.funcionario ?? null;
   }
 
@@ -74,31 +63,14 @@ export class AuthService {
 
   estaLogado() {
     return this.getToken() !== null;
-=======
 
-    const usuario = this.getUsuarioLogado();
-    return usuario?.funcionario ?? null;
-  }
-
-  getPerfil() {
-
-    const usuario = this.getUsuarioLogado();
-    return usuario?.perfil ?? null;
-  }
-
-  estaLogado() {
-    return this.getUsuarioLogado() != null;
->>>>>>> c6d1fcf833351e19f25ae43a45fd967286d0f9c9
   }
 
   logout() {
     this.usuario = null;
-<<<<<<< HEAD
     this.token = null;
     localStorage.removeItem('usuario');
     localStorage.removeItem('token');
-=======
-    localStorage.removeItem('usuario');
->>>>>>> c6d1fcf833351e19f25ae43a45fd967286d0f9c9
+
   }
 }

@@ -6,6 +6,9 @@ import { AgendamentosService } from '../../services/agendamentos.service';
 import { AnimaisService } from '../../services/animais.service';
 import { ApiService } from '../../services/api.service';
 import { ServicosService } from '../../services/servicos.service';
+import { HorarioDisponivel } from '../../models/horario.model';
+import { ExecutorDisponivel } from '../../models/executor.model';
+
 
 @Component({
   standalone: true,
@@ -13,6 +16,8 @@ import { ServicosService } from '../../services/servicos.service';
   imports: [CommonModule, FormsModule],
   templateUrl: './agendamentos.component.html'
 })
+
+
 export class AgendamentosComponent implements OnInit {
 
   clienteId!: number;
@@ -21,12 +26,15 @@ export class AgendamentosComponent implements OnInit {
 
   agendamentos: any[] = [];
   servicos: any[] = [];
-
+  horariosDisponiveis: HorarioDisponivel[] = [];
+  executores: ExecutorDisponivel[] = [];
+  hoje = new Date().toISOString().split('T')[0];
   mostrarForm = false;
 
   novoAgendamento = {
   animal_id: null,
   servico_id: null,
+  executor_id: null,
   data: '',
   hora: '',
   observacoes: ''
@@ -63,6 +71,77 @@ export class AgendamentosComponent implements OnInit {
       .subscribe((data: any) => this.agendamentos = data || []);
   }
 
+  carregarDisponibilidade() {
+    if (!this.novoAgendamento.servico_id || !this.novoAgendamento.data) 
+      {
+        this.horariosDisponiveis = [];
+        this.novoAgendamento.hora = '';
+        return;
+      }
+
+    this.agendamentosService.listarHorariosDisponiveis(this.novoAgendamento.servico_id!, this.novoAgendamento.executor_id!,
+      this.novoAgendamento.data).subscribe(
+        (horarios: any) => {
+            this.horariosDisponiveis = horarios;
+            if (!this.horariosDisponiveis.some((h: HorarioDisponivel) => h.hora === this.novoAgendamento.hora)) {
+                this.novoAgendamento.hora = '';
+            }
+        },
+        err => {
+            console.error(err);
+            this.horariosDisponiveis = [];
+        }
+    );
+ }
+
+  onServicoChange(): void {
+
+    this.novoAgendamento.executor_id = null;
+    this.novoAgendamento.hora = '';
+    this.executores = [];
+    this.horariosDisponiveis = [];
+    if (!this.novoAgendamento.servico_id) {
+        return;
+    }
+    this.agendamentosService.listarFuncionarios(this.novoAgendamento.servico_id)
+        .subscribe({
+            next: (data: any) => {
+                this.executores = data;
+            },
+            error: err => console.error(err)
+        });
+  }
+
+  onDataChange(): void {
+    this.novoAgendamento.hora = '';
+    this.horariosDisponiveis = [];
+
+    if (!this.novoAgendamento.data || !this.novoAgendamento.executor_id || !this.novoAgendamento.servico_id) {
+        return;
+    }
+    this.carregarHorariosDisponiveis();
+  }
+
+  onExecutorChange(): void {
+
+    this.novoAgendamento.hora = '';
+    this.horariosDisponiveis = [];
+    if (
+        !this.novoAgendamento.executor_id ||
+        !this.novoAgendamento.data ||
+        !this.novoAgendamento.servico_id
+    ) {
+        return;
+    }
+    this.carregarHorariosDisponiveis();
+
+}
+
+  horarioSelecionadoValido(): boolean {
+        return this.horariosDisponiveis.some((h: any) => h.hora === this.novoAgendamento.hora);
+  }
+
+
   abrirFormulario() {
     this.mostrarForm = true;
   }
@@ -89,9 +168,15 @@ export class AgendamentosComponent implements OnInit {
         return;
     }
 
+    if (!this.horarioSelecionadoValido()) {
+        alert('O horário selecionado não está mais disponível.');
+        return;
+    }
+
     const requisicaoAgendamento = {
         animal_id: this.novoAgendamento.animal_id,
         servico_id: this.novoAgendamento.servico_id,
+        executor_id: this.novoAgendamento.executor_id,
         data: this.novoAgendamento.data,
         hora: this.novoAgendamento.hora,
         observacoes: this.novoAgendamento.observacoes || null
@@ -105,10 +190,12 @@ export class AgendamentosComponent implements OnInit {
                 this.novoAgendamento = {
                     animal_id: null,
                     servico_id: null,
+                    executor_id: null,
                     data: '',
-                    hora: '',
+                    hora: '',                    
                     observacoes: ''
                 };
+                this.horariosDisponiveis = [];
             },
 
             error: err => {
@@ -120,10 +207,35 @@ export class AgendamentosComponent implements OnInit {
   }
 
   cancelar() {
+
     this.mostrarForm = false;
+    this.horariosDisponiveis = [];
+    this.novoAgendamento = {
+        animal_id: null,
+        servico_id: null,
+        executor_id: null,
+        data: '',
+        hora: '',
+        observacoes: ''
+    };
   }
 
   voltarCliente() {
     this.router.navigate(['/clientes']);
+  }
+
+  private carregarHorariosDisponiveis(): void {
+    this.agendamentosService.listarHorariosDisponiveis(
+            this.novoAgendamento.servico_id!, this.novoAgendamento.executor_id!,this.novoAgendamento.data)
+        .subscribe({
+            next: (data: any) => {
+                this.horariosDisponiveis = data;
+            },
+
+            error: err => {
+                console.error(err);
+                this.horariosDisponiveis = [];
+            }
+        });
   }
 }

@@ -1,47 +1,199 @@
 <div class="container">
 
-  <h2>Novo Agendamento</h2>
+    <h2>Novo Agendamento</h2>
 
-  <p><strong>Cliente:</strong> {{ cliente?.nome }}</p>
+    <p>
+        <strong>Cliente:</strong>
+        {{ cliente?.nome }}
+    </p>
 
-  <hr>
+    <hr>
 
-  <label>Animal</label>
-  <select [(ngModel)]="novoAgendamento.animal_id">
-    <option [ngValue]="null">Selecione...</option>
-    <option *ngFor="let a of animais" [ngValue]="a.id">
-      {{ a.nome }}
-    </option>
-  </select>
+    <!-- Animal -->
 
-  <label>Serviço</label>
-  <select [(ngModel)]="novoAgendamento.servico_id">
-    <option [ngValue]="null"> Selecione...</option>
-    <option *ngFor="let s of servicos" [ngValue]="s.id">{{ s.nome }}
-    </option>
-  </select>
+    <label>Animal</label>
 
-  <label>Data</label>
-  <input
-    type="date"
-    [(ngModel)]="novoAgendamento.data">
+    <select [(ngModel)]="novoAgendamento.animal_id">
 
-  <label>Hora</label>
-  <input
-    type="time"
-    [(ngModel)]="novoAgendamento.hora">
+        <option [ngValue]="null">
+            Selecione...
+        </option>
 
-  <label>Observações</label>
-  <textarea [(ngModel)]="novoAgendamento.observacoes"></textarea>
-  
-  <br><br>
+        <option
+            *ngFor="let animal of animais"
+            [ngValue]="animal.id">
 
-  <button (click)="salvar()">
-    Confirmar Agendamento
-  </button>
+            {{ animal.nome }}
 
-  <button (click)="cancelar()">
-    Cancelar
-  </button>
+        </option>
+
+    </select>
+
+    <br><br>
+
+    <!-- Serviço -->
+
+    <label>Serviço</label>
+
+    <select
+        [(ngModel)]="novoAgendamento.servico_id"
+        (change)="onServicoChange()">
+
+        <option [ngValue]="null">
+            Selecione...
+        </option>
+
+        <option
+            *ngFor="let servico of servicos"
+            [ngValue]="servico.id">
+
+            {{ servico.nome }}
+
+        </option>
+
+    </select>
+
+    <br><br>
+
+    <!-- Executor -->
+
+    <label>Executor</label>
+
+    <select
+
+        [(ngModel)]="novoAgendamento.executor_id"
+
+        (change)="onExecutorChange()"
+
+        [disabled]="executores.length === 0">
+
+        <option [ngValue]="null">
+
+            Selecione...
+
+        </option>
+
+        <option
+
+            *ngFor="let executor of executores"
+
+            [ngValue]="executor.id">
+
+            {{ executor.nome }}
+
+        </option>
+
+    </select>
+
+    <br><br>
+
+    <!-- Data -->
+
+    <label>Data</label>
+
+    <input
+
+        type="date"
+
+        [(ngModel)]="novoAgendamento.data"
+
+        [min]="hoje"
+
+        (change)="onDataChange()">
+
+    <br><br>
+
+    <!-- Horário -->
+
+    <label>Horário</label>
+
+    <select
+
+        [(ngModel)]="novoAgendamento.hora"
+
+        [disabled]="
+            !novoAgendamento.executor_id ||
+            horariosDisponiveis.length === 0
+        ">
+
+        <option value="">
+
+            Selecione...
+
+        </option>
+
+        <option
+
+            *ngFor="let horario of horariosDisponiveis"
+
+            [value]="horario.hora">
+
+            {{ horario.hora }}
+
+        </option>
+
+    </select>
+
+    <div
+
+        *ngIf="
+
+            novoAgendamento.executor_id &&
+
+            novoAgendamento.data &&
+
+            horariosDisponiveis.length === 0
+
+        "
+
+        class="alert alert-warning">
+
+        Nenhum horário disponível para este profissional nesta data.
+
+    </div>
+
+    <br><br>
+
+    <!-- Observações -->
+
+    <label>Observações</label>
+
+    <textarea
+
+        rows="4"
+
+        [(ngModel)]="novoAgendamento.observacoes">
+
+    </textarea>
+
+    <br><br>
+
+    <button
+
+        (click)="salvar()"
+
+        [disabled]="
+
+            !novoAgendamento.animal_id ||
+
+            !novoAgendamento.servico_id ||
+
+            !novoAgendamento.executor_id ||
+
+            !novoAgendamento.data ||
+
+            !novoAgendamento.hora
+
+        ">
+
+        Confirmar Agendamento
+
+    </button>
+
+    <button (click)="cancelar()">
+
+        Cancelar
+
+    </button>
 
 </div>
