@@ -1,51 +1,54 @@
-.container{
-
-max-width:900px;
-
-margin:auto;
-
-padding:20px;
-
+.servico-card {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-bottom: 16px;
+  border-radius: 8px;
 }
 
-.card-funcionario{
-
-border:1px solid #ccc;
-
-padding:15px;
-
-margin-bottom:15px;
-
-border-radius:8px;
-
+.topo-servico {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.formulario{
-
-margin-top:25px;
-
-padding:20px;
-
-border:1px solid #ddd;
-
-border-radius:8px;
-
+.btn-remover {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
 }
 
-input{
-
-display:block;
-
-width:100%;
-
-margin-bottom:12px;
-
-padding:8px;
-
+.servico-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 0;
+    border-bottom:1px solid var(--border);
 }
 
-button{
+.servico-item:last-child{
+    border-bottom:none;
+}
 
-margin-right:10px;
+.servico-info{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
 
+.servico-info h3{
+    margin:0;
+    font-size:20px;
+}
+
+.preco{
+    color:var(--text-light);
+    font-size:15px;
+}
+
+.servico-actions{
+    display:flex;
+    gap:10px;
 }

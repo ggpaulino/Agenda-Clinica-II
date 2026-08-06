@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
+import { LayoutComponent } from '../../layouts/layout.component';
 
 @Component({
   standalone: true,
   selector: 'app-clientes-form',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LayoutComponent],
   templateUrl: './clientes-form.component.html',
   styleUrls: ['./clientes-form.component.css']
 })

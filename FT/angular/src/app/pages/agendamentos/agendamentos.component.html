@@ -1,4 +1,120 @@
-<div class="container">
+<app-layouts>
+
+<div class="page">
+
+    <section class="page-header">
+
+        <h1>Novo Agendamento</h1>
+
+        <p>  Agendamento de serviços para o cliente selecionado. </p>
+
+    </section>
+
+    <section class="card">
+
+        <h2>Cliente</h2>
+
+        <p> <strong>{{ cliente?.nome }}</strong> </p>
+
+    </section>
+
+    <section class="card mt-3">
+
+        <h2 class="mb-2">  Animal </h2>
+
+        <div class="form-group">
+
+            <label class="form-label">  Animal  </label>
+
+            <select class="form-control" [(ngModel)]="novoAgendamento.animal_id">
+
+                <option [ngValue]="null"> Selecione... </option>
+                <option *ngFor="let animal of animais" [ngValue]="animal.id">  {{ animal.nome }} </option>
+
+            </select>
+        </div><br>
+
+        <h2 class="mb-2">  Serviço </h2>
+
+        <div class="form-group">
+
+            <label class="form-label">  Serviço  </label>
+
+            <select class="form-control" [(ngModel)]="novoAgendamento.servico_id" (change)="onServicoChange()">
+
+                <option [ngValue]="null"> Selecione... </option>
+                <option *ngFor="let servico of servicos" [ngValue]="servico.id"> {{ servico.nome }} </option>
+
+            </select>
+
+        </div><br>
+
+        <div class="form-group">
+
+            <label class="form-label">  Executor  </label>
+
+            <select class="form-control" [(ngModel)]="novoAgendamento.executor_id" (change)="onExecutorChange()" [disabled]="executores.length === 0">
+
+                <option [ngValue]="null"> Selecione... </option>
+                <option *ngFor="let executor of executores" [ngValue]="executor.id"> {{ executor.nome }} </option>
+
+            </select>
+
+        </div><br>
+
+        
+        <h2 class="mb-2">  Data </h2>
+
+        <div class="form-group">
+
+            <label class="form-label">  Data  </label>
+
+            <input class="form-control" type="date" [(ngModel)]="novoAgendamento.data" [min]="hoje" (change)="onDataChange()">
+
+        </div>
+
+                <h2 class="mb-2">  Horário </h2>
+
+        <div class="form-group">
+
+            <label class="form-label">  Horário  </label>
+
+            <select class="form-control" [(ngModel)]="novoAgendamento.hora" 
+                                         [disabled]="!novoAgendamento.executor_id || horariosDisponiveis.length === 0">
+
+                <option value=""> Selecione... </option>
+                <option *ngFor="let horario of horariosDisponiveis" [value]="horario.hora"> {{ horario.hora }} </option>
+
+            </select>
+
+            <div *ngIf="novoAgendamento.executor_id && novoAgendamento.data && horariosDisponiveis.length === 0" 
+                  class="alert alert-warning">
+
+                Nenhum horário disponível para este profissional nesta data.
+
+            </div>
+
+        </div>
+
+        
+        <h2 class="mb-2">  Observações </h2>
+
+        <div class="form-group">
+
+            <label class="form-label">  Observações  </label>
+            <textarea class="form-control" rows="4" [(ngModel)]="novoAgendamento.observacoes"></textarea>
+        </div>
+
+       <div class="form-actions">
+          <button class="btn btn-primary" (click)="salvar()" [disabled]="!novoAgendamento.animal_id || !novoAgendamento.servico_id || !novoAgendamento.executor_id || !novoAgendamento.data || !novoAgendamento.hora"> Confirmar Agendamento </button>
+          <button class="btn btn-secondary" (click)="cancelar()"> Cancelar </button>
+
+       </div>
+    </section>
+</div>
+</app-layouts>
+
+<!--<div class="container">
 
     <h2>Novo Agendamento</h2>
 
@@ -7,9 +123,9 @@
         {{ cliente?.nome }}
     </p>
 
-    <hr>
+    <hr> 
 
-    <!-- Animal -->
+     Animal 
 
     <label>Animal</label>
 
@@ -31,7 +147,7 @@
 
     <br><br>
 
-    <!-- Serviço -->
+     Serviço 
 
     <label>Serviço</label>
 
@@ -55,7 +171,7 @@
 
     <br><br>
 
-    <!-- Executor -->
+     Executor 
 
     <label>Executor</label>
 
@@ -87,7 +203,7 @@
 
     <br><br>
 
-    <!-- Data -->
+    Data
 
     <label>Data</label>
 
@@ -103,7 +219,7 @@
 
     <br><br>
 
-    <!-- Horário -->
+    Horário 
 
     <label>Horário</label>
 
@@ -154,7 +270,7 @@
 
     <br><br>
 
-    <!-- Observações -->
+    Observações 
 
     <label>Observações</label>
 
@@ -196,4 +312,4 @@
 
     </button>
 
-</div>
+</div> -->

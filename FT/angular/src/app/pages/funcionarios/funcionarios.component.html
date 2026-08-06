@@ -3,125 +3,132 @@
 <h2>Funcionários</h2>
 
 <p>Total: {{ funcionarios.length }}</p>
-
 <hr>
 
-<button (click)="novoCadastro()">
+<section class="card">
+
+<div class="d-flex justify-between align-center mb-2">
+
+<h2>Funcionários</h2>
+
+<button
+class="btn btn-primary"
+(click)="mostrarFormulario=true">
 
 Novo Funcionário
 
 </button>
 
-<hr>
-
-<div *ngIf="funcionarios.length == 0">
-
-Nenhum funcionário cadastrado.
-
 </div>
 
-<div
-class="card-funcionario"
-*ngFor="let funcionario of funcionarios">
+<table class="table">
 
-<strong>
+<thead>
 
-{{ funcionario.nome }}
+<tr>
 
-</strong>
+<th>Nome</th>
 
-<br>
+<th>Cargo</th>
 
-{{ funcionario.email }}
+<th>Telefone</th>
 
-<br>
+<th>Ativo</th>
 
-{{ funcionario.cargo }}
+<th>Ações</th>
 
-<br>
+</tr>
 
-{{ funcionario.telefone }}
+</thead>
 
-<br><br>
+<tbody>
+
+<tr *ngFor="let f of funcionarios">
+
+<td>{{f.nome}}</td>
+
+<td>{{f.cargo}}</td>
+
+<td>{{f.telefone}}</td>
+
+<td>
+
+{{f.ativo ? 'Sim' : 'Não'}}
+
+</td>
+
+<td>
 
 <button
-(click)="editar(funcionario)">
+class="btn btn-secondary"
+(click)="editar(f)">
 
 Editar
 
 </button>
 
 <button
-(click)="excluir(funcionario.id)">
+class="btn btn-danger"
+(click)="excluir(f.id)">
 
 Excluir
 
 </button>
 
-<hr>
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<div
+class="alert alert-info"
+*ngIf="funcionarios.length==0">
+
+Nenhum funcionário cadastrado.
 
 </div>
 
-<div
-class="formulario"
+</section>
+
+<section
+class="card mt-3"
 *ngIf="mostrarFormulario">
 
-<h3>
+<h2>
 
-{{ modoEdicao ? 'Editar Funcionário' : 'Novo Funcionário' }}
+{{modoEdicao?'Editar Funcionário':'Novo Funcionário'}}
 
-</h3>
+</h2>
 
-<input
-[(ngModel)]="novoFuncionario.nome"
-placeholder="Nome">
+<div class="form-row">
 
-<input
-[(ngModel)]="novoFuncionario.email"
-placeholder="Email">
+...
 
-<input
-[(ngModel)]="novoFuncionario.cpf"
-placeholder="CPF">
+</div>
 
-<input
-[(ngModel)]="novoFuncionario.cargo"
-placeholder="Cargo">
-
-<input
-[(ngModel)]="novoFuncionario.salario"
-placeholder="Salario">
-
-<input
-[(ngModel)]="novoFuncionario.telefone"
-placeholder="Telefone">
-
-<label>
-
-<input
-type="checkbox"
-[(ngModel)]="novoFuncionario.ativo">
-
-Ativo
-
-</label>
-
-<br><br>
+<div class="form-actions">
 
 <button
-(click)="salvar()">
+class="btn btn-primary">
 
 Salvar
 
 </button>
 
 <button
-(click)="cancelar()">
+class="btn btn-secondary">
 
 Cancelar
 
 </button>
 
 </div>
+
+</section>
+
+
 
 </div>

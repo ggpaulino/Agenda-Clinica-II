@@ -4,11 +4,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { AnimaisService } from '../../services/animais.service';
+import { LayoutComponent } from '../../layouts/layout.component';
 
 @Component({
   standalone: true,
   selector: 'app-animais',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LayoutComponent],
   templateUrl: './animais.component.html',
   styleUrls: ['./animais.component.css']
 })

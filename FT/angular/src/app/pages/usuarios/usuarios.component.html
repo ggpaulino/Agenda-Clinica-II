@@ -6,195 +6,128 @@
 
     <hr>
 
-    <button (click)="novoCadastro()">
+    <section class="card">
 
-        Novo Usuário
+<div class="d-flex justify-between align-center mb-2">
 
-    </button>
+<h2>Usuários</h2>
 
-    <hr>
+<button
+class="btn btn-primary"
+(click)="mostrarFormulario=true">
 
-    <div *ngIf="usuarios.length == 0">
+Novo Usuário
 
-        Nenhum usuário cadastrado.
+</button>
 
-    </div>
+</div>
 
-    <div
-        class="card-funcionario"
-        *ngFor="let usuario of usuarios">
+<table class="table">
 
-        <strong>
+<thead>
 
-            {{ usuario.nome }}
+<tr>
 
-        </strong>
+<th>Login</th>
 
-        <br>
+<th>Funcionário</th>
 
-        <b>Login:</b>
+<th>Perfil</th>
 
-        {{ usuario.login }}
+<th>Ativo</th>
 
-        <br>
+<th>Ações</th>
 
-        <b>Perfil:</b>
+</tr>
 
-        {{ usuario.perfil }}
+</thead>
 
-        <br>
+<tbody>
 
-        <b>Status:</b>
+<tr *ngFor="let u of usuarios">
 
-        {{ usuario.ativo ? 'Ativo' : 'Inativo' }}
+<td>{{u.login}}</td>
 
-        <br>
+<td>{{u.funcionario}}</td>
 
-        <b>Último acesso:</b>
+<td>{{u.perfil}}</td>
 
-        {{ usuario.ultimo_login || 'Nunca acessou' }}
+<td>
 
-        <br><br>
+{{u.ativo ? 'Sim':'Não'}}
 
-        <button
-            (click)="editar(usuario)">
+</td>
 
-            Editar
+<td>
 
-        </button>
+<button
+class="btn btn-secondary"
+(click)="editar(u)">
 
-        <button
-            (click)="excluir(usuario.id)">
+Editar
 
-            Excluir
+</button>
 
-        </button>
+<button
+class="btn btn-danger"
+(click)="excluir(u.id)">
 
-        <hr>
+Excluir
 
-    </div>
+</button>
 
-    <div
-        class="formulario"
-        *ngIf="mostrarFormulario">
+</td>
 
-        <h3>
+</tr>
 
-            {{ modoEdicao ? 'Editar Usuário' : 'Novo Usuário' }}
+</tbody>
 
-        </h3>
+</table>
 
-        <label>
+<div
+class="alert alert-info"
+*ngIf="usuarios.length==0">
 
-            Funcionário
+Nenhum usuário cadastrado.
 
-        </label>
+</div>
 
-        <select
-            [(ngModel)]="novoUsuario.funcionario_id">
+</section>
 
-            <option
-                [ngValue]="null">
+<section
+class="card mt-3"
+*ngIf="mostrarFormulario">
 
-                Selecione...
+<h2>
 
-            </option>
+{{modoEdicao?'Editar Usuário':'Novo Usuário'}}
 
-            <option
-                *ngFor="let funcionario of funcionarios"
-                [ngValue]="funcionario.id">
+</h2>
 
-                {{ funcionario.nome }}
+<div class="form-row">
 
-            </option>
+...
 
-        </select>
+</div>
 
-        <br><br>
+<div class="form-actions">
 
-        <label>
+<button
+class="btn btn-primary">
 
-            Login
+Salvar
 
-        </label>
+</button>
 
-        <input
-            [(ngModel)]="novoUsuario.login"
-            placeholder="Login">
+<button
+class="btn btn-secondary">
 
-        <label>
+Cancelar
 
-            Senha
+</button>
 
-        </label>
+</div>
 
-        <input
-            type="password"
-            [(ngModel)]="novoUsuario.senha"
-            placeholder="Senha">
-
-        <label>
-
-            Confirmar senha
-
-        </label>
-
-        <input
-            type="password"
-            [(ngModel)]="confirmarSenha"
-            placeholder="Confirmar senha">
-
-        <label>
-
-            Perfil
-
-        </label>
-
-        <select
-            [(ngModel)]="novoUsuario.perfil">
-
-            <option value="ADMIN">
-
-                Administrador
-
-            </option>
-
-            <option value="COMUM">
-
-                Funcionário
-
-            </option>
-
-        </select>
-
-        <br><br>
-
-        <label>
-
-            <input
-                type="checkbox"
-                [(ngModel)]="novoUsuario.ativo">
-
-            Ativo
-
-        </label>
-
-        <br><br>
-
-        <button
-            (click)="salvar()">
-
-            Salvar
-
-        </button>
-
-        <button
-            (click)="cancelar()">
-
-            Cancelar
-
-        </button>
-
-    </div>
+</section>
 
 </div>

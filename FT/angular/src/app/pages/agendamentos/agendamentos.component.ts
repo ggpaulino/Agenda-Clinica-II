@@ -8,12 +8,12 @@ import { ApiService } from '../../services/api.service';
 import { ServicosService } from '../../services/servicos.service';
 import { HorarioDisponivel } from '../../models/horario.model';
 import { ExecutorDisponivel } from '../../models/executor.model';
-
+import { LayoutComponent } from '../../layouts/layout.component';
 
 @Component({
   standalone: true,
   selector: 'app-agendamentos',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LayoutComponent],
   templateUrl: './agendamentos.component.html'
 })
 
