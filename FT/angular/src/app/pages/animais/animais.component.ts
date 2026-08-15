@@ -60,7 +60,7 @@ export class AnimaisComponent implements OnInit {
   }
 
   carregarAnimais() {
-     console.log('Entrou em carregarAnimais');
+     //console.log('Entrou em carregarAnimais');
     this.animaisService.listarPorCliente(this.clienteId).subscribe({
       next: (data: any) => { 
         this.animais = data || [];

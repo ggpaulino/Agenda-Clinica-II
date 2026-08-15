@@ -9,6 +9,7 @@ import { ServicosService } from '../../services/servicos.service';
 import { HorarioDisponivel } from '../../models/horario.model';
 import { ExecutorDisponivel } from '../../models/executor.model';
 import { LayoutComponent } from '../../layouts/layout.component';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   standalone: true,
@@ -46,29 +47,54 @@ export class AgendamentosComponent implements OnInit {
     private api: ApiService,
     private animaisService: AnimaisService,
     private servicosService: ServicosService,
-    private agendamentosService: AgendamentosService
+    private agendamentosService: AgendamentosService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
 
     this.clienteId = Number(this.route.snapshot.paramMap.get('id'));
 
-    this.api.listarClientePorId(this.clienteId.toString())
-      .subscribe(cliente => this.cliente = cliente);
+    this.api.listarClientePorId(this.clienteId.toString()).subscribe({
+        next: (cliente: any) => {
+          this.cliente = cliente;
+          this.cdr.detectChanges();
+        },
+        error: err => {
+          console.error('Erro ao carregar cliente:', err);
+        }
+      });
 
-    this.animaisService.listarPorCliente(this.clienteId)
-      .subscribe((data: any) => this.animais = data || []);
-    
+    this.animaisService.listarPorCliente(this.clienteId).subscribe({
+        next: (data: any) => {
+          this.animais = data || [];
+          this.cdr.detectChanges();
+        },
+        error: err => {
+          console.error('Erro ao carregar animais:', err);
+        }
+      });
+
     this.carregarAgendamentos();
 
-    this.servicosService.listarServicos()
-      .subscribe((data: any) => this.servicos = data || []);
-    
+    this.servicosService.listarServicos().subscribe({
+        next: (data: any) => {
+          this.servicos = data || [];
+          this.cdr.detectChanges();
+        },
+        error: err => {
+          console.error('Erro ao carregar serviços:', err);
+        }
+      });
   }
 
   carregarAgendamentos() {
-    this.agendamentosService.listarPorCliente(this.clienteId)
-      .subscribe((data: any) => this.agendamentos = data || []);
+    this.agendamentosService.listarPorCliente(this.clienteId).subscribe({
+        next: (data: any) => {
+          this.agendamentos = data || [];
+          this.cdr.detectChanges();
+        }
+      });
   }
 
   carregarDisponibilidade() {
@@ -103,10 +129,10 @@ export class AgendamentosComponent implements OnInit {
     if (!this.novoAgendamento.servico_id) {
         return;
     }
-    this.agendamentosService.listarFuncionarios(this.novoAgendamento.servico_id)
-        .subscribe({
+    this.agendamentosService.listarFuncionarios(this.novoAgendamento.servico_id).subscribe({
             next: (data: any) => {
                 this.executores = data;
+                this.cdr.detectChanges();
             },
             error: err => console.error(err)
         });
@@ -196,11 +222,13 @@ export class AgendamentosComponent implements OnInit {
                     observacoes: ''
                 };
                 this.horariosDisponiveis = [];
+                this.cdr.detectChanges();
             },
 
             error: err => {
                 console.error(err);
                 alert('Erro ao criar agendamento.');
+                this.cdr.detectChanges();
             }
     });
 
@@ -230,11 +258,13 @@ export class AgendamentosComponent implements OnInit {
         .subscribe({
             next: (data: any) => {
                 this.horariosDisponiveis = data;
+                this.cdr.detectChanges();
             },
 
             error: err => {
                 console.error(err);
                 this.horariosDisponiveis = [];
+                this.cdr.detectChanges();
             }
         });
   }
