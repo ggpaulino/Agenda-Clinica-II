@@ -26,7 +26,8 @@ export class DashboardComponent {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private api: ApiService
+    private api: ApiService,
+    private cdr: ChangeDetectorRef
   ) 
 
   {
@@ -48,11 +49,14 @@ export class DashboardComponent {
         } else {
           this.mensagem = '';
         }
+        this.cdr.detectChanges();
       },
 
       error: () => {
         this.mensagem = 'Erro ao buscar cliente.';
+        this.cdr.detectChanges();
       }
+        
     });
   }
 
