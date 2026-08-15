@@ -4,8 +4,12 @@ import { funcionarioLivre } from '../utils/agenda/disponibilidade.js';
 
 export const listarAgendamento = async (req, res) => {
   try {
-    const result = await pool.query(`SELECT * FROM agendamento ORDER BY data ASC`);
+    const result = await pool.query(`SELECT a.id, a.executor_id, f.nome AS executor_nome, f.cargo AS executor_cargo, 
+      a.servico_id, s.nome AS servico_nome,s.duracao_minutos, a.data_hora, a.status, a.animal_id, a.observacoes 
+      FROM agendamento a JOIN funcionario f ON f.id = a.executor_id JOIN servico s ON s.id = a.servico_id ORDER BY a.data_hora`);
+
     res.json(result.rows);
+    
   } catch (err) {
     res.status(500).json({ erro: err.message });
   }

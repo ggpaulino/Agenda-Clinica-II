@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ClientesComponent } from './pages/clientes/clientes.component';
 import { AnimaisComponent } from './pages/animais/animais.component';
 import { AgendamentosComponent } from './pages/agendamentos/agendamentos.component';
+import { AgendaComponent } from './pages/agenda/agenda.component';
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ServicosComponent } from './pages/servicos/servicos.component';
@@ -20,6 +21,7 @@ export const routes: Routes = [
   { path: 'animais/clientes/:id', loadComponent: () =>  import('./pages/animais/animais.component').then(m => m.AnimaisComponent) },
   { path: 'servicos',  loadComponent: () => import('./pages/servicos/servicos.component').then(m => m.ServicosComponent)},
   { path: 'agendamentos/clientes/:id',  loadComponent: () => import('./pages/agendamentos/agendamentos.component').then(m => m.AgendamentosComponent)},
+  { path: 'agenda',  loadComponent: () => import('./pages/agenda/agenda.component').then(m => m.AgendaComponent)},
   { path: 'funcionarios', loadComponent: () =>import('./pages/funcionarios/funcionarios.component').then(m => m.FuncionariosComponent)},
   { path: 'usuarios',loadComponent: () =>import('./pages/usuarios/usuarios.component').then(m => m.UsuariosComponent)},
   { path: 'agendamentos', component: AgendamentosComponent },

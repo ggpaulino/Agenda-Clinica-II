@@ -15,11 +15,19 @@ export class AgendamentosService {
   }
 
  listarDisponibilidade(servicoId: number, data: string) {
-    return this.http.get(`${this.API}/disponibilidade`, {params: {servico_id: servicoId, data}});
+    return this.http.get(`${this.API}/disponibilidade`, { params: {servico_id: servicoId, data}});
   }
 
   listarHorariosDisponiveis(servicoId:number, executorId:number, data:string) {
-    return this.http.get(`${this.API}/disponibilidade`,{params: {servico_id: servicoId, executor_id: executorId, data}});
+    return this.http.get(`${this.API}/disponibilidade`, { params: {servico_id: servicoId, executor_id: executorId, data}});
+  }
+
+  listarDisponibilidadeExecutor(executorId: number, data: string) {
+    return this.http.get(`${this.API}/disponibilidade`, { params: { executor_id: executorId, data: data}});
+  }
+
+    listarTodos() {
+    return this.http.get<any[]>(`${this.API}`);
   }
 
   listarFuncionarios(servicoId: number) {

@@ -87,14 +87,7 @@ export class DashboardComponent {
   }
 
   abrirAgendamento() {
-
-    if (!this.clienteSelecionado) return;
-
-    this.router.navigate(['/agendamento'], {
-      state: {
-        cliente: this.clienteSelecionado
-      }
-    });
+    this.router.navigate(['/agenda']);
   }
 
   abrirFuncionarios() {
@@ -102,7 +95,7 @@ export class DashboardComponent {
   }
 
   abrirUsuarios() {
-  this.router.navigate(['/usuarios']);
+    this.router.navigate(['/usuarios']);
 }
 
   logout() {
