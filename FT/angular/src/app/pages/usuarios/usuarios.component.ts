@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { LayoutComponent } from '../../layouts/layout.component';
 import { UsuariosService } from '../../services/usuarios.service';
 import { FuncionariosService } from '../../services/funcionarios.service';
 import { Usuario } from '../../models/usuario.model';
@@ -10,7 +10,7 @@ import { Usuario } from '../../models/usuario.model';
 @Component({
   standalone: true,
   selector: 'app-usuarios',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LayoutComponent],
   templateUrl: './usuarios.component.html',
   styleUrls: ['./usuarios.component.css']
 })

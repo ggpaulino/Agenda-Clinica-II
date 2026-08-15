@@ -1,16 +1,13 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { LayoutComponent } from '../../layouts/layout.component';
 import { FuncionariosService } from '../../services/funcionarios.service';
 
 @Component({
   standalone: true,
   selector: 'app-funcionarios',
-  imports: [
-    CommonModule,
-    FormsModule
-  ],
+  imports: [CommonModule, FormsModule, LayoutComponent],
   templateUrl: './funcionarios.component.html',
   styleUrls: ['./funcionarios.component.css']
 })

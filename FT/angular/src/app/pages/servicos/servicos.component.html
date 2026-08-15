@@ -1,4 +1,130 @@
-<div class="container">
+<app-layouts>
+
+  <div class="page">
+
+    <section class="page-header">
+
+      <h1>Serviços</h1>
+
+      <p>Gerenciamento dos serviços ativos na clínica</p>
+
+    </section>
+
+    <section class="card">
+
+      <div class="d-flex justify-between align-center mb-2">
+
+        <h2>Serviços cadastrados</h2>
+
+        <button class="btn btn-primary" (click)="mostrarFormulario = !mostrarFormulario">
+
+          {{ mostrarFormulario ? 'Fechar formulário' : 'Novo Serviço' }}
+
+        </button>
+      </div>
+
+      <table class="table">
+
+        <thead>
+
+          <tr>
+
+            <th>Serviço</th>
+
+            <th>Preço</th>
+
+            <th>Cargo Executor</th>
+
+            <th style="width:140px">Ações</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let s of servicos">
+
+            <td>
+
+              <strong>{{ s.nome }}</strong>
+
+            </td>
+
+            <td>
+
+              R$ {{ s.preco | number:'1.2-2' }}
+
+            </td>
+
+            <td>
+
+              <button class="btn btn-danger" (click)="deletarServicos(s.id)">  Excluir  </button>
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+      <div class="alert alert-info mt-2" *ngIf="servicos.length == 0">  Nenhum serviço cadastrado. </div>
+
+    </section>
+
+    <section class="card mt-3" *ngIf="mostrarFormulario">
+
+      <h2 class="mb-2">  Novo Serviço  </h2>
+
+      <div class="form-row">
+
+        <div class="form-group">
+
+          <label class="form-label"> Nome  </label>
+
+          <input class="form-control" [(ngModel)]="novoServico.nome">
+        </div>
+
+        <div class="form-group">
+
+          <label class="form-label">  Preço  </label>
+
+          <input class="form-control" type="number" [(ngModel)]="novoServico.preco">
+
+        </div>
+
+      </div>
+
+      <div class="form-group">
+
+        <label class="form-label">  Cargo Executor </label>
+
+        <select class="form-control" [(ngModel)]="novoServico.cargo_executor">
+
+          <option value=""> Selecione... </option>
+
+          <option *ngFor="let cargo of cargos" [value]="cargo"> {{ cargo }} </option>
+
+        </select>
+
+      </div>
+
+      <div class="form-actions">
+
+        <button class="btn btn-primary" (click)="atualizarServicos()">  Salvar </button>
+
+        <button class="btn btn-secondary" (click)="mostrarFormulario=false"> Cancelar  </button>
+
+      </div>
+
+    </section>
+
+  </div>
+
+</app-layouts>
+
+<!--<div class="container">
 
   <h2>Serviços</h2>
 
@@ -38,4 +164,4 @@
 
 </select>
 
-</div>
+</div> -->

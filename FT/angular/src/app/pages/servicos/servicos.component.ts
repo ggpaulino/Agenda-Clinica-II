@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ServicosService } from '../../services/servicos.service';
 import { FuncionariosService } from '../../services/funcionarios.service';
+import { LayoutComponent } from '../../layouts/layout.component';
+
 
 interface ServicoForm {
   nome: string;
@@ -14,7 +16,7 @@ interface ServicoForm {
 @Component({
   standalone: true,
   selector: 'app-servicos',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LayoutComponent],
   templateUrl: './servicos.component.html',
   styleUrls: ['./servicos.component.css']
 })
