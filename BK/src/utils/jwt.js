@@ -9,18 +9,3 @@ export function gerarToken(payload) {
 export function verificarToken(token) {
     return jwt.verify(token, JWT_SECRET);
 }
-
-/*export function gerarToken(funcionario) {
-
-    return jwt.sign(
-        {
-            id: funcionario.id,
-            nome: funcionario.nome,
-            cargo: funcionario.cargo
-        }, JWT_SECRET,
-
-        {
-            expiresIn: JWT_EXPIRES_IN
-        }
-    );
-}*/

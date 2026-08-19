@@ -31,13 +31,14 @@
       <p>Cadastro de serviços</p>
     </div>
 
-    <div class="dashboard-card"
-         (click)="abrirFuncionarios()">
-      <span class="icon">👨‍⚕️</span>
-      <h3>Funcionários</h3>
-      <p>Funcionários da clínica</p>
+    <div *ngIf="isAdmin"> 
+       <div class="dashboard-card" (click)="abrirFuncionarios()">
+           <span class="icon">👨‍⚕️</span>
+            <h3>Funcionários</h3>
+            <p>Funcionários da clínica</p>
+       </div>
     </div>
-
+    
     <div class="dashboard-card"
          (click)="abrirUsuarios()">
       <span class="icon">👥</span>

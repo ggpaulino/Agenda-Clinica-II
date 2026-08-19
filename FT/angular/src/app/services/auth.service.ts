@@ -61,9 +61,28 @@ export class AuthService {
      return this.getUsuarioLogado()?.perfil ?? null;
   }
 
+  isAdmin(): boolean {
+    const usuario = this.getUsuarioLogado();
+
+    if (!usuario) {
+      return false;
+    }
+
+    const perfil =
+      usuario.perfil ??
+      usuario.cargo ??
+      usuario.funcionario?.perfil ??
+      usuario.funcionario?.cargo;
+
+    if (!perfil) {
+      return false;
+    }
+
+    return String(perfil).trim().toUpperCase() === 'ADMIN';
+  }
+
   estaLogado() {
     return this.getToken() !== null;
-
   }
 
   logout() {

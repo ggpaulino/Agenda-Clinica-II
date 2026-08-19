@@ -8,7 +8,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ServicosComponent } from './pages/servicos/servicos.component';
 import { authGuard } from './guards/auth-guard';
-
+import { adminGuard } from './guards/admin-guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -22,7 +22,7 @@ export const routes: Routes = [
   { path: 'servicos',  loadComponent: () => import('./pages/servicos/servicos.component').then(m => m.ServicosComponent)},
   { path: 'agendamentos/clientes/:id',  loadComponent: () => import('./pages/agendamentos/agendamentos.component').then(m => m.AgendamentosComponent)},
   { path: 'agenda',  loadComponent: () => import('./pages/agenda/agenda.component').then(m => m.AgendaComponent)},
-  { path: 'funcionarios', loadComponent: () =>import('./pages/funcionarios/funcionarios.component').then(m => m.FuncionariosComponent)},
+  { path: 'funcionarios', loadComponent: () => import('./pages/funcionarios/funcionarios.component').then(m => m.FuncionariosComponent), canActivate: [adminGuard]},
   { path: 'usuarios',loadComponent: () =>import('./pages/usuarios/usuarios.component').then(m => m.UsuariosComponent)},
   { path: 'agendamentos', component: AgendamentosComponent },
   { path: 'servicos', component: ServicosComponent }
