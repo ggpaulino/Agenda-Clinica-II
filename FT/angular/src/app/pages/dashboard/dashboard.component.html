@@ -33,17 +33,18 @@
 
     <div *ngIf="isAdmin"> 
        <div class="dashboard-card" (click)="abrirFuncionarios()">
-           <span class="icon">👨‍⚕️</span>
-            <h3>Funcionários</h3>
-            <p>Funcionários da clínica</p>
+          <span class="icon">👨‍⚕️</span>
+          <h3>Funcionários</h3>
+          <p>Funcionários da clínica</p>
        </div>
     </div>
     
-    <div class="dashboard-card"
-         (click)="abrirUsuarios()">
-      <span class="icon">👥</span>
-      <h3>Usuários</h3>
-      <p>Usuários do sistema</p>
+    <div *ngIf="isAdmin">
+      <div class="dashboard-card" (click)="abrirUsuarios()">
+        <span class="icon">👥</span>
+        <h3>Usuários</h3>
+        <p>Usuários do sistema</p>
+      </div>
     </div>
 
     <div
