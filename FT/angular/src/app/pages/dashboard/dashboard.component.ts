@@ -96,6 +96,10 @@ export class DashboardComponent {
     this.router.navigate(['/agenda']);
   }
 
+  abrirAgenda() {
+    this.router.navigate(['/agenda']);
+  }
+
   abrirFuncionarios() {
     this.router.navigate(['/funcionarios']);
   }

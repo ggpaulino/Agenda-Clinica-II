@@ -33,9 +33,9 @@
 
     <div *ngIf="isAdmin"> 
        <div class="dashboard-card" (click)="abrirFuncionarios()">
-          <span class="icon">👨‍⚕️</span>
-          <h3>Funcionários</h3>
-          <p>Funcionários da clínica</p>
+           <span class="icon">👨‍⚕️</span>
+            <h3>Funcionários</h3>
+            <p>Funcionários da clínica</p>
        </div>
     </div>
     
@@ -47,17 +47,10 @@
       </div>
     </div>
 
-    <div
-      class="dashboard-card"
-      [class.disabled]="!clienteSelecionado"
-      (click)="clienteSelecionado && abrirAgendamento()">
-
+    <div class="dashboard-card" (click)="abrirAgenda()">
       <span class="icon">📅</span>
-
-      <h3>Agenda</h3>
-
-      <p>Novo agendamento</p>
-
+        <h3>Agenda</h3>
+        <p>Consultar agendas</p>
     </div>
 
   </section>
