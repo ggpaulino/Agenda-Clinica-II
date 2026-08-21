@@ -1,0 +1,209 @@
+.fornecedores-container {
+  padding: 24px;
+}
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  margin: 0 0 6px;
+  font-size: 28px;
+}
+
+.page-header p {
+  margin: 0;
+  color: #666;
+}
+
+/* CARDS */
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+  margin: 0 0 20px;
+  font-size: 20px;
+}
+
+/* FORMULÁRIO */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.form-group input {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #555;
+}
+
+/* BOTÕES */
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn {
+  border: none;
+  border-radius: 6px;
+  padding: 9px 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #333;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #222;
+}
+
+.btn-secondary {
+  background: #e5e5e5;
+  color: #333;
+}
+
+.btn-secondary:hover {
+  background: #d5d5d5;
+}
+
+.btn-edit {
+  background: #e8e8e8;
+  color: #333;
+}
+
+.btn-edit:hover {
+  background: #d8d8d8;
+}
+
+.btn-delete {
+  background: #333;
+  color: #fff;
+}
+
+.btn-delete:hover {
+  background: #222;
+}
+
+/* LISTA */
+
+.lista-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.lista-header h2 {
+  margin: 0;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #f5f5f5;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  white-space: nowrap;
+}
+
+th {
+  font-weight: 600;
+}
+
+.acoes {
+  display: flex;
+  gap: 8px;
+}
+
+/* MENSAGENS */
+
+.mensagem {
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.sucesso {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.erro {
+  background: #ffebee;
+  color: #c62828;
+}
+
+/* ESTADOS */
+
+.estado {
+  padding: 30px;
+  text-align: center;
+  color: #666;
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 768px) {
+
+  .fornecedores-container {
+    padding: 16px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .lista-header {
+    align-items: flex-start;
+    gap: 12px;
+    flex-direction: column;
+  }
+
+  th,
+  td {
+    padding: 10px 8px;
+  }
+}

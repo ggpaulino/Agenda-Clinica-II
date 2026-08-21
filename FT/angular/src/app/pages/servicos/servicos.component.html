@@ -58,9 +58,7 @@
             </td>
 
             <td>
-
-              <button class="btn btn-danger" (click)="deletarServicos(s.id)">  Excluir  </button>
-
+              <button *ngIf="isAdmin" class="btn btn-danger" (click)="deletarServicos(s.id)">  Excluir  </button>
             </td>
 
           </tr>
@@ -72,6 +70,8 @@
       <div class="alert alert-info mt-2" *ngIf="servicos.length == 0">  Nenhum serviço cadastrado. </div>
 
     </section>
+
+    <div *ngIf="isAdmin">
 
     <section class="card mt-3" *ngIf="mostrarFormulario">
 
@@ -119,49 +119,8 @@
       </div>
 
     </section>
+    </div>
 
   </div>
 
 </app-layouts>
-
-<!--<div class="container">
-
-  <h2>Serviços</h2>
-
-  <p>Total: {{ servicos.length }}</p>
-
-  <hr>
-
-  <div *ngFor="let s of servicos">
-    <strong>{{ s.nome }}</strong> - R$ {{ s.preco }}
-
-    <button (click)="deletarServicos(s.id)">Excluir</button>
-  </div>
-
-  <hr>
-
-  <h3>Novo Serviço</h3>
-
-  <input [(ngModel)]="novoServico.nome" placeholder="Nome">
-  <input type="number" [(ngModel)]="novoServico.preco" placeholder="Preço">
-
-  <button (click)="atualizarServicos()">
-    Salvar
-  </button>
-
-  <select [(ngModel)]="novoServico.cargo_executor">
-
-    <option value="">
-        Selecione...
-    </option>
-
-    <option *ngFor="let cargo of cargos"
-            [value]="cargo">
-
-        {{ cargo }}
-
-    </option>
-
-</select>
-
-</div> -->

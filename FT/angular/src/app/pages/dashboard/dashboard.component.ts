@@ -18,6 +18,7 @@ export class DashboardComponent {
 
   usuario: any = null;
   funcionario: any = null;
+  isAdmin: boolean = false;
   buscaCliente = '';
   clientesEncontrados: any[] = [];
   clienteSelecionado: any = null;
@@ -33,7 +34,8 @@ export class DashboardComponent {
   {
     this.usuario = this.authService.getUsuarioLogado();
     this.funcionario = this.authService.getFuncionario();
-
+    this.isAdmin = this.authService.isAdmin();
+    
     if (!this.usuario) {
       this.router.navigate(['/login']);
     }
@@ -94,13 +96,21 @@ export class DashboardComponent {
     this.router.navigate(['/agenda']);
   }
 
+  abrirAgenda() {
+    this.router.navigate(['/agenda']);
+  }
+
   abrirFuncionarios() {
     this.router.navigate(['/funcionarios']);
   }
 
   abrirUsuarios() {
     this.router.navigate(['/usuarios']);
-}
+  }
+
+  abrirFornecedores() {
+    this.router.navigate(['/fornecedores']);
+  }
 
   logout() {
     this.authService.logout();

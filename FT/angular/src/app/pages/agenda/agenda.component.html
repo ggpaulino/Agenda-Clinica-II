@@ -56,16 +56,11 @@
 
 
     <!-- AGENDA SEMANAL -->
-    <div
-        class="agenda-semanal"
-        *ngIf="agenda.length > 0">
+    <div class="agenda-semanal" *ngIf="agenda.length > 0">
 
         <div class="agenda-titulo">
 
-            <strong>
-                Agenda de
-                {{ executores.find(e => e.id === executorSelecionado)?.nome }}
-            </strong>
+            <strong> Agenda de {{ executores.find(e => e.id === executorSelecionado)?.nome }} </strong>
 
         </div>
 
@@ -74,12 +69,12 @@
 
             <!-- CABEÇALHO -->
             <div class="cabecalho-horario">
+
                 Horário
+
             </div>
 
-            <div
-                class="cabecalho-dia"
-                *ngFor="let dia of agenda">
+            <div class="cabecalho-dia" *ngFor="let dia of agenda">
 
                 {{ dia.data | date:'dd/MM' }}
 
@@ -87,8 +82,7 @@
 
 
             <!-- LINHAS DE HORÁRIO -->
-            <ng-container
-                *ngFor="let horarioBase of agenda[0].horarios; let i = index">
+            <ng-container *ngFor="let horarioBase of agenda[0].horarios; let i = index">
 
                 <!-- HORÁRIO -->
                 <div class="celula-horario">
@@ -105,16 +99,14 @@
                     [class.livre]="dia.horarios[i]?.disponivel"
                     [class.ocupado]="!dia.horarios[i]?.disponivel">
 
-                    <span
-                        *ngIf="dia.horarios[i]?.disponivel">
+                    <span *ngIf="dia.horarios[i]?.disponivel">
 
                         Livre
 
                     </span>
 
 
-                    <span
-                        *ngIf="!dia.horarios[i]?.disponivel">
+                    <span *ngIf="!dia.horarios[i]?.disponivel">
 
                         {{ dia.horarios[i]?.servico_nome || 'Ocupado' }}
 
@@ -130,15 +122,9 @@
 
 
     <!-- NENHUMA AGENDA -->
-    <div
-        class="estado-vazio"
-        *ngIf="agenda.length === 0">
+    <div class="estado-vazio" *ngIf="agenda.length === 0">
 
-        <p>
-            Selecione um executor e clique em
-            <strong>Consultar Agenda</strong>
-            para visualizar os horários.
-        </p>
+        <p> Selecione um executor e clique em <strong>Consultar Agenda</strong> para visualizar os horários. </p>
 
     </div>
 

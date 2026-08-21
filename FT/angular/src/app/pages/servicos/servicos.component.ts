@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { ServicosService } from '../../services/servicos.service';
 import { FuncionariosService } from '../../services/funcionarios.service';
 import { LayoutComponent } from '../../layouts/layout.component';
-
+import { AuthService } from '../../services/auth.service';
+import { ApiService } from '../../services/api.service';
 
 interface ServicoForm {
   nome: string;
@@ -26,6 +27,7 @@ export class ServicosComponent implements OnInit {
   servicos: any[] = [];
   cargos: string[] = [];
   mostrarFormulario = false;
+  isAdmin: boolean = false;
 
   novoServico: ServicoForm = {
     nome: '',
@@ -37,7 +39,9 @@ export class ServicosComponent implements OnInit {
   constructor(
     private servicosService: ServicosService,
     private funcionariosService: FuncionariosService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private authService: AuthService,
+    private api: ApiService
   ) {}
 
   ngOnInit(): void {
