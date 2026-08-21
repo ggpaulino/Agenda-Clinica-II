@@ -14,6 +14,9 @@ export const criarFornecedor = async (req, res) => {
     const dados = req.body;
     const result = await pool.query(`INSERT INTO fornecedor (nome, cnpj, telefone, email) VALUES ($1,$2,$3,$4) RETURNING *`,
     [dados.nome, dados.cnpj, dados.telefone, dados.email]);
+
+    res.status(201).json(result.rows[0]);
+    
   } catch (err) {
     res.status(500).json({ erro: err.message });
   }

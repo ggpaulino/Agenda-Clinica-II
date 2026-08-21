@@ -106,7 +106,11 @@ export class DashboardComponent {
 
   abrirUsuarios() {
     this.router.navigate(['/usuarios']);
-}
+  }
+
+  abrirFornecedores() {
+    this.router.navigate(['/fornecedores']);
+  }
 
   logout() {
     this.authService.logout();

@@ -7,6 +7,7 @@ import { AgendaComponent } from './pages/agenda/agenda.component';
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ServicosComponent } from './pages/servicos/servicos.component';
+import { FornecedoresComponent } from './pages/fornecedores/fornecedores.component';
 import { authGuard } from './guards/auth-guard';
 import { adminGuard } from './guards/admin-guard';
 
@@ -25,6 +26,7 @@ export const routes: Routes = [
   { path: 'funcionarios', loadComponent: () => import('./pages/funcionarios/funcionarios.component').then(m => m.FuncionariosComponent), canActivate: [adminGuard]},
   { path: 'usuarios', loadComponent: () => import('./pages/usuarios/usuarios.component').then(m => m.UsuariosComponent),canActivate: [adminGuard]}, 
   { path: 'usuarios',loadComponent: () =>import('./pages/usuarios/usuarios.component').then(m => m.UsuariosComponent)},
+  { path: 'fornecedores', loadComponent: () => import('./pages/fornecedores/fornecedores.component').then(m => m.FornecedoresComponent) },
   { path: 'agendamentos', component: AgendamentosComponent },
   { path: 'servicos', component: ServicosComponent }
 ];

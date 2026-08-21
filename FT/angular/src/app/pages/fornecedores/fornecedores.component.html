@@ -1,0 +1,161 @@
+<div class="fornecedores-container">
+
+  <section class="page-header">
+    <h1>Fornecedores</h1>
+    <p>Cadastre e gerencie os fornecedores da clínica.</p>
+  </section>
+
+  <!-- MENSAGENS -->
+
+  <div *ngIf="mensagem" class="mensagem sucesso">
+    {{ mensagem }}
+  </div>
+
+  <div *ngIf="erro" class="mensagem erro">
+    {{ erro }}
+  </div>
+
+  <!-- CADASTRO -->
+
+  <section class="card">
+
+    <h2>Novo fornecedor</h2>
+
+    <form (ngSubmit)="criarFornecedor()">
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label for="nome">Nome</label>
+          <input id="nome" type="text" name="nome" [(ngModel)]="novoFornecedor.nome" placeholder="Nome do fornecedor" required>
+        </div>
+
+        <div class="form-group">
+          <label for="cnpj">CNPJ</label>
+          <input id="cnpj" type="text" name="cnpj" [(ngModel)]="novoFornecedor.cnpj" placeholder="CNPJ" required>
+        </div>
+
+        <div class="form-group">
+          <label for="telefone">Telefone</label>
+          <input id="telefone" type="text" name="telefone" [(ngModel)]="novoFornecedor.telefone" placeholder="Telefone">
+        </div>
+
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input id="email" type="email" name="email" [(ngModel)]="novoFornecedor.email" placeholder="E-mail">
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary"> Cadastrar fornecedor</button>
+      </div>
+
+    </form>
+
+  </section>
+
+  <!-- EDIÇÃO -->
+
+  <section class="card" *ngIf="fornecedorSelecionado">
+
+    <h2>Editar fornecedor</h2>
+
+    <form (ngSubmit)="salvarEdicao()">
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label for="editNome">Nome</label>
+          <input id="editNome" type="text" name="editNome" [(ngModel)]="fornecedorSelecionado.nome" required>
+        </div>
+
+        <div class="form-group">
+          <label for="editCnpj">CNPJ</label>
+          <input id="editCnpj" type="text" name="editCnpj" [(ngModel)]="fornecedorSelecionado.cnpj" required>
+        </div>
+
+        <div class="form-group">
+          <label for="editTelefone">Telefone</label>
+          <input id="editTelefone" type="text" name="editTelefone" [(ngModel)]="fornecedorSelecionado.telefone">
+        </div>
+
+        <div class="form-group">
+          <label for="editEmail">E-mail</label>
+          <input id="editEmail" type="email" name="editEmail" [(ngModel)]="fornecedorSelecionado.email">
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+
+        <button type="submit" class="btn btn-primary"> Salvar alterações </button>
+        <button type="button" class="btn btn-secondary" (click)="cancelarEdicao()"> Cancelar </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+  <!-- LISTAGEM -->
+
+  <section class="card">
+
+    <div class="lista-header">
+      <h2>Fornecedores cadastrados</h2>
+
+      <button type="button" class="btn btn-secondary" (click)="listarFornecedores()"> Atualizar </button>
+    </div>
+
+    <div *ngIf="carregando" class="estado"> Carregando fornecedores...  </div>
+
+    <div *ngIf="!carregando && fornecedores.length === 0" class="estado">Nenhum fornecedor cadastrado. </div>
+
+    <div *ngIf="!carregando && fornecedores.length > 0" class="table-container">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>CNPJ</th>
+            <th>Telefone</th>
+            <th>E-mail</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let fornecedor of fornecedores">
+
+            <td>{{ fornecedor.id }}</td>
+
+            <td>{{ fornecedor.nome }}</td>
+
+            <td>{{ fornecedor.cnpj }}</td>
+
+            <td>{{ fornecedor.telefone || '-' }}</td>
+
+            <td>{{ fornecedor.email || '-' }}</td>
+
+            <td class="acoes">
+
+              <button type="button" class="btn btn-edit" (click)="atualizarFornecedor(fornecedor)"> Editar </button>
+              <button type="button" class="btn btn-delete" (click)="excluirFornecedor(fornecedor)"> Excluir </button>
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </section>
+
+</div>
