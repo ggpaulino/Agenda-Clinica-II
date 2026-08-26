@@ -82,7 +82,8 @@ export class AuthService {
   }
 
   estaLogado() {
-    return this.getToken() !== null;
+      const token = this.getToken();
+       return !!token;
   }
 
   logout() {

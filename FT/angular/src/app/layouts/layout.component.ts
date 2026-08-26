@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-layouts',
@@ -11,6 +12,8 @@ import { RouterModule } from '@angular/router';
 })
 export class LayoutComponent {
 
+  constructor(private authService: AuthService, private router: Router) {}
+
   @Input()
   funcionario: any;
 
@@ -18,7 +21,8 @@ export class LayoutComponent {
   sair = new EventEmitter<void>();
 
   logout() {
-    this.sair.emit();
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
 }
