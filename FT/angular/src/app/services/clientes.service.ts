@@ -7,14 +7,15 @@ import { Observable } from 'rxjs';
 })
 export class ClientesService {
 
-  private apiUrl = 'http://localhost:3001/api/clientes';
+  private API = 'http://localhost:3001/api/clientes';
 
   constructor(private http: HttpClient) {}
 
   listarClientes(): Observable<any> {
-    return this.http.get(this.apiUrl);
+    return this.http.get(this.API);
   }
-  criarCliente(body: any) {
-  return this.http.post( `${this.apiUrl}/clientes`, body);
+  criarCliente(data: any) {
+    //return this.http.post( `${this.apiUrl}/clientes`, body);
+    return this.http.post(`${this.API}`, data);
  }
 }
