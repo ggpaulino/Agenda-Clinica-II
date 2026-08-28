@@ -6,6 +6,7 @@ import { FuncionariosService } from '../../services/funcionarios.service';
 import { LayoutComponent } from '../../layouts/layout.component';
 import { AuthService } from '../../services/auth.service';
 import { ApiService } from '../../services/api.service';
+import { Router } from '@angular/router';
 
 interface ServicoForm {
   nome: string;
@@ -41,7 +42,8 @@ export class ServicosComponent implements OnInit {
     private funcionariosService: FuncionariosService,
     private cdr: ChangeDetectorRef,
     private authService: AuthService,
-    private api: ApiService
+    private api: ApiService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -104,5 +106,9 @@ export class ServicosComponent implements OnInit {
         this.carregarServicos();
       }
     });
+  }
+
+  voltar() {
+    this.router.navigate(['/dashboard']);
   }
 }

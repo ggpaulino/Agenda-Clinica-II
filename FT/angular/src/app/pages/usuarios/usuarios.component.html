@@ -1,133 +1,62 @@
 <div class="container">
+  <h2>Usuários</h2>
 
-    <h2>Usuários</h2>
+  <p>Total: {{ usuarios.length }}</p>
 
-    <p>Total: {{ usuarios.length }}</p>
+  <hr />
 
-    <hr>
+  <section class="card">
+    <div class="d-flex justify-between align-center mb-2">
+      <h2>Usuários</h2>
 
-    <section class="card">
+      <button class="btn btn-primary" (click)="mostrarFormulario = true"> Novo Usuário</button>
+      <button class="btn btn-primary" (click)="voltar()">Voltar</button>
+    </div>
 
-<div class="d-flex justify-between align-center mb-2">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Login</th>
 
-<h2>Usuários</h2>
+          <th>Funcionário</th>
 
-<button
-class="btn btn-primary"
-(click)="mostrarFormulario=true">
+          <th>Perfil</th>
 
-Novo Usuário
+          <th>Ativo</th>
 
-</button>
+          <th>Ações</th>
+        </tr>
+      </thead>
 
-</div>
+      <tbody>
+        <tr *ngFor="let u of usuarios">
+          <td>{{ u.login }}</td>
 
-<table class="table">
+          <td>{{ u.funcionario }}</td>
 
-<thead>
+          <td>{{ u.perfil }}</td>
 
-<tr>
+          <td> {{ u.ativo ? 'Sim' : 'Não' }} </td>
 
-<th>Login</th>
+          <td>
+            <button class="btn btn-secondary" (click)="editar(u)">Editar</button>
+            <button class="btn btn-danger" (click)="excluir(u.id)">Excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-<th>Funcionário</th>
+    <div class="alert alert-info" *ngIf="usuarios.length == 0">Nenhum usuário cadastrado.</div>
+  </section>
 
-<th>Perfil</th>
+  <section class="card mt-3" *ngIf="mostrarFormulario">
+    <h2> {{ modoEdicao ? 'Editar Usuário' : 'Novo Usuário' }} </h2>
 
-<th>Ativo</th>
+    <div class="form-row">...</div>
 
-<th>Ações</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-
-<tr *ngFor="let u of usuarios">
-
-<td>{{u.login}}</td>
-
-<td>{{u.funcionario}}</td>
-
-<td>{{u.perfil}}</td>
-
-<td>
-
-{{u.ativo ? 'Sim':'Não'}}
-
-</td>
-
-<td>
-
-<button
-class="btn btn-secondary"
-(click)="editar(u)">
-
-Editar
-
-</button>
-
-<button
-class="btn btn-danger"
-(click)="excluir(u.id)">
-
-Excluir
-
-</button>
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-<div
-class="alert alert-info"
-*ngIf="usuarios.length==0">
-
-Nenhum usuário cadastrado.
-
-</div>
-
-</section>
-
-<section
-class="card mt-3"
-*ngIf="mostrarFormulario">
-
-<h2>
-
-{{modoEdicao?'Editar Usuário':'Novo Usuário'}}
-
-</h2>
-
-<div class="form-row">
-
-...
-
-</div>
-
-<div class="form-actions">
-
-<button
-class="btn btn-primary">
-
-Salvar
-
-</button>
-
-<button
-class="btn btn-secondary">
-
-Cancelar
-
-</button>
-
-</div>
-
-</section>
-
+    <div class="form-actions">
+      <button class="btn btn-primary">Salvar</button>
+      <button class="btn btn-secondary">Cancelar</button>
+    </div>
+  </section>
 </div>

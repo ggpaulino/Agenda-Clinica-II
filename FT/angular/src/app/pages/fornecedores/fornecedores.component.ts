@@ -154,4 +154,8 @@ export class FornecedoresComponent implements OnInit {
       }
     });
   }
+
+  voltar() {
+    this.router.navigate(['/dashboard']);
+  }
 }

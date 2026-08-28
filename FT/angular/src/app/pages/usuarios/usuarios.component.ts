@@ -5,7 +5,7 @@ import { LayoutComponent } from '../../layouts/layout.component';
 import { UsuariosService } from '../../services/usuarios.service';
 import { FuncionariosService } from '../../services/funcionarios.service';
 import { Usuario } from '../../models/usuario.model';
-
+import { Router } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -34,7 +34,8 @@ export class UsuariosComponent implements OnInit {
   constructor(
     private usuariosService: UsuariosService,
     private funcionariosService: FuncionariosService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -166,5 +167,9 @@ export class UsuariosComponent implements OnInit {
       perfil: 'COMUM',
       ativo: true
     };
+  }
+
+  voltar() {
+    this.router.navigate(['/dashboard']);
   }
 }
