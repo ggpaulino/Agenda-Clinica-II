@@ -34,14 +34,9 @@ export class AgendaComponent implements OnInit {
 
     ngOnInit(): void {
 
-    /*
-     * A agenda utiliza os próprios agendamentos para descobrir
-     * quais executores possuem registros no sistema.
+    /* A agenda utiliza os próprios agendamentos para descobrir quais executores possuem registros no sistema.
      *
-     * Neste momento NÃO montamos a agenda.
-     * Primeiro carregamos os executores para permitir a seleção
-     * no filtro.
-     */
+     * Neste momento NÃO montamos a agenda.Primeiro carregamos os executores para permitir a seleção no filtro. */
 
     this.agendamentosService.listarTodos().subscribe({
 
@@ -70,12 +65,9 @@ export class AgendaComponent implements OnInit {
                 }
             }
 
-            this.executores = Array
-                .from(mapaExecutores.values())
-                .sort((a, b) => a.nome.localeCompare(b.nome));
+            this.executores = Array.from(mapaExecutores.values()).sort((a, b) => a.nome.localeCompare(b.nome));
 
-            console.log('EXECUTORES DISPONÍVEIS PARA FILTRO:', this.executores);
-
+            //console.log('EXECUTORES DISPONÍVEIS PARA FILTRO:', this.executores);
         },
 
         error: err => {
@@ -84,7 +76,6 @@ export class AgendaComponent implements OnInit {
 
     });
   }
-
     
     consultarAgenda(): void {
 
@@ -96,93 +87,49 @@ export class AgendaComponent implements OnInit {
 
         next: (agendamentos: any[]) => {
 
-            console.log(
-                'AGENDAMENTOS RECEBIDOS PARA O EXECUTOR:',
-                this.executorSelecionado,
-                agendamentos
-            );
+            console.log('AGENDAMENTOS RECEBIDOS PARA O EXECUTOR:',this.executorSelecionado,agendamentos);
 
-            /*
-             * Filtra somente os agendamentos do executor selecionado.
-             */
+            /*Filtra somente os agendamentos do executor selecionado. */
             const agendamentosDoExecutor = agendamentos.filter(
                 (agendamento: any) =>
-                    Number(agendamento.executor_id) ===
-                    Number(this.executorSelecionado)
-            );
+                    Number(agendamento.executor_id) === Number(this.executorSelecionado));
 
-            console.log(
-                'AGENDAMENTOS DO EXECUTOR SELECIONADO:',
-                agendamentosDoExecutor
-            );
+            //console.log('AGENDAMENTOS DO EXECUTOR SELECIONADO:',agendamentosDoExecutor);
 
-            /*
-             * Montamos a agenda em um array separado.
-             * Só depois de terminar atribuímos esse array
-             * à propriedade utilizada pelo HTML.
-             */
+            /* Montamos a agenda em um array separado. Só depois de terminar atribuímos esse array
+             à propriedade utilizada pelo HTML. */
+
             const novaAgenda: any[] = [];
 
             for (let i = 0; i < 8; i++) {
 
                 const data = new Date();
 
-                data.setDate(
-                    this.hoje.getDate() + i
-                );
+                data.setDate(this.hoje.getDate() + i);
 
-                const dataFormatada =
-                    this.formatarData(data);
+                const dataFormatada = this.formatarData(data);
 
-                const agendamentosDoDia =
-                    agendamentosDoExecutor.filter(
-                        (agendamento: any) =>
-                            this.extrairData(
-                                agendamento.data_hora
-                            ) === dataFormatada
-                    );
+                const agendamentosDoDia = agendamentosDoExecutor.filter(
+                        (agendamento: any) => this.extrairData(agendamento.data_hora) === dataFormatada);
 
-                const horarios =
-                    this.montarHorarios(
-                        agendamentosDoDia
-                    );
+                const horarios = this.montarHorarios(agendamentosDoDia);
 
-                novaAgenda.push({
-                    data: dataFormatada,
-                    horarios: horarios
-                });
+                novaAgenda.push({data: dataFormatada,horarios: horarios});
             }
 
-            /*
-             * Atribuição única do novo array.
-             */
+            /* Atribuição única do novo array. */
+
             this.agenda = novaAgenda;
             this.cdr.detectChanges();
-            console.log(
-                'AGENDA FINAL PARA O HTML:',
-                this.agenda
-            );
 
-            console.log(
-                'TOTAL DE DIAS:',
-                this.agenda.length
-            );
-
-            console.log(
-                'TOTAL DE HORÁRIOS DO PRIMEIRO DIA:',
-                this.agenda[0]?.horarios?.length
-            );
+            /*console.log('AGENDA FINAL PARA O HTML:',this.agenda);
+            console.log('TOTAL DE DIAS:',this.agenda.length);
+            console.log('TOTAL DE HORÁRIOS DO PRIMEIRO DIA:',this.agenda[0]?.horarios?.length);*/
         },
 
         error: err => {
-
-            console.error(
-                'Erro ao carregar agenda:',
-                err
-            );
-
+            console.error('Erro ao carregar agenda:', err);
         }
-
     });
 }
 
@@ -208,8 +155,8 @@ export class AgendaComponent implements OnInit {
 
         if (agendamento) {
 
-            return {hora, disponivel: false, ocupado: true, agendamento_id: agendamento.id, servico_nome: agendamento.servico_nome,
-                duracao_minutos: agendamento.duracao_minutos};
+            return {hora, disponivel: false, ocupado: true, agendamento_id: agendamento.id, 
+                servico_nome: agendamento.servico_nome,duracao_minutos: agendamento.duracao_minutos};
             }
 
         return { hora, disponivel: true,ocupado: false, agendamento: null};
@@ -250,7 +197,6 @@ export class AgendaComponent implements OnInit {
 
         return `${ano}-${mes}-${dia}`;
     }
-
     
   voltar() {
     this.router.navigate(['/dashboard']);

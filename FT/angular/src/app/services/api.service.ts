@@ -26,8 +26,12 @@ export class ApiService {
     return this.http.post(`http://localhost:3001/api/clientes`, data);
   }
 
+  atualizarCliente(id: number, data: any) {
+    return this.http.put(`http://localhost:3001/api/clientes/${id}`, data);
+  }
+
   deletarCliente(id: number) {
-    return this.http.delete(`${this.API}/clientes/${id}`);
+    return this.http.delete(`http://localhost:3001/api/clientes/${id}`);
   }
 
   // ANIMAIS

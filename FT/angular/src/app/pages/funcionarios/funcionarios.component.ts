@@ -45,35 +45,24 @@ export class FuncionariosComponent implements OnInit {
 
   carregarFuncionarios() {
 
-    this.funcionariosService.listarFuncionarios()
-      .subscribe({
+    this.funcionariosService.listarFuncionarios().subscribe({
 
         next: (data: any) => {
-
           this.funcionarios = [...(data || [])];
-
           this.cdr.detectChanges();
-
         },
 
         error: () => {
-
           this.funcionarios = [];
-
         }
-
       });
-
   }
 
   novoCadastro() {
 
     this.modoEdicao = false;
-
     this.mostrarFormulario = true;
-
     this.funcionarioSelecionado = null;
-
     this.novoFuncionario = {
 
       nome: '',
@@ -85,15 +74,12 @@ export class FuncionariosComponent implements OnInit {
       ativo: true
 
     };
-
   }
 
   editar(funcionario: any) {
 
     this.modoEdicao = true;
-
     this.mostrarFormulario = true;
-
     this.funcionarioSelecionado = funcionario.id;
 
     this.novoFuncionario = {
@@ -106,64 +92,46 @@ export class FuncionariosComponent implements OnInit {
       telefone: funcionario.telefone,
       ativo: funcionario.ativo
     };
-
   }
 
   salvar() {
 
     if (this.modoEdicao && this.funcionarioSelecionado) {
 
-      this.funcionariosService
-      .atualizarFuncionario(
-        this.funcionarioSelecionado,
-        this.novoFuncionario
-      )
-      .subscribe(() => {
+      this.funcionariosService.atualizarFuncionario(this.funcionarioSelecionado, this.novoFuncionario).subscribe(() => {
 
         this.cancelar();
-
         this.carregarFuncionarios();
 
       });
 
       return;
-
     }
 
-    this.funcionariosService
-      .criarFuncionario(this.novoFuncionario)
-      .subscribe(() => {
+    this.funcionariosService.criarFuncionario(this.novoFuncionario).subscribe(() => {
 
         this.cancelar();
-
         this.carregarFuncionarios();
 
       });
-
   }
 
   excluir(id: number) {
 
     if (!confirm('Excluir funcionário?')) return;
 
-    this.funcionariosService
-      .removerFuncionario(id)
-      .subscribe(() => {
+    this.funcionariosService.removerFuncionario(id).subscribe(() => {
 
         this.carregarFuncionarios();
 
       });
-
   }
 
   cancelar() {
 
     this.mostrarFormulario = false;
-
     this.modoEdicao = false;
-
     this.funcionarioSelecionado = null;
-
   }
 
   voltar() {

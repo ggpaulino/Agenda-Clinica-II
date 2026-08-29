@@ -15,7 +15,14 @@ export class ClientesService {
     return this.http.get(this.API);
   }
   criarCliente(data: any) {
-    //return this.http.post( `${this.apiUrl}/clientes`, body);
     return this.http.post(`${this.API}`, data);
- }
+  }
+ 
+  atualizarCliente(id: number, data: any) {
+    return this.http.post(`${this.API}/atualizar/${id}`, data);
+  }
+
+  deletarCliente(id: number) {
+    return this.http.post(`${this.API}/deletar/${id}`, {});
+  }
 }

@@ -1,15 +1,104 @@
-<h2>Lista de Clientes</h2>
+<app-layouts>
 
-<button (click)="listarCliente()">Atualizar</button>
+  <div class="page">
 
-<ul *ngIf="clientes.length > 0" class="lista-clientes">
+    <section class="page-header">
 
-  <li *ngFor="let cliente of clientes"
-      (click)="listarCliente()"
-      class="cliente-item">
+      <h1>Clientes</h1>
 
-    {{ cliente.nome }} - {{ cliente.email }}
+      <p>
+        Cadastro e consulta de clientes.
+      </p>
 
-  </li>
+    </section>
 
-</ul>
+
+    <!-- AÇÕES -->
+
+    <div class="form-actions">
+
+      <button class="btn btn-primary" (click)="listarCliente()"> Atualizar</button>
+      <button class="btn btn-success" (click)="criarCliente()"> Cadastrar cliente</button>
+
+    </div>
+
+
+    <!-- FORMULÁRIO -->
+
+    <div *ngIf="mostrarFormulario" class="cliente-form">
+      <h2> {{ modoEdicao ? 'Editar cliente' : 'Cadastrar cliente' }} </h2>
+
+      <div class="form-group">
+
+        <label class="form-label"> Nome </label>
+        <input type="text" class="form-control" [(ngModel)]="novoCliente.nome" required>
+
+      </div>
+
+      <div class="form-group">
+
+        <label class="form-label"> CPF </label>
+        <input type="text" class="form-control" [(ngModel)]="novoCliente.cpf" required>
+
+      </div>
+
+      <div class="form-group">
+
+        <label class="form-label"> Telefone </label>
+        <input type="text" class="form-control" [(ngModel)]="novoCliente.telefone" required>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label"> Email </label>
+        <input type="email" class="form-control" [(ngModel)]="novoCliente.email" required>
+
+      </div>
+
+
+      <!-- BOTÕES DO FORMULÁRIO -->
+
+      <div class="form-actions">
+
+        <button class="btn btn-primary" (click)="salvarCliente()"> {{ modoEdicao ? 'Salvar alterações' : 'Salvar' }}</button>
+        <button class="btn btn-secondary" (click)="fecharFormulario()"> Cancelar </button>
+
+      </div>
+
+    </div>
+
+    <!-- NENHUM CLIENTE -->
+
+    <div *ngIf="clientes.length === 0" class="empty-state">  {{ mensagem || 'Nenhum cliente cadastrado.' }}</div>
+
+
+    <!-- LISTA DE CLIENTES -->
+
+    <div *ngFor="let cliente of clientes" class="cliente-card">
+
+      <div class="cliente-info">
+
+        <h2> {{ cliente.nome }} </h2>
+
+        <p> <strong>CPF:</strong> {{ cliente.cpf }} </p>
+        <p> <strong>Telefone:</strong> {{ cliente.telefone }} </p>
+        <p> <strong>Email:</strong> {{ cliente.email }}</p>
+
+      </div>
+
+      <!-- AÇÕES DO CLIENTE -->
+
+      <div class="cliente-actions">
+
+        <button class="btn btn-primary" (click)="editarCliente(cliente)"> Editar </button>
+        <button class="btn btn-danger" (click)="deletarCliente(cliente)"> Deletar</button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</app-layouts>

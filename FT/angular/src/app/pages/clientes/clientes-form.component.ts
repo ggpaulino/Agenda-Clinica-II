@@ -19,11 +19,8 @@ export class ClientesFormComponent {
   constructor( private api: ApiService, private router: Router) {}
 
   salvar() {
-      //console.log('SALVAR FOI CHAMADO');
-      //console.log('Cliente:', this.cliente);
     this.api.criarCliente(this.cliente).subscribe({
       next: (clienteCriado: any) => {
-        //console.log('CLIENTE CRIADO:', clienteCriado);
         alert('Cliente cadastrado com sucesso');
         this.router.navigate(['/clientes', clienteCriado.id, 'animais']);
       },

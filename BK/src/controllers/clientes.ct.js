@@ -49,6 +49,8 @@ export const atualizarCliente = async (req, res) => {
 
 // DELETE
 export const deletarCliente = async (req, res) => {
+  console.log('DELETE CLIENTE CHEGOU NO CONTROLLER');
+  console.log('ID:', req.params.id);
   try {
     const { id } = req.params;
 
