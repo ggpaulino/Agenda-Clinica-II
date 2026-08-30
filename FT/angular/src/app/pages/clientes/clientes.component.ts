@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
-
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Cliente } from '../../models/cliente.model';
@@ -28,7 +28,8 @@ export class ClientesComponent implements OnInit {
   constructor(
     private api: ApiService, 
     private authService: AuthService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -60,6 +61,10 @@ export class ClientesComponent implements OnInit {
     this.clienteSelecionadoId = null;
     this.modoEdicao = false;
     this.mostrarFormulario = true;
+  }
+
+  abrirAnimais(cliente: any) {
+    this.router.navigate(['/animais/clientes', cliente.id]);
   }
 
   editarCliente(cliente: Cliente): void {
