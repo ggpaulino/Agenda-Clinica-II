@@ -49,6 +49,7 @@ export class ServicosComponent implements OnInit {
   ngOnInit(): void {
       this.carregarServicos();
       this.carregarCargos();
+      this.isAdmin = this.authService.isAdmin();
   }
 
   carregarServicos() {

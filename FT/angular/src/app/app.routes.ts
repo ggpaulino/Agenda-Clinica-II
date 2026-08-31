@@ -24,11 +24,11 @@ export const routes: Routes = [
   { path: 'agendamentos/clientes/:id',  loadComponent: () => import('./pages/agendamentos/agendamentos.component').then(m => m.AgendamentosComponent)},
   { path: 'agenda',  loadComponent: () => import('./pages/agenda/agenda.component').then(m => m.AgendaComponent)},
   { path: 'funcionarios', loadComponent: () => import('./pages/funcionarios/funcionarios.component').then(m => m.FuncionariosComponent), canActivate: [adminGuard]},
-  { path: 'usuarios', loadComponent: () => import('./pages/usuarios/usuarios.component').then(m => m.UsuariosComponent),canActivate: [adminGuard]}, 
+  //{ path: 'usuarios', loadComponent: () => import('./pages/usuarios/usuarios.component').then(m => m.UsuariosComponent),canActivate: [adminGuard]}, 
   { path: 'usuarios',loadComponent: () =>import('./pages/usuarios/usuarios.component').then(m => m.UsuariosComponent)},
   { path: 'fornecedores', loadComponent: () => import('./pages/fornecedores/fornecedores.component').then(m => m.FornecedoresComponent) },
-  { path: 'agendamentos', component: AgendamentosComponent },
-  { path: 'servicos', component: ServicosComponent }
+  //{ path: 'agendamentos', component: AgendamentosComponent },
+ // { path: 'servicos', component: ServicosComponent }
 ];
 
 

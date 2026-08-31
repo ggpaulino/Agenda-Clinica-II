@@ -47,17 +47,11 @@
 
           <tr *ngFor="let s of servicos">
 
-            <td>
+            <td> <strong>{{ s.nome }}</strong> </td>
 
-              <strong>{{ s.nome }}</strong>
-
-            </td>
-
-            <td>
-
-              R$ {{ s.preco | number:'1.2-2' }}
-
-            </td>
+            <td> R$ {{ s.preco | number:'1.2-2' }} </td>
+            
+            <td> <strong> {{ s.cargo_executor }} </strong> </td>
 
             <td>
               <button *ngIf="isAdmin" class="btn btn-danger" (click)="deletarServicos(s.id)">  Excluir  </button>
