@@ -12,51 +12,71 @@
   <section class="dashboard-grid">
 
     <div class="dashboard-card" (click)="criarCliente()">
+
       <span class="icon">👤</span>
       <h3>Clientes</h3>
       <p>Cadastrar clientes</p>
+
     </div>
 
-    <div class="dashboard-card" *ngIf="clienteSelecionado"
-         (click)="abrirAnimais(clienteSelecionado)">
+    <div class="dashboard-card" *ngIf="clienteSelecionado" (click)="abrirAnimais(clienteSelecionado)">
+
       <span class="icon">🐶</span>
       <h3>Animais</h3>
       <p>Gerenciar animais</p>
+
     </div>
 
-    <div class="dashboard-card"
-         (click)="abrirServicos()">
+    <div class="dashboard-card" (click)="abrirServicos()">
+
       <span class="icon">💉</span>
       <h3>Serviços</h3>
       <p>Cadastro de serviços</p>
+
     </div>
 
     <div *ngIf="isAdmin"> 
+
        <div class="dashboard-card" (click)="abrirFuncionarios()">
+
            <span class="icon">👨‍⚕️</span>
             <h3>Funcionários</h3>
             <p>Funcionários da clínica</p>
+
        </div>
+
     </div>
     
     <div *ngIf="isAdmin">
+
       <div class="dashboard-card" (click)="abrirUsuarios()">
+
         <span class="icon">👥</span>
         <h3>Usuários</h3>
         <p>Usuários do sistema</p>
+
       </div>
+
     </div>
 
     <div class="dashboard-card" (click)="abrirAgenda()">
+      
       <span class="icon">📅</span>
-        <h3>Agenda</h3>
-        <p>Consultar agendas</p>
+      <h3>Agenda</h3>
+      <p>Consultar agendas</p>
+
     </div>
 
-    <div class="dashboard-card" (click)="abrirFornecedores()">
+    <div *ngIf="isAdmin">
+
+     <div class="dashboard-card" (click)="abrirFornecedores()">
+
       <span class="icon">📦</span>
-        <h3>Fornecedores</h3>
-        <p>Gerenciar fornecedores</p>
+      <h3>Fornecedores</h3>
+      <p>Gerenciar fornecedores</p>
+
+     </div>
+
     </div>
 
   </section>
@@ -69,67 +89,33 @@
 
     <div class="search-row">
 
-      <input
-        class="form-control"
-        type="text"
-        [(ngModel)]="buscaCliente"
-        placeholder="Digite o nome do cliente">
+      <input class="form-control" type="text" [(ngModel)]="buscaCliente"  placeholder="Digite o nome do cliente">
 
-      <button
-        class="btn btn-primary"
-        (click)="buscarCliente()">
-
-        Buscar
-
-      </button>
+      <button class="btn btn-primary" (click)="buscarCliente()"> Buscar </button>
 
     </div>
 
-    <div
-      class="alert alert-info"
-      *ngIf="mensagem">
-
-      {{ mensagem }}
-
-    </div>
+    <div class="alert alert-info" *ngIf="mensagem"> {{ mensagem }} </div>
 
   </section>
 
   <!-- RESULTADOS -->
 
-  <section
-    class="clientes-lista"
-    *ngIf="clientesEncontrados.length">
+  <section class="clientes-lista" *ngIf="clientesEncontrados.length">
 
-    <div
-      class="cliente-card"
-      *ngFor="let cliente of clientesEncontrados">
+    <div class="cliente-card" *ngFor="let cliente of clientesEncontrados">
 
       <div class="cliente-info">
 
         <h3>{{ cliente.nome }}</h3>
-
         <p>{{ cliente.telefone }}</p>
 
       </div>
 
       <div class="cliente-actions">
 
-        <button
-          class="btn btn-secondary"
-          (click)="selecionarCliente(cliente)">
-
-          Selecionar
-
-        </button>
-
-        <button
-          class="btn btn-primary"
-          (click)="abrirAnimais(cliente)">
-
-          Animais
-
-        </button>
+        <button class="btn btn-secondary" (click)="selecionarCliente(cliente)"> Selecionar </button>
+        <button class="btn btn-primary" (click)="abrirAnimais(cliente)"> Animais </button>
 
       </div>
 
@@ -138,109 +124,3 @@
   </section>
 
 </app-layouts>
-
-<!--
-<div class="container">
-
-<h1>FT CLINIC</h1>
-
-<p>Bem-vindo, {{ funcionario?.nome }}</p>
-
-<hr>
-
-<h2>CLIENTES</h2>
-
-<button (click)="criarCliente()">s
-Novo Cliente
-</button>
-
-<br><br>
-
-<input
-type="text"
-[(ngModel)]="buscaCliente"
-placeholder="Buscar Cliente">
-
-<button (click)="buscarCliente()">
-Buscar Cliente
-</button>
-
-<div *ngIf="mensagem">
-{{ mensagem }}
-</div>
-
-<div
-class="cliente-card"
-*ngFor="let cliente of clientesEncontrados">
-
-<b>{{ cliente.nome }}</b>
-
-<br>
-
-{{ cliente.telefone }}
-
-<br><br>
-
-<button
-(click)="selecionarCliente(cliente)">
-Selecionar
-</button>
-
-<button
-(click)="abrirAnimais(cliente)">
-Animais
-</button>
-
-</div>
-
-<hr>
-
-<h2>FUNCIONÁRIOS</h2>
-
-<button
-(click)="abrirFuncionarios()">
-
-Funcionários
-
-</button>
-
-<button
-(click)="abrirUsuarios()">
-
-Usuários
-
-</button>
-<hr>
-
-<h2>SERVIÇOS</h2>
-
-<button
-(click)="abrirServicos()">
-
-Gerenciar Serviços
-
-</button>
-
-<hr>
-
-<h2>AGENDAMENTOS</h2>
-
-<button
-(click)="abrirAgendamento()"
-[disabled]="!clienteSelecionado">
-
-Novo Agendamento
-
-</button>
-
-<hr>
-
-<button
-(click)="logout()">
-
-Sair
-
-</button>
-
-</div>-->
- 
