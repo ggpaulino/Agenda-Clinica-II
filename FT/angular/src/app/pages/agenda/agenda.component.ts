@@ -6,6 +6,7 @@ import { AgendamentosService } from '../../services/agendamentos.service';
 import { ServicosService } from '../../services/servicos.service';
 import { ExecutorDisponivel } from '../../models/executor.model';
 import { ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     standalone: true,
@@ -27,7 +28,8 @@ export class AgendaComponent implements OnInit {
     constructor(
         private agendamentosService: AgendamentosService,
         private servicosService: ServicosService,
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
+        private router: Router
     ) {}
 
     ngOnInit(): void {
@@ -248,4 +250,9 @@ export class AgendaComponent implements OnInit {
 
         return `${ano}-${mes}-${dia}`;
     }
+
+    
+  voltar() {
+    this.router.navigate(['/dashboard']);
+  }
 }

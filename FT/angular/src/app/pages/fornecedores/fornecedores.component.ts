@@ -52,11 +52,13 @@ export class FornecedoresComponent implements OnInit {
       next: (data: any) => {
         this.fornecedores = data;
         this.carregando = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Erro ao carregar fornecedores:', err);
         this.erro = 'Não foi possível carregar os fornecedores.';
         this.carregando = false;
+        this.cdr.detectChanges();
       }
     });
   }
@@ -151,5 +153,9 @@ export class FornecedoresComponent implements OnInit {
         this.erro = 'Não foi possível excluir o fornecedor.';
       }
     });
+  }
+
+  voltar() {
+    this.router.navigate(['/dashboard']);
   }
 }

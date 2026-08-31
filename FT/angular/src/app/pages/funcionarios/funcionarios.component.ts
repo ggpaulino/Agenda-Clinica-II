@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LayoutComponent } from '../../layouts/layout.component';
 import { FuncionariosService } from '../../services/funcionarios.service';
+import { Router } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -34,7 +35,8 @@ export class FuncionariosComponent implements OnInit {
 
   constructor(
     private funcionariosService: FuncionariosService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -164,4 +166,7 @@ export class FuncionariosComponent implements OnInit {
 
   }
 
+  voltar() {
+    this.router.navigate(['/dashboard']);
+  }
 }

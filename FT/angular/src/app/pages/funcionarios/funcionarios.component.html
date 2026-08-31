@@ -1,134 +1,67 @@
 <div class="container">
+  <h2>Funcionários</h2>
 
-<h2>Funcionários</h2>
+  <p>Total: {{ funcionarios.length }}</p>
+  <hr />
 
-<p>Total: {{ funcionarios.length }}</p>
-<hr>
+  <section class="card">
+    <div class="d-flex justify-between align-center mb-2">
+      <h2>Funcionários</h2>
 
-<section class="card">
+      <button class="btn btn-primary" (click)="mostrarFormulario = true">Novo Funcionário</button>
+      <button class="btn btn-primary" (click)="voltar()">Voltar</button>
+    </div>
 
-<div class="d-flex justify-between align-center mb-2">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nome</th>
 
-<h2>Funcionários</h2>
+          <th>Cargo</th>
 
-<button
-class="btn btn-primary"
-(click)="mostrarFormulario=true">
+          <th>Telefone</th>
 
-Novo Funcionário
+          <th>Ativo</th>
 
-</button>
+          <th>Ações</th>
+        </tr>
+      </thead>
 
-</div>
+      <tbody>
+        <tr *ngFor="let f of funcionarios">
+          <td>{{ f.nome }}</td>
 
-<table class="table">
+          <td>{{ f.cargo }}</td>
 
-<thead>
+          <td>{{ f.telefone }}</td>
 
-<tr>
+          <td> {{ f.ativo ? 'Sim' : 'Não' }} </td>
 
-<th>Nome</th>
+          <td>
+            <button class="btn btn-secondary" (click)="editar(f)">Editar</button>
 
-<th>Cargo</th>
+            <button class="btn btn-danger" (click)="excluir(f.id)">Excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-<th>Telefone</th>
+    <div class="alert alert-info" *ngIf="funcionarios.length == 0">
+      Nenhum funcionário cadastrado.
+    </div>
+  </section>
 
-<th>Ativo</th>
+  <section class="card mt-3" *ngIf="mostrarFormulario">
+    <h2>
+      {{ modoEdicao ? 'Editar Funcionário' : 'Novo Funcionário' }}
+    </h2>
 
-<th>Ações</th>
+    <div class="form-row">...</div>
 
-</tr>
+    <div class="form-actions">
+      <button class="btn btn-primary">Salvar</button>
 
-</thead>
-
-<tbody>
-
-<tr *ngFor="let f of funcionarios">
-
-<td>{{f.nome}}</td>
-
-<td>{{f.cargo}}</td>
-
-<td>{{f.telefone}}</td>
-
-<td>
-
-{{f.ativo ? 'Sim' : 'Não'}}
-
-</td>
-
-<td>
-
-<button
-class="btn btn-secondary"
-(click)="editar(f)">
-
-Editar
-
-</button>
-
-<button
-class="btn btn-danger"
-(click)="excluir(f.id)">
-
-Excluir
-
-</button>
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-<div
-class="alert alert-info"
-*ngIf="funcionarios.length==0">
-
-Nenhum funcionário cadastrado.
-
-</div>
-
-</section>
-
-<section
-class="card mt-3"
-*ngIf="mostrarFormulario">
-
-<h2>
-
-{{modoEdicao?'Editar Funcionário':'Novo Funcionário'}}
-
-</h2>
-
-<div class="form-row">
-
-...
-
-</div>
-
-<div class="form-actions">
-
-<button
-class="btn btn-primary">
-
-Salvar
-
-</button>
-
-<button
-class="btn btn-secondary">
-
-Cancelar
-
-</button>
-
-</div>
-
-</section>
-
-
-
+      <button class="btn btn-secondary">Cancelar</button>
+    </div>
+  </section>
 </div>
