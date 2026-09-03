@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { ChangeDetectorRef } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -19,6 +19,7 @@ export class LoginComponent {
 
   private authService = inject(AuthService);
   private router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
 
   login = '';
   senha = '';
@@ -28,7 +29,9 @@ export class LoginComponent {
     this.erro = '';
     if (!this.login.trim() || !this.senha.trim()) {
       this.erro = 'Informe login e senha.';
+      this.cdr.detectChanges();
       return;
+      
     }
 
     this.authService.login(this.login, this.senha).subscribe({
@@ -43,6 +46,7 @@ export class LoginComponent {
           this.erro =
             err?.error?.error ||
             'Login ou senha inválidos';
+            this.cdr.detectChanges();
         }
       });
   }
