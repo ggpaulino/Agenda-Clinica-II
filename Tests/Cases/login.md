@@ -84,8 +84,8 @@ Preencher após a execução.
 
 ### Status
 
-* [ ] PASSOU
-* [x] FALHOU
+* [x] PASSOU
+* [ ] FALHOU
 * [ ] BLOQUEADO
 
 ---
@@ -115,8 +115,8 @@ Preencher após a execução.
 
 ### Status
 
-* [ ] PASSOU
-* [x] FALHOU
+* [x] PASSOU
+* [ ] FALHOU
 * [ ] BLOQUEADO
 
 ---
